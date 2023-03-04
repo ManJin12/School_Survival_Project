@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Area
+  - PlayerCharacter
   layers:
   - Default
   - TransparentFX

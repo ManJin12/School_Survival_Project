@@ -16,7 +16,7 @@ public class Reposition : MonoBehaviour
 
         /** 캐릭터의 위치 값 */
         Vector3 PlayerPos =
-            GameManager.GMInstance.player.transform.position;
+            GameManager.GMInstance.playerCtrl.transform.position;
 
         /** 이 클래스를 가진 오브젝트의 위치 값 */
         Vector3 MyPos = transform.position;
@@ -28,7 +28,7 @@ public class Reposition : MonoBehaviour
         float diff_Y = Mathf.Abs(PlayerPos.y - MyPos.y);
 
         /** 플레이어가 입력받은 값 */
-        Vector3 PlayerDir = GameManager.GMInstance.player.m_InputVec;
+        Vector3 PlayerDir = GameManager.GMInstance.playerCtrl.m_InputVec;
 
         /** 삼항 연산자로 플레이어의 x값의 크기로 방향을 구한다. */
         float DirX = PlayerDir.x < 0 ? -1 : 1 ;
