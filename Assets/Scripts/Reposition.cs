@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Reposition : MonoBehaviour
 {
+    Collider2D Call;
+
+    void Start()
+    {
+        Call = GetComponent<Collider2D>();
+    }
+
     /** 충돌했을때 발생하는 이벤트 */
     void OnTriggerExit2D(Collider2D collision)
     {
@@ -55,8 +62,13 @@ public class Reposition : MonoBehaviour
                 }
                 break;
 
-            case "Enemy":
-
+            case "Monster":
+                if (Call.enabled)
+                {
+                    /** 오브젝트의 방향에서 20만큼 떨어진 곳에 생성.  */
+                    transform.Translate(PlayerDir * 20
+                        + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0.0f));
+                }
                 break;
         }
     }

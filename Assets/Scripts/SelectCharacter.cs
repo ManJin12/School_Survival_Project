@@ -8,6 +8,8 @@ public class SelectCharacter : MonoBehaviour
 {
     /** 캐릭터 타입 관련 */
     public CharType Enum_character;
+
+    [HideInInspector]
     /** 캐릭터 저장 공간 */
     public SelectCharacter[] Characters;
 
@@ -32,18 +34,17 @@ void Start()
         m_sprite = GetComponent<SpriteRenderer>();
 
         /** SelectMg.CurrentChar의 캐릭터 타입이 Enum_character과 같다면 */
-        if (SelectSceneManager.CurrentChar == Enum_character)
+        if (GameManager.GMInstance.CurrentChar == Enum_character)
         {
             /** OnSelect 함수 호출*/
             OnSelect();
         }
         /** SelectMg.CurrentChar의 캐릭터 타입이 Enum_character과 다르면 */
-        else if (SelectSceneManager.CurrentChar != Enum_character)
+        else if (GameManager.GMInstance.CurrentChar != Enum_character)
         {
             /** OnDeSelect 함수 호출*/
             OnDeSelect();
         }
-        
     }
 
     /* 마우스를 눌렀다 뗏을 때 호출되는 함수 */
@@ -57,7 +58,7 @@ void Start()
         }
 
         /** CharSelectSceneManager 스크립트의 CurrentChar에 현재 Enum_character대입 */
-        SelectSceneManager.CurrentChar = Enum_character;
+        GameManager.GMInstance.CurrentChar = Enum_character;
 
         /** OnSelect함수 호출 */
         OnSelect();
@@ -90,6 +91,4 @@ void Start()
         /** 캐릭터의 밝기를 하얗게 해준다. */
         m_sprite.color = Color.white;
     }
-
-
 }

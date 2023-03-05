@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
     /** Animator기능을 사용할 수 있도록 anim이름의 변수 선언 */
     Animator m_anim;
 
+    public VariableJoystick Joystick;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,15 +29,17 @@ public class PlayerController : MonoBehaviour
         m_sprite = GetComponent<SpriteRenderer>();
         /** anim이 Animator컴포넌트의 기능에 접근할 수 있도록 한다. */
         m_anim = GetComponent<Animator>();
+
+        Joystick = FindObjectOfType<VariableJoystick>();
     }
 
     // Update is called once per frame
     void Update()
     {
         /** m_InputVec.x은 joystick이 입력받은 Horizontal값을 받을 */
-        m_InputVec.x = GameManager.GMInstance.Joystick.Horizontal;
+        m_InputVec.x = Joystick.Horizontal;
         /** m_InputVec.y은 joystick이 입력받은 Vertical값을 받을 */
-        m_InputVec.y = GameManager.GMInstance.Joystick.Vertical;
+        m_InputVec.y = Joystick.Vertical;
     }
 
     /** 물리 연산 프레임마다 호출되는 생명주기 함수 */
@@ -52,7 +57,8 @@ public class PlayerController : MonoBehaviour
     /** 업데이트 함수가 끝나고 다음 프레임으로 넘어가기 직전에 사용되는 생명주기 함수 */
     void LateUpdate()
     {
-     
+        
+        /** TODO ## 애니메이션 설정 */
         /** 만약 입력받은 x값이 있다면(움직이는 중 이라면) */
         if(m_InputVec.x != 0)
         {
