@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterManager : MonoBehaviour
+public class MonsterMove : MonoBehaviour
 {
     /** 몬스터 이동 속도 */
     public float Speed;
@@ -23,21 +23,35 @@ public class MonsterManager : MonoBehaviour
 
     void Start()
     {
-        GameManager.GMInstance.MonsterManagerRef = this;
+        if (PlayerFind == null)
+        {
+            /** PlayerCharacter태그를 가진 플레이어를 찾는다. */
+            PlayerFind = GameObject.FindGameObjectWithTag("PlayerCharacter");
+
+            if (PlayerFind != null)
+            {
+                /** 찾은 Player의 Rigidbody2D컴포넌트를 가져온다. */
+                Target = PlayerFind.GetComponent<Rigidbody2D>();
+            }
+        }
 
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+    }
 
-        /** PlayerCharacter태그를 가진 플레이어를 찾는다. */
-        PlayerFind = GameObject.FindGameObjectWithTag("PlayerCharacter");
+    void Update()
+    {
+        if (!bIsLive && PlayerFind == null)
+        {
+            return;
+        }
 
-        /** 찾은 Player의 Rigidbody2D컴포넌트를 가져온다. */
-        Target = PlayerFind.GetComponent<Rigidbody2D>();
+        sprite.flipX = Target.position.x < rigid.position.x;
     }
 
     void FixedUpdate()
     {
-        if (!bIsLive)
+        if (!bIsLive && PlayerFind == null)
         {
             return;
         }
@@ -47,7 +61,7 @@ public class MonsterManager : MonoBehaviour
         Vector2 DirVec = Target.position - rigid.position;
 
         /** 앞으로 가야할 다음 위치 계산 (절대값)*/
-        Vector2 NextVec = DirVec.normalized * Speed * Time.fixedDeltaTime;
+        Vector2 NextVec = DirVec.normalized * Speed * Time.deltaTime;
 
         /** 이 클래스의 물리적 이동 구현 */
         rigid.MovePosition(rigid.position + NextVec);
@@ -55,15 +69,4 @@ public class MonsterManager : MonoBehaviour
         /** 물리적 속력 0으로 */
         rigid.velocity = Vector2.zero;
     }
-
-    void LateUpdate()
-    {
-        if (!bIsLive)
-        {
-            return;
-        }
-
-        sprite.flipX = Target.position.x < rigid.position.x;
-    }
-
 }

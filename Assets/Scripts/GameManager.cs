@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager GMInstance;
 
     [Header("-----ManagerRef-----")]
-    public MonsterManager MonsterManagerRef;
+    public PoolManager PoolManagerRef;
 
     [Header("-----PlaySceneObject-----")]
     GameObject SceneSelectManager;
