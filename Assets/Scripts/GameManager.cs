@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     /** GameManager타입의 메모리를 미리 확보해 둔다. */
     public static GameManager GMInstance;
 
+    [Header("-----PlayerData-----")]
+    public float PlayerSpeed;
+
     [Header("-----ManagerRef-----")]
     public PoolManager PoolManagerRef;
 

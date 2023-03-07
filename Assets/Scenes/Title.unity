@@ -682,6 +682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1215aec69471d6428051a4b6cd65757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerSpeed: 3
   PoolManagerRef: {fileID: 0}
   CurrentChar: 0
   Player: {fileID: 0}

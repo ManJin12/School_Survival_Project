@@ -40,6 +40,13 @@ public class PlayerController : MonoBehaviour
         m_InputVec.x = Joystick.Horizontal;
         /** m_InputVec.y은 joystick이 입력받은 Vertical값을 받을 */
         m_InputVec.y = Joystick.Vertical;
+
+        /** 만약 Speed 변수가 GameManager의 PlayerSpeed와 다르다면 */
+        if (Speed != GameManager.GMInstance.PlayerSpeed)
+        {
+            /** 이 클래스의 속도는  GameManager의 속도값으로 초기화시켜준다. */
+            Speed = GameManager.GMInstance.PlayerSpeed;
+        }
     }
 
     /** 물리 연산 프레임마다 호출되는 생명주기 함수 */
