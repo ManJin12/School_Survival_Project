@@ -6,11 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class SelectCharacter : MonoBehaviour
 {
-    /** Ä³¸¯ÅÍ Å¸ÀÔ °ü·Ã */
+    /** ìºë¦­í„° íƒ€ì… ê´€ë ¨ */
     public CharType Enum_character;
 
     [HideInInspector]
-    /** Ä³¸¯ÅÍ ÀúÀå °ø°£ */
+    /** ìºë¦­í„° ì €ì¥ ê³µê°„ */
     public SelectCharacter[] Characters;
 
     public SelectSceneManager SelectSceneManager;
@@ -18,58 +18,58 @@ public class SelectCharacter : MonoBehaviour
     Animator m_anim;
     SpriteRenderer m_sprite;
 
-   
-             
-// Start is called before the first frame update
-void Start()
+
+
+    // Start is called before the first frame update
+    void Start()
     {
-        /** ¸¸¾à SceneÀÌ¸§ÀÌ CharacterSelectÀÌ ¾Æ´Ï¶ó¸é */
+        /** ë§Œì•½ Sceneì´ë¦„ì´ CharacterSelectì´ ì•„ë‹ˆë¼ë©´ */
         if (SceneManager.GetActiveScene().name != "CharacterSelect")
         {
-            /** StartÇÔ¼ö¸¦ ºüÁ®³ª°£´Ù. */
+            /** Startí•¨ìˆ˜ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤. */
             return;
         }
 
         m_anim = GetComponent<Animator>();
         m_sprite = GetComponent<SpriteRenderer>();
 
-        /** SelectMg.CurrentCharÀÇ Ä³¸¯ÅÍ Å¸ÀÔÀÌ Enum_character°ú °°´Ù¸é */
+        /** SelectMg.CurrentCharì˜ ìºë¦­í„° íƒ€ì…ì´ Enum_characterê³¼ ê°™ë‹¤ë©´ */
         if (GameManager.GMInstance.CurrentChar == Enum_character)
         {
-            /** OnSelect ÇÔ¼ö È£Ãâ*/
+            /** OnSelect í•¨ìˆ˜ í˜¸ì¶œ*/
             OnSelect();
         }
-        /** SelectMg.CurrentCharÀÇ Ä³¸¯ÅÍ Å¸ÀÔÀÌ Enum_character°ú ´Ù¸£¸é */
+        /** SelectMg.CurrentCharì˜ ìºë¦­í„° íƒ€ì…ì´ Enum_characterê³¼ ë‹¤ë¥´ë©´ */
         else if (GameManager.GMInstance.CurrentChar != Enum_character)
         {
-            /** OnDeSelect ÇÔ¼ö È£Ãâ*/
+            /** OnDeSelect í•¨ìˆ˜ í˜¸ì¶œ*/
             OnDeSelect();
         }
     }
 
-    /* ¸¶¿ì½º¸¦ ´­·¶´Ù ¶ÂÀ» ¶§ È£ÃâµÇ´Â ÇÔ¼ö */
+    /* ë§ˆìš°ìŠ¤ë¥¼ ëˆŒë €ë‹¤ ë—ì„ ë•Œ í˜¸ì¶œë˜ëŠ” í•¨ìˆ˜ */
     void OnMouseUpAsButton()
     {
-        /** ¸¸¾à SceneÀÌ¸§ÀÌ CharacterSelectÀÌ ¾Æ´Ï¶ó¸é */
+        /** ë§Œì•½ Sceneì´ë¦„ì´ CharacterSelectì´ ì•„ë‹ˆë¼ë©´ */
         if (SceneManager.GetActiveScene().name != "CharacterSelect")
         {
-            /** OnMouseUpAsButton ÇÔ¼ö È£Ãâ ½Ã ÇÔ¼ö¸¦ ºüÁ®³ª°£´Ù. */
+            /** OnMouseUpAsButton í•¨ìˆ˜ í˜¸ì¶œ ì‹œ í•¨ìˆ˜ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤. */
             return;
         }
 
-        /** CharSelectSceneManager ½ºÅ©¸³Æ®ÀÇ CurrentChar¿¡ ÇöÀç Enum_character´ëÀÔ */
+        /** CharSelectSceneManager ìŠ¤í¬ë¦½íŠ¸ì˜ CurrentCharì— í˜„ì¬ Enum_characterëŒ€ì… */
         GameManager.GMInstance.CurrentChar = Enum_character;
 
-        /** OnSelectÇÔ¼ö È£Ãâ */
+        /** OnSelectí•¨ìˆ˜ í˜¸ì¶œ */
         OnSelect();
 
-        /** CharactersÀÇ ¹è¿­ Å©±â¸¸Å­ ¹İº¹ */
+        /** Charactersì˜ ë°°ì—´ í¬ê¸°ë§Œí¼ ë°˜ë³µ */
         for (int i = 0; i < Characters.Length; i++)
         {
-            /** ¸¸¾à ¼±ÅÃµÈ Ä³¸¯ÅÍ°¡ ¾Æ´Ï¶ó¸é */
+            /** ë§Œì•½ ì„ íƒëœ ìºë¦­í„°ê°€ ì•„ë‹ˆë¼ë©´ */
             if (Characters[i] != this)
             {
-                /** ¼±ÅÃÀÌµÇÁö ¾ÊÀº Ä³¸¯ÅÍ´Â OnDeSelectÇÔ¼ö È£Ãâ */
+                /** ì„ íƒì´ë˜ì§€ ì•Šì€ ìºë¦­í„°ëŠ” OnDeSelectí•¨ìˆ˜ í˜¸ì¶œ */
                 Characters[i].OnDeSelect();
             }
         }
@@ -77,18 +77,18 @@ void Start()
 
     private void OnDeSelect()
     {
-        /** Ä³¸¯ÅÍÀÇ ¿òÁ÷ÀÓÀ» false·Î ÇÑ´Ù. */
+        /** ìºë¦­í„°ì˜ ì›€ì§ì„ì„ falseë¡œ í•œë‹¤. */
         m_anim.SetBool("IsMove", false);
-        /** Ä³¸¯ÅÍÀÇ ¹à±â¸¦ È¸»öÀ¸·Î ÇØÁØ´Ù. */
+        /** ìºë¦­í„°ì˜ ë°ê¸°ë¥¼ íšŒìƒ‰ìœ¼ë¡œ í•´ì¤€ë‹¤. */
         m_sprite.color = Color.gray;
     }
 
-    /** Ä³¸¯ÅÍ ¼±ÅÃ ½Ã ÇÔ¼ö Á¤ÀÇ */
+    /** ìºë¦­í„° ì„ íƒ ì‹œ í•¨ìˆ˜ ì •ì˜ */
     void OnSelect()
     {
-        /** Ä³¸¯ÅÍÀÇ ¿òÁ÷ÀÓÀ» true·Î ÇÑ´Ù. */
+        /** ìºë¦­í„°ì˜ ì›€ì§ì„ì„ trueë¡œ í•œë‹¤. */
         m_anim.SetBool("IsMove", true);
-        /** Ä³¸¯ÅÍÀÇ ¹à±â¸¦ ÇÏ¾é°Ô ÇØÁØ´Ù. */
+        /** ìºë¦­í„°ì˜ ë°ê¸°ë¥¼ í•˜ì–—ê²Œ í•´ì¤€ë‹¤. */
         m_sprite.color = Color.white;
     }
 }

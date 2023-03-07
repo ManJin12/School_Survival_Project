@@ -4,18 +4,21 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    /** 1. ÇÁ¸®ÆéµéÀ» º¸°üÇÒ º¯¼ö */
+    /** 1. í”„ë¦¬í©ë“¤ì„ ë³´ê´€í•  ë³€ìˆ˜ */
     public GameObject[] MonsterPrefabs;
 
-    /** 2. Ç® ´ã´çÀ» ÇÏ´Â ¸®½ºÆ®µé */
+    /** 2. í’€ ë‹´ë‹¹ì„ í•˜ëŠ” ë¦¬ìŠ¤íŠ¸ë“¤ */
     List<GameObject>[] Pools;
 
     void Awake()
     {
+        /** Poolsë¥¼ MonsterPrefabsì— ì €ì¥ëœ í¬ê¸°ë§Œí¼ ë¦¬ìŠ¤íŠ¸ë¥¼ ë§Œë“¤ì–´ì¤€ë‹¤. */
         Pools = new List<GameObject>[MonsterPrefabs.Length];
 
+        /** Poolsì˜ í¬ê¸°ë§Œí¼ ë°˜ë³µ */
         for (int i = 0; i < Pools.Length; i++)
         {
+            /** Pools[i]ë°°ì—´ì— Listíƒ€ì… GameObjectë¡œ ë™ì í• ë‹¹ */
             Pools[i] = new List<GameObject>();
         }
 
@@ -26,32 +29,34 @@ public class PoolManager : MonoBehaviour
         GameManager.GMInstance.PoolManagerRef = this;
     }
 
+
+    /** TODO ## ëª¬ìŠ¤í„° ìœ í˜• ë°˜í™˜ í•¨ìˆ˜ */
     public GameObject Get(int index)
     {
         GameObject m_Select = null;
 
-        /** Pools[index]¾ÈÀÇ index ¹è¿­¿¡ Á¢±Ù */
+        /** Pools[index]ì•ˆì˜ index ë°°ì—´ì— ì ‘ê·¼ */
         foreach (GameObject Item in Pools[index])
         {
-            /** ¼±ÅÃÇÑ Ç®ÀÇ ºñÈ°¼ºÈ­µÈ °ÔÀÓ ¿ÀºêÁ§Æ® Á¢±Ù */
+            /** ì„ íƒí•œ í’€ì˜ ë¹„í™œì„±í™”ëœ ê²Œì„ ì˜¤ë¸Œì íŠ¸ ì ‘ê·¼ */
             if (Item.activeSelf == false)
             {
-                /** ¹ß°ß ÇÏ¸é m_Select¿¡ ÇÒ´ç */
+                /** ë°œê²¬ í•˜ë©´ m_Selectì— í• ë‹¹ */
                 m_Select = Item;
-                /** m_Select È°¼ºÈ­ */
+                /** m_Select í™œì„±í™” */
                 m_Select.SetActive(true);
 
                 break;
             }
         }
 
-        /** ¸ø Ã£¾ÒÀ¸¸é »õ·Ó°Ô »ı¼ºÇÏ°í m_Select¿¡ ÇÒ´ç */
+        /** ëª» ì°¾ì•˜ìœ¼ë©´ ìƒˆë¡­ê²Œ ìƒì„±í•˜ê³  m_Selectì— í• ë‹¹ */
         if (m_Select == null)
         {
-            /** ºÎ¸ğ ¿ÀºêÁ§Æ® ¹ØÀ¸·Î m_Select »ı¼ºµÈ ¸ó½ºÅÍÇÁ¸®Æé ´ëÀÔ */
+            /** ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ ë°‘ìœ¼ë¡œ m_Select ìƒì„±ëœ ëª¬ìŠ¤í„°í”„ë¦¬í© ëŒ€ì… */
             m_Select = Instantiate(MonsterPrefabs[index], transform);
 
-            /** Pools list¿¡ ÄÁÅ×ÀÌ³Ê¿¡ m_Select¸¦ ÀúÀåÇÑ´Ù */
+            /** Pools listì— ì»¨í…Œì´ë„ˆì— m_Selectë¥¼ ì €ì¥í•œë‹¤ */
             Pools[index].Add(m_Select);
         }
 

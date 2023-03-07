@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-/** Ä³¸¯ÅÍ Å¸ÀÔ */
+/** ìºë¦­í„° íƒ€ì… */
 public enum CharType
 {
     BoyChar,
@@ -18,7 +18,7 @@ public class SelectSceneManager : MonoBehaviour
 
     public void OnClickStart_Btn()
     {
-        /** È­¸é ÀüÈ¯ */
-        SceneManager.LoadScene("PlayScene");
+        /** í™”ë©´ ì „í™˜ */
+        SceneManager.LoadScene("Lobby");
     }
 }

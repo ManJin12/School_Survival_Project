@@ -4,68 +4,69 @@ using UnityEngine;
 
 public class Reposition : MonoBehaviour
 {
-    Collider2D Call;
+    Collider2D Coll;
 
     void Start()
     {
-        Call = GetComponent<Collider2D>();
+        Coll = GetComponent<Collider2D>();
     }
 
-    /** Ãæµ¹ÇßÀ»¶§ ¹ß»ıÇÏ´Â ÀÌº¥Æ® */
+    /** ì¶©ëŒí–ˆì„ë•Œ ë°œìƒí•˜ëŠ” ì´ë²¤íŠ¸ */
     void OnTriggerExit2D(Collider2D collision)
     {
-        /** ÅÂ±× ÀÌ¸§ÀÌ Area°¡ ¾Æ´Ï¸é */
+        /** íƒœê·¸ ì´ë¦„ì´ Areaê°€ ì•„ë‹ˆë©´ */
         if (!collision.CompareTag("Area"))
         {
-            /** ÇÔ¼ö¸¦ ºüÁ®³ª°£´Ù.*/
+            /** í•¨ìˆ˜ë¥¼ ë¹ ì ¸ë‚˜ê°„ë‹¤.*/
             return;
         }
 
-        /** Ä³¸¯ÅÍÀÇ À§Ä¡ °ª */
+        /** ìºë¦­í„°ì˜ ìœ„ì¹˜ ê°’ */
         Vector3 PlayerPos =
             GameManager.GMInstance.playerCtrl.transform.position;
 
-        /** ÀÌ Å¬·¡½º¸¦ °¡Áø ¿ÀºêÁ§Æ®ÀÇ À§Ä¡ °ª */
+        /** ì´ í´ë˜ìŠ¤ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì˜ ìœ„ì¹˜ ê°’ */
         Vector3 MyPos = transform.position;
 
-        /** ÇÃ·¹ÀÌ¾î¿Í Å¬·¡½º¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í x°Å¸®Â÷ÀÌ */
+        /** í”Œë ˆì´ì–´ì™€ í´ë˜ìŠ¤ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ xê±°ë¦¬ì°¨ì´ */
         float diff_X = Mathf.Abs(PlayerPos.x - MyPos.x);
 
-        /** ÇÃ·¹ÀÌ¾î¿Í Å¬·¡½º¸¦ °¡Áø ¿ÀºêÁ§Æ®¿Í y°Å¸®Â÷ÀÌ */
+        /** í”Œë ˆì´ì–´ì™€ í´ë˜ìŠ¤ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì™€ yê±°ë¦¬ì°¨ì´ */
         float diff_Y = Mathf.Abs(PlayerPos.y - MyPos.y);
 
-        /** ÇÃ·¹ÀÌ¾î°¡ ÀÔ·Â¹ŞÀº °ª */
+        /** í”Œë ˆì´ì–´ê°€ ì…ë ¥ë°›ì€ ê°’ */
         Vector3 PlayerDir = GameManager.GMInstance.playerCtrl.m_InputVec;
 
-        /** »ïÇ× ¿¬»êÀÚ·Î ÇÃ·¹ÀÌ¾îÀÇ x°ªÀÇ Å©±â·Î ¹æÇâÀ» ±¸ÇÑ´Ù. */
-        float DirX = PlayerDir.x < 0 ? -1 : 1 ;
-        /** »ïÇ× ¿¬»êÀÚ·Î ÇÃ·¹ÀÌ¾îÀÇ y°ªÀÇ Å©±â·Î ¹æÇâÀ» ±¸ÇÑ´Ù. */
+        /** ì‚¼í•­ ì—°ì‚°ìë¡œ í”Œë ˆì´ì–´ì˜ xê°’ì˜ í¬ê¸°ë¡œ ë°©í–¥ì„ êµ¬í•œë‹¤. */
+        float DirX = PlayerDir.x < 0 ? -1 : 1;
+        /** ì‚¼í•­ ì—°ì‚°ìë¡œ í”Œë ˆì´ì–´ì˜ yê°’ì˜ í¬ê¸°ë¡œ ë°©í–¥ì„ êµ¬í•œë‹¤. */
         float DirY = PlayerDir.y < 0 ? -1 : 1;
 
 
+        /** TODO ## ëª¬ìŠ¤í„° ë° íƒ€ì¼ ì¬ë°°ì¹˜ ë¡œì§ */
         switch (transform.tag)
         {
             case "Ground":
-                /** µÎ ¿ÀºêÁ§Æ®ÀÇ °Å¸® Â÷ÀÌ°¡ xÃàÀÌ ´õ Å©´Ù¸é */
+                /** ë‘ ì˜¤ë¸Œì íŠ¸ì˜ ê±°ë¦¬ ì°¨ì´ê°€ xì¶•ì´ ë” í¬ë‹¤ë©´ */
                 if (diff_X > diff_Y)
                 {
-                    /** ¿ÀºêÁ§Æ®¸¦ ¿À¸¥ÂÊ ¹æÇâÀ¸·Î 40¸¸Å­ ÀÌµ¿ÇÑ´Ù.  */
+                    /** ì˜¤ë¸Œì íŠ¸ë¥¼ ì˜¤ë¥¸ìª½ ë°©í–¥ìœ¼ë¡œ 40ë§Œí¼ ì´ë™í•œë‹¤.  */
                     transform.Translate(Vector3.right * DirX * 40);
-                    
+
                 }
-                /** µÎ ¿ÀºêÁ§Æ®ÀÇ °Å¸®Â÷ÀÌ°¡ yÃàÀÌ ´õ Å©´Ù¸é */
+                /** ë‘ ì˜¤ë¸Œì íŠ¸ì˜ ê±°ë¦¬ì°¨ì´ê°€ yì¶•ì´ ë” í¬ë‹¤ë©´ */
                 else if (diff_X < diff_Y)
                 {
-                    /** ¿ÀºêÁ§Æ®¸¦ À­ ¹æÇâÀ¸·Î 40¸¸Å­ ÀÌµ¿ÇÑ´Ù.  */
+                    /** ì˜¤ë¸Œì íŠ¸ë¥¼ ìœ— ë°©í–¥ìœ¼ë¡œ 40ë§Œí¼ ì´ë™í•œë‹¤.  */
                     transform.Translate(Vector3.up * DirY * 40);
-                    
+
                 }
                 break;
 
             case "Monster":
-                if (Call.enabled)
+                if (Coll.enabled)
                 {
-                    /** ¿ÀºêÁ§Æ®ÀÇ ¹æÇâ¿¡¼­ 20¸¸Å­ ¶³¾îÁø °÷¿¡ »ı¼º.  */
+                    /** ì˜¤ë¸Œì íŠ¸ì˜ ë°©í–¥ì—ì„œ 20ë§Œí¼ ë–¨ì–´ì§„ ê³³ì— ìƒì„±.  */
                     transform.Translate(PlayerDir * 20
                         + new Vector3(Random.Range(-3f, 3f), Random.Range(-3f, 3f), 0.0f));
                 }

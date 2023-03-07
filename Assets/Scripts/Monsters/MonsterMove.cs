@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class MonsterMove : MonoBehaviour
 {
-    /** ¸ó½ºÅÍ ÀÌµ¿ ¼Óµµ */
+    /** ëª¬ìŠ¤í„° ì´ë™ ì†ë„ */
     public float Speed;
 
-    /** ¹°¸®ÀûÀ¸·Î µû¶ó°¥ Å¸°Ù */
+    /** ë¬¼ë¦¬ì ìœ¼ë¡œ ë”°ë¼ê°ˆ íƒ€ê²Ÿ */
     public Rigidbody2D Target;
 
-    /** ¸ó½ºÅÍ »ıÁ¸¿©ºÎ */
+    /** ëª¬ìŠ¤í„° ìƒì¡´ì—¬ë¶€ */
     bool bIsLive = true;
 
-    /** ÀÌ Å¬·¡½º¸¦ °¡Áø ¿ÀºêÁ§Æ®ÀÇ Rigid¿¡ Á¢±ÙÀ» À§ÇÑ ¼±¾ğ */
+    /** ì´ í´ë˜ìŠ¤ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ì˜ Rigidì— ì ‘ê·¼ì„ ìœ„í•œ ì„ ì–¸ */
     Rigidbody2D rigid;
-    /** ÀÌ Å¬·¡½º¸¦ °¡Áø ¿ÀºêÁ§Æ® SpritrRendererÁ¢±ÙÀ» À§ÇÑ ¼±¾ğ */
+    /** ì´ í´ë˜ìŠ¤ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ SpritrRendererì ‘ê·¼ì„ ìœ„í•œ ì„ ì–¸ */
     SpriteRenderer sprite;
 
     public GameObject PlayerFind;
@@ -25,12 +25,12 @@ public class MonsterMove : MonoBehaviour
     {
         if (PlayerFind == null)
         {
-            /** PlayerCharacterÅÂ±×¸¦ °¡Áø ÇÃ·¹ÀÌ¾î¸¦ Ã£´Â´Ù. */
+            /** PlayerCharacteríƒœê·¸ë¥¼ ê°€ì§„ í”Œë ˆì´ì–´ë¥¼ ì°¾ëŠ”ë‹¤. */
             PlayerFind = GameObject.FindGameObjectWithTag("PlayerCharacter");
 
             if (PlayerFind != null)
             {
-                /** Ã£Àº PlayerÀÇ Rigidbody2DÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿Â´Ù. */
+                /** ì°¾ì€ Playerì˜ Rigidbody2Dì»´í¬ë„ŒíŠ¸ë¥¼ ê°€ì ¸ì˜¨ë‹¤. */
                 Target = PlayerFind.GetComponent<Rigidbody2D>();
             }
         }
@@ -56,17 +56,20 @@ public class MonsterMove : MonoBehaviour
             return;
         }
 
-        /** TODO ## ¸ó½ºÅÍ ÀÌµ¿ ±¸Çö */
-        /** ¸ó½ºÅÍ¿Í ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡ Â÷ÀÌ(¹æÇâ°ªÀÌ ³ª¿È) */
+        /** TODO ## ëª¬ìŠ¤í„° ì´ë™ êµ¬í˜„ */
+        /** ëª¬ìŠ¤í„°ì™€ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ ì°¨ì´(ë°©í–¥ê°’ì´ ë‚˜ì˜´) */
         Vector2 DirVec = Target.position - rigid.position;
 
-        /** ¾ÕÀ¸·Î °¡¾ßÇÒ ´ÙÀ½ À§Ä¡ °è»ê (Àı´ë°ª)*/
+        /**
+        ì•ìœ¼ë¡œ ê°€ì•¼í•  ë‹¤ìŒ ìœ„ì¹˜ ê³„ì‚° normalizedë¥¼ ì‚¬ìš©í•˜ì—¬ DirVecë¥¼ 1ë¡œ ì •ê·œí™” í•´ì¤€ë‹¤.
+        í”¼íƒ€ê³ ë¼ìŠ¤ ì •ì˜ì— ì˜í•´ ëŒ€ê°ì„  ì´ë™ì‹œ í¬ê¸°ê°€ ì¼ì •í•˜ì§€ í•ê¸° ë•Œë¬¸ì— ì¼ì •í•˜ê²Œ ì´ë™í• ìˆ˜ ìˆê²Œ í•´ì¤€ë‹¤.
+        */
         Vector2 NextVec = DirVec.normalized * Speed * Time.deltaTime;
 
-        /** ÀÌ Å¬·¡½ºÀÇ ¹°¸®Àû ÀÌµ¿ ±¸Çö */
+        /** ì´ í´ë˜ìŠ¤ì˜ ë¬¼ë¦¬ì  ì´ë™ êµ¬í˜„ */
         rigid.MovePosition(rigid.position + NextVec);
 
-        /** ¹°¸®Àû ¼Ó·Â 0À¸·Î */
+        /** ë¬¼ë¦¬ì  ì†ë ¥ 0ìœ¼ë¡œ */
         rigid.velocity = Vector2.zero;
     }
 }
