@@ -9,6 +9,7 @@ TagManager:
   - PlayerCharacter
   - Monster
   - OverUI
+  - DashBtn
   layers:
   - Default
   - TransparentFX

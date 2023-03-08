@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,8 +19,17 @@ public class PlayerController : MonoBehaviour
     /** Animator기능을 사용할 수 있도록 anim이름의 변수 선언 */
     Animator m_anim;
 
-    public VariableJoystick Joystick;
+    public Button DashBtn;
 
+    float DashDirection;
+    public bool bIsDash = true;
+    private float DashSpeed = 100;
+    public float DashCooltime = 5.0f;
+    public float RemainingDashCoolTime = 5.0f;
+
+    float movX;
+
+    public VariableJoystick Joystick;
 
     // Start is called before the first frame update
     void Start()
@@ -31,21 +42,40 @@ public class PlayerController : MonoBehaviour
         m_anim = GetComponent<Animator>();
 
         Joystick = FindObjectOfType<VariableJoystick>();
+
+        DashBtn = GameObject.Find("DashBtn").GetComponent<Button>();
+        if (DashBtn != null)
+        {
+            DashBtn.onClick.AddListener(OnClickedDash);
+        }
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        /** m_InputVec.x은 joystick이 입력받은 Horizontal값을 받을 */
-        m_InputVec.x = Joystick.Horizontal;
-        /** m_InputVec.y은 joystick이 입력받은 Vertical값을 받을 */
-        m_InputVec.y = Joystick.Vertical;
+        /** TODO ## TEST용 Input */
+        m_InputVec.x = Input.GetAxisRaw("Horizontal");
+        m_InputVec.y = Input.GetAxisRaw("Vertical");
 
-        /** 만약 Speed 변수가 GameManager의 PlayerSpeed와 다르다면 */
-        if (Speed != GameManager.GMInstance.PlayerSpeed)
+        /** m_InputVec.x은 joystick이 입력받은 Horizontal값을 받을 */
+        // m_InputVec.x = Joystick.Horizontal;
+        /** m_InputVec.y은 joystick이 입력받은 Vertical값을 받을 */
+        // m_InputVec.y = Joystick.Vertical;
+
+        /** bIsDash가 false면 RemainingDashCoolTime을 깎아준다 */
+        if (bIsDash == false)
         {
-            /** 이 클래스의 속도는  GameManager의 속도값으로 초기화시켜준다. */
-            Speed = GameManager.GMInstance.PlayerSpeed;
+            RemainingDashCoolTime -= Time.deltaTime;
+        }
+
+        /** RemainingDashCoolTime이 0보다 작거나 같으면 */
+        if (RemainingDashCoolTime <= 0)
+        {
+            /** 대쉬가 가능해진다. */
+            bIsDash = true;
+            /** 줄어드는 쿨타임을 설정된 대쉬의 쿨타임으로 바꿔준다. */
+            RemainingDashCoolTime = DashCooltime;
         }
     }
 
@@ -81,5 +111,24 @@ public class PlayerController : MonoBehaviour
             /** Animator의 Parameter에 있는 IsMove를 false로 바꿔준다. */
             m_anim.SetBool("IsMove", false);
         }
+    }
+
+
+    public void OnClickedDash()
+    {
+        /** 만약 대쉬 상태가 false면 함수를 빠져나감 */
+        if (bIsDash == false)
+        {
+            return;
+        }
+
+        /** velocity를 입력받은 값으로 키를 눌렸을 때 입력받은 값을 넣어준다. */
+        Vector3 velocity = new Vector3(m_InputVec.x, m_InputVec.y, 0);
+
+        /** 대시 스피드를 곱하여 더 멀리 캐릭터를 위치 시킨다. */
+        transform.position += velocity * Speed * DashSpeed * Time.deltaTime;
+
+        /** 대시 이동이 끝나면 bIsDash를 false로 막아 무한으로 사용할 수 없게 한다. */
+        bIsDash = false;
     }
 }

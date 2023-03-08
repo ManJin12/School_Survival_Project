@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
 
     [Header("-----ManagerRef-----")]
     public PoolManager PoolManagerRef;
+    public PlaySceneManager PlaySceneManagerRef;
 
     [Header("-----PlaySceneObject-----")]
     GameObject SceneSelectManager;
