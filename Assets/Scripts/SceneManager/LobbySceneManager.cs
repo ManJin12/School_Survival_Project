@@ -12,19 +12,21 @@ public class LobbySceneManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        MyCharacter = Instantiate(SelectCharacterPrefabs[(int)GameManager.GMInstance.CurrentChar]);
-
-        MyCharacter.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
+        /** MyCharacter에 GameManager가 저장하고 있는 캐릭터를 소환 */
+        // MyCharacter = Instantiate(SelectCharacterPrefabs[(int)GameManager.GMInstance.CurrentChar]);
+        /** MyCharacter크기를 3x3x3으로 바꿔준다. */
+        //MyCharacter.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+     
     }
 
     public void OnClickMenuBtn()
     {
+        /** MenuPanel 활성화 */
         MenuPanel.SetActive(true);
     }
 

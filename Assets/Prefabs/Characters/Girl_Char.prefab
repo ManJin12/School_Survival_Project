@@ -147,7 +147,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2458346129091765625}
   - {fileID: 2458346130034210917}
@@ -257,7 +257,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InputVec: {x: 0, y: 0}
-  Speed: 3
+  Speed: 2
+  DashBtn: {fileID: 0}
+  bIsDash: 1
+  DashSpeed: 0
+  DashCooltime: 5
+  RemainingDashCoolTime: 5
   Joystick: {fileID: 0}
 --- !u!95 &2458346129470098840
 Animator:
@@ -320,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 2458346130034210918}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2458346129470098842}

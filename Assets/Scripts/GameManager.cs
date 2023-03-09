@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
     public float PlayerSpeed;
     public float DashSpeed;
 
+    [Header("-----MonsterData-----")]
+    /** 몬스터 스폰시간 */
+    public float MonsterSpawnTime;
+    /** 몬스터 이동속도 */
+    public float MonsterSpeed;
+
     [Header("-----ManagerRef-----")]
     public PoolManager PoolManagerRef;
     public PlaySceneManager PlaySceneManagerRef;

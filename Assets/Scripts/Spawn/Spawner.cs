@@ -37,7 +37,7 @@ public class Spawner : MonoBehaviour
         m_timer += Time.deltaTime;
 
         /** m_timer가 1초가 넘어가면 */
-        if (m_timer > 1f)
+        if (m_timer > GameManager.GMInstance.MonsterSpawnTime)
         {
             /** m_timer을 0으로 초기화 해주고 */
             m_timer = 0.0f;

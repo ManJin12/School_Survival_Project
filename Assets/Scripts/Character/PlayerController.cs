@@ -27,22 +27,28 @@ public class PlayerController : MonoBehaviour
     public float DashCooltime = 5.0f;
     public float RemainingDashCoolTime = 5.0f;
 
-    float movX;
-
     public FloatingJoystick Joystick;
 
     // Start is called before the first frame update
     void Start()
     {
+        /** 만약 Scene이름이  PlayScene이 아니라면 */
         if (SceneManager.GetActiveScene().name != "PlayScene")
         {
+            /** 스크립트 비활성화 */
             enabled = false;
         }
+        /** 만약 오브젝트 생성 시 현재 Scene이름이 PlayScene이라면 */
         else if (SceneManager.GetActiveScene().name == "PlayScene")
         {
+            /** DashBtn에 DashBtn이라는 이름을 가진 버튼을 넣어주고 */
             DashBtn = GameObject.Find("DashBtn").GetComponent<Button>();
+            /** FloatingJoystick타입의 조이스틱을 찾는다. */
+            Joystick = FindObjectOfType<FloatingJoystick>();
+            /** DashBtn이 연결 됬다면 */
             if (DashBtn != null)
             {
+                /** 클릭 시 함수 호출 */
                 DashBtn.onClick.AddListener(OnClickedDash);
             }
         }
@@ -53,9 +59,7 @@ public class PlayerController : MonoBehaviour
         m_sprite = GetComponent<SpriteRenderer>();
         /** anim이 Animator컴포넌트의 기능에 접근할 수 있도록 한다. */
         m_anim = GetComponent<Animator>();
-
-        Joystick = FindObjectOfType<FloatingJoystick>();
-
+        /** DashSpeed는 GameManager.GMInstance.DashSpeed로 바꾼다. */
         DashSpeed = GameManager.GMInstance.DashSpeed;
     }
 
@@ -63,6 +67,17 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /** DashBtn버튼 못찾았으면 return */
+        if (DashBtn == null)
+        {
+            return;
+        }
+        /** Joystick 못 찾았으면 return */
+        if (Joystick == null)
+        {
+            return;
+        }
+
         /** TODO ## TEST용 Input */
         // m_InputVec.x = Input.GetAxisRaw("Horizontal");
         // m_InputVec.y = Input.GetAxisRaw("Vertical");

@@ -682,8 +682,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1215aec69471d6428051a4b6cd65757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerSpeed: 3
-  DashSpeed: 10
+  PlayerSpeed: 1
+  DashSpeed: 5
+  MonsterSpawnTime: 0.2
+  MonsterSpeed: 1
   PoolManagerRef: {fileID: 0}
   PlaySceneManagerRef: {fileID: 0}
   CurrentChar: 0

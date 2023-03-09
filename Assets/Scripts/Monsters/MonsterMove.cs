@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class MonsterMove : MonoBehaviour
 {
-    /** 몬스터 이동 속도 */
-    public float Speed;
-
     /** 물리적으로 따라갈 타겟 */
     public Rigidbody2D Target;
 
@@ -64,7 +61,7 @@ public class MonsterMove : MonoBehaviour
         앞으로 가야할 다음 위치 계산 normalized를 사용하여 DirVec를 1로 정규화 해준다.
         피타고라스 정의에 의해 대각선 이동시 크기가 일정하지 핞기 때문에 일정하게 이동할수 있게 해준다.
         */
-        Vector2 NextVec = DirVec.normalized * Speed * Time.deltaTime;
+        Vector2 NextVec = DirVec.normalized * GameManager.GMInstance.MonsterSpeed * Time.deltaTime;
 
         /** 이 클래스의 물리적 이동 구현 */
         rigid.MovePosition(rigid.position + NextVec);
