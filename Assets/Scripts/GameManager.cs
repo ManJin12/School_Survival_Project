@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [Header("-----PlayerData-----")]
     public float PlayerSpeed;
+    public float DashSpeed;
 
     [Header("-----ManagerRef-----")]
     public PoolManager PoolManagerRef;

@@ -144,6 +144,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InputVec: {x: 0, y: 0}
   Speed: 3
+  DashBtn: {fileID: 0}
+  bIsDash: 1
+  DashSpeed: 0
+  DashCooltime: 5
+  RemainingDashCoolTime: 5
   Joystick: {fileID: 0}
 --- !u!95 &144254074567364356
 Animator:

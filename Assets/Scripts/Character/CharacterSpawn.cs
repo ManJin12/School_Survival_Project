@@ -18,6 +18,7 @@ public class CharacterSpawn : MonoBehaviour
 
         if (Player != null)
         {
+            Player.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
             GameManager.GMInstance.Player = Player;
             GameManager.GMInstance.playerCtrl = Player.GetComponent<PlayerController>();
             

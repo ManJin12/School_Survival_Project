@@ -6,11 +6,15 @@ using UnityEngine.SceneManagement;
 public class LobbySceneManager : MonoBehaviour
 {
     public GameObject MenuPanel;
+    public GameObject[] SelectCharacterPrefabs;
+    public GameObject MyCharacter;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        MyCharacter = Instantiate(SelectCharacterPrefabs[(int)GameManager.GMInstance.CurrentChar]);
+
+        MyCharacter.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
     }
 
     // Update is called once per frame
@@ -41,4 +45,6 @@ public class LobbySceneManager : MonoBehaviour
         /** 화면 전환 */
         SceneManager.LoadScene("PlayScene");
     }
+
+
 }

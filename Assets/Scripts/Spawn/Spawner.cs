@@ -54,5 +54,7 @@ public class Spawner : MonoBehaviour
 
         /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
         Monster.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
+
+        Monster.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 }

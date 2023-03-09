@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     /** 입력받은 위치 값을 적용 할 m_InputVec이름의 변수 선언 */
@@ -23,17 +23,30 @@ public class PlayerController : MonoBehaviour
 
     float DashDirection;
     public bool bIsDash = true;
-    private float DashSpeed = 100;
+    public float DashSpeed;
     public float DashCooltime = 5.0f;
     public float RemainingDashCoolTime = 5.0f;
 
     float movX;
 
-    public VariableJoystick Joystick;
+    public FloatingJoystick Joystick;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (SceneManager.GetActiveScene().name != "PlayScene")
+        {
+            enabled = false;
+        }
+        else if (SceneManager.GetActiveScene().name == "PlayScene")
+        {
+            DashBtn = GameObject.Find("DashBtn").GetComponent<Button>();
+            if (DashBtn != null)
+            {
+                DashBtn.onClick.AddListener(OnClickedDash);
+            }
+        }
+
         /** rigid가 Rigidbody2D컴포넌트의 기능에 접근할 수 있도록 한다. */
         m_rigid = GetComponent<Rigidbody2D>();
         /** sprite가 SpriteRenderer컴포넌트의 기능에 접근할 수 있도록 한다. */
@@ -41,13 +54,9 @@ public class PlayerController : MonoBehaviour
         /** anim이 Animator컴포넌트의 기능에 접근할 수 있도록 한다. */
         m_anim = GetComponent<Animator>();
 
-        Joystick = FindObjectOfType<VariableJoystick>();
+        Joystick = FindObjectOfType<FloatingJoystick>();
 
-        DashBtn = GameObject.Find("DashBtn").GetComponent<Button>();
-        if (DashBtn != null)
-        {
-            DashBtn.onClick.AddListener(OnClickedDash);
-        }
+        DashSpeed = GameManager.GMInstance.DashSpeed;
     }
 
 
@@ -55,13 +64,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         /** TODO ## TEST용 Input */
-        m_InputVec.x = Input.GetAxisRaw("Horizontal");
-        m_InputVec.y = Input.GetAxisRaw("Vertical");
+        // m_InputVec.x = Input.GetAxisRaw("Horizontal");
+        // m_InputVec.y = Input.GetAxisRaw("Vertical");
 
         /** m_InputVec.x은 joystick이 입력받은 Horizontal값을 받을 */
-        // m_InputVec.x = Joystick.Horizontal;
+        m_InputVec.x = Joystick.Horizontal;
         /** m_InputVec.y은 joystick이 입력받은 Vertical값을 받을 */
-        // m_InputVec.y = Joystick.Vertical;
+        m_InputVec.y = Joystick.Vertical;
 
         /** bIsDash가 false면 RemainingDashCoolTime을 깎아준다 */
         if (bIsDash == false)
