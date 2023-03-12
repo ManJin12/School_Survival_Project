@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using My;
 public class SelectCharacter : MonoBehaviour
 {
     /** 캐릭터 타입 관련 */
@@ -24,7 +24,7 @@ public class SelectCharacter : MonoBehaviour
     void Start()
     {
         /** 만약 Scene이름이 CharacterSelect이 아니라면 */
-        if (SceneManager.GetActiveScene().name != "CharacterSelect")
+        if (SceneManager.GetActiveScene().name != "Lobby")
         {
             /** Start함수를 빠져나간다. */
             return;
@@ -51,7 +51,7 @@ public class SelectCharacter : MonoBehaviour
     void OnMouseUpAsButton()
     {
         /** 만약 Scene이름이 CharacterSelect이 아니라면 */
-        if (SceneManager.GetActiveScene().name != "CharacterSelect")
+        if (SceneManager.GetActiveScene().name != "Lobby")
         {
             /** OnMouseUpAsButton 함수 호출 시 함수를 빠져나간다. */
             return;

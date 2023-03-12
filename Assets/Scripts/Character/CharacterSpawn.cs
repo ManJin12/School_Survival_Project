@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using My;
 public class CharacterSpawn : MonoBehaviour
 {
     public GameObject[] CharPrefabs;

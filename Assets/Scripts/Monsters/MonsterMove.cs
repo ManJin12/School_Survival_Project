@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using My;
 public class MonsterMove : MonoBehaviour
 {
     /** 물리적으로 따라갈 타겟 */

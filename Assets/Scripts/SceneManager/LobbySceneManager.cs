@@ -39,7 +39,7 @@ public class LobbySceneManager : MonoBehaviour
     public void OnClickSelectCharacterBtn()
     {
         /** 화면 전환 */
-        SceneManager.LoadScene("CharacterSelect");
+        SceneManager.LoadScene("DungeonSelect");
     }
 
     public void OnClickGameplayBtn()

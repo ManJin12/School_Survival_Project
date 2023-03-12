@@ -16,9 +16,15 @@ public enum CharType
 public class SelectSceneManager : MonoBehaviour
 {
 
-    public void OnClickStart_Btn()
+    public void OnClickLobby_Btn()
     {
         /** 화면 전환 */
         SceneManager.LoadScene("Lobby");
+    }
+
+    public void OnClickDungeon_Btn()
+    {
+        /** 화면 전환 */
+        SceneManager.LoadScene("PlayScene");
     }
 }

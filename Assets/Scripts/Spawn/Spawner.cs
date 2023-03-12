@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using My;
+
 public class Spawner : MonoBehaviour
 {
     public Transform[] SpawnPoint;

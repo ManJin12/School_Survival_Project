@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using My;
+
 public class PlayerController : MonoBehaviour
 {
     /** 입력받은 위치 값을 적용 할 m_InputVec이름의 변수 선언 */
