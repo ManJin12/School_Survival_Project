@@ -17,6 +17,7 @@ public class MonsterMove : MonoBehaviour
 
     public GameObject PlayerFind;
 
+    public float health = 10;
 
     void Start()
     {
@@ -68,5 +69,33 @@ public class MonsterMove : MonoBehaviour
 
         /** 물리적 속력 0으로 */
         rigid.velocity = Vector2.zero;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        /** 태그가 Bullet이 아니라면 return */
+        if (!collision.CompareTag("Bullet"))
+            return;
+
+        /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
+        health -= collision.GetComponent<Bullet>().m_Damage;
+
+        /** health 0보다 크면 몬스터가 살아있다면 */ 
+        if (health > 0)
+        {
+
+        }
+        /** 몬스터가 죽으면 */
+        else
+        {
+            /** 함수 호출 */
+            Dead();
+        }
+    }
+
+    void Dead()
+    {
+        /** 게임 오브젝트 비활성화 */
+        gameObject.SetActive(false);
     }
 }

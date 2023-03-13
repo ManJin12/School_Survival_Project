@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8415867129035173066}
   - component: {fileID: 8415867129035173067}
   - component: {fileID: 8415867129035173064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Monster_C
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -159,9 +159,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87ed328c509e59741969e5d61905038e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 2
   Target: {fileID: 0}
   PlayerFind: {fileID: 0}
+  health: 10
 --- !u!114 &8415867129035173064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8415867129297019256}
   - component: {fileID: 8415867129297019259}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}

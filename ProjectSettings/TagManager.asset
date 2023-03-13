@@ -11,6 +11,7 @@ TagManager:
   - OverUI
   - DashBtn
   - ScrollParent
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Monster
   - 
   - 
   - 

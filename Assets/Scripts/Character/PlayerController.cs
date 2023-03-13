@@ -21,6 +21,8 @@ public class PlayerController : MonoBehaviour
     /** Animator기능을 사용할 수 있도록 anim이름의 변수 선언 */
     Animator m_anim;
 
+    public Scanner scanner;
+
     public Button DashBtn;
 
     float DashDirection;
@@ -63,6 +65,7 @@ public class PlayerController : MonoBehaviour
         m_anim = GetComponent<Animator>();
         /** DashSpeed는 GameManager.GMInstance.DashSpeed로 바꾼다. */
         DashSpeed = GameManager.GMInstance.DashSpeed;
+        scanner = GetComponent<Scanner>();
     }
 
 
