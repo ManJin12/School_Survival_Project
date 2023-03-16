@@ -11,10 +11,13 @@ public class Weapon : MonoBehaviour
     public int id;
     /** prefabId */
     public int prefabId;
+
     /** 무기가 주는 공격력 damage */
     public float damage;
     /** count 웨폰의 개수 */
     public int count;
+    /** 불릿 몬스터 관통 횟수 */
+    public int per;
     /** 웨폰 회전속도 */
     public float speed;
 
@@ -43,6 +46,7 @@ public class Weapon : MonoBehaviour
         {
             return;
         }
+
         /** id에 따른 */
         switch (id)
         {
@@ -113,6 +117,7 @@ public class Weapon : MonoBehaviour
             Batch();
     }
 
+    #region Near Weapon Batch
     void Batch()
     {
         /** 회전하고 있는 무기의 숫자만큼 */
@@ -151,7 +156,9 @@ public class Weapon : MonoBehaviour
             bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // -1 is Infinity per.
         }
     }
+    #endregion
 
+    #region Fire()
     void Fire()
     {
         /** 플레이어 컨트롤러에서 스캔된 가까운 적이없으면 return */
@@ -176,7 +183,7 @@ public class Weapon : MonoBehaviour
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, TargetDir);
 
-        bullet.GetComponent<Bullet>().Init(damage, count, TargetDir);
-        
+        bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
     }
+    #endregion
 }

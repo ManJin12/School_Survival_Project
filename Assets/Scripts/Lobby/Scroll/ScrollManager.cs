@@ -41,12 +41,12 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     // Start is called before the first frame update
     void Start()
     {
-
+  
         GameManager.GMInstance.ScrollManagerRef = this;
 
         /** 판넬이 위치한 거리크기는 전체 Value 1에서 전체 판넬갯수에서 -1을 해주면 된다. */
         m_Distance = 1.0f / (m_PanelSize - 1);
-        
+
         /** 각 판넬의 Value는 0, 0.25, 0.5, 0.75, 1로 저장된다 */
         for (int i = 0; i < m_PanelSize; i++)
         {
@@ -54,15 +54,17 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             m_Pos[i] = m_Distance * i;
         }
 
+        /** 시작할 때 홈 화면에서 시작 */
+        GetComponent<ScrollRect>().horizontalScrollbar.value = 0.5f;
+        scrollbar.value = 0.5f;
+        TapSlider.value = 0.5f;
+        OnClickTab(2);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-
-        /** TapSlider.value는 scrollbar.value와 동일하게 해준다. */
-        TapSlider.value = scrollbar.value;
 
         if (bIsDrag == false)
         {
@@ -108,7 +110,8 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             BtnImageRect[i].transform.GetChild(0).gameObject.SetActive(TextActive);
         }
 
-
+        /** TapSlider.value는 scrollbar.value와 동일하게 해준다. */
+        TapSlider.value = scrollbar.value;
     }
 
     /** IBeginDragHandler인터페이스 구현 (드래그 시작) */
@@ -131,7 +134,7 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     /** IDragHandler 인터페이스 구현 (드래그 중) */
     public void OnDrag(PointerEventData eventData)
     {
-       
+
     }
 
     /** IEndDragHandler 인터페이스 구현 (드래그 끝) */

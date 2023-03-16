@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
 
     Rigidbody2D rigid;
 
+    public float DiffDistance; 
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -32,12 +34,27 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        /** 캐릭터와 불릿사이의 거리 */
+        DiffDistance = Vector2.Distance(GameManager.GMInstance.Player.transform.position, transform.position);
+
+        if (DiffDistance >= 20.0f)
+        {
+            /** 속도를 0으로 해준다. */
+            rigid.velocity = Vector2.zero;
+            /** 총앟 비활성화 */
+            gameObject.SetActive(false);
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Monster") || m_Per == -1)
         {
             return;
         }
+
         /** 관통 -1 감소 */
         m_Per--;
 

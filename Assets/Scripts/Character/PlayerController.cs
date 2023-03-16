@@ -45,16 +45,22 @@ public class PlayerController : MonoBehaviour
         /** 만약 오브젝트 생성 시 현재 Scene이름이 PlayScene이라면 */
         else if (SceneManager.GetActiveScene().name == "PlayScene")
         {
-            /** DashBtn에 DashBtn이라는 이름을 가진 버튼을 넣어주고 */
-            DashBtn = GameObject.Find("DashBtn").GetComponent<Button>();
+
             /** FloatingJoystick타입의 조이스틱을 찾는다. */
             Joystick = FindObjectOfType<FloatingJoystick>();
+
+            #region DashBtn
+            /** TODO ## DashBtn 주석처리 */
+            /** DashBtn에 DashBtn이라는 이름을 가진 버튼을 넣어주고 */
+            // DashBtn = GameObject.Find("DashBtn").GetComponent<Button>();
+
             /** DashBtn이 연결 됬다면 */
-            if (DashBtn != null)
-            {
-                /** 클릭 시 함수 호출 */
-                DashBtn.onClick.AddListener(OnClickedDash);
-            }
+            // if (DashBtn != null)
+            // {
+            /** 클릭 시 함수 호출 */
+            // DashBtn.onClick.AddListener(OnClickedDash);
+            // }
+            #endregion
         }
 
         /** rigid가 Rigidbody2D컴포넌트의 기능에 접근할 수 있도록 한다. */
@@ -72,11 +78,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        #region DashBtnReturn
         /** DashBtn버튼 못찾았으면 return */
-        if (DashBtn == null)
-        {
-            return;
-        }
+        //if (DashBtn == null)
+        //{
+        //    return;
+        //}
+        #endregion
+
         /** Joystick 못 찾았으면 return */
         if (Joystick == null)
         {
@@ -142,22 +152,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    #region OnClickDash
+    //public void OnClickedDash()
+    //{
+    //    /** 만약 대쉬 상태가 false면 함수를 빠져나감 */
+    //    if (bIsDash == false)
+    //    {
+    //        return;
+    //    }
 
-    public void OnClickedDash()
-    {
-        /** 만약 대쉬 상태가 false면 함수를 빠져나감 */
-        if (bIsDash == false)
-        {
-            return;
-        }
+    //    /** velocity를 입력받은 값으로 키를 눌렸을 때 입력받은 값을 넣어준다. */
+    //    Vector3 velocity = new Vector3(m_InputVec.x, m_InputVec.y, 0);
 
-        /** velocity를 입력받은 값으로 키를 눌렸을 때 입력받은 값을 넣어준다. */
-        Vector3 velocity = new Vector3(m_InputVec.x, m_InputVec.y, 0);
+    //    /** 대시 스피드를 곱하여 더 멀리 캐릭터를 위치 시킨다. */
+    //    transform.position += velocity * Speed * DashSpeed * Time.deltaTime;
 
-        /** 대시 스피드를 곱하여 더 멀리 캐릭터를 위치 시킨다. */
-        transform.position += velocity * Speed * DashSpeed * Time.deltaTime;
-
-        /** 대시 이동이 끝나면 bIsDash를 false로 막아 무한으로 사용할 수 없게 한다. */
-        bIsDash = false;
-    }
+    //    /** 대시 이동이 끝나면 bIsDash를 false로 막아 무한으로 사용할 수 없게 한다. */
+    //    bIsDash = false;
+    //}
+    #endregion
 }

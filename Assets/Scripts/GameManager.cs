@@ -55,7 +55,7 @@ namespace My
 
         }
 
-        private void Update()
+        void Update()
         {
 
         }
