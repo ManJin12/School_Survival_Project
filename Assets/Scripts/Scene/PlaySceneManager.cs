@@ -7,17 +7,17 @@ using My;
 
 public class PlaySceneManager : MonoBehaviour
 {
+    public float PlayTime;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.GMInstance.CurrentScene = Define.ESceneType.PlayScene;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        PlayTime += Time.deltaTime;
+        GameManager.GMInstance.PlayTime = PlayTime;
     }
 
     public void OnClickBack()

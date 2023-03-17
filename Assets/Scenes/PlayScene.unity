@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f1d348cc69c72469cb8c75b39feb6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayTime: 0
 --- !u!4 &17448531
 Transform:
   m_ObjectHideFlags: 0
@@ -4554,6 +4555,7 @@ MonoBehaviour:
   - {fileID: 8915779844478252512, guid: 3e4f661fed118c44983b8e613b94ac38, type: 3}
   - {fileID: 1290697023241909572, guid: cff172590bec865479d4741dcd6cd8dc, type: 3}
   - {fileID: 6409695774621852417, guid: 8fd57a0af4562024c919b622cd339085, type: 3}
+  - {fileID: 1638940316986628442, guid: d8a896df2aeff874ebe6d9d8c1018b85, type: 3}
 --- !u!1 &121526879
 GameObject:
   m_ObjectHideFlags: 0
@@ -13710,61 +13712,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &780747920
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 780747922}
-  - component: {fileID: 780747921}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &780747921
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780747920}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1215aec69471d6428051a4b6cd65757, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerSpeed: 2
-  DashSpeed: 2
-  MonsterSpawnTime: 0.2
-  MonsterSpeed: 2
-  PoolManagerRef: {fileID: 0}
-  PlaySceneManagerRef: {fileID: 0}
-  ScrollManagerRef: {fileID: 0}
-  ImageChangeRef: {fileID: 0}
-  CurrentChar: 0
-  Player: {fileID: 0}
-  playerCtrl: {fileID: 0}
---- !u!4 &780747922
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780747920}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.417953, y: 9.759012, z: 5531.2817}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &834916289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14135,6 +14082,63 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1496613268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1496613270}
+  - component: {fileID: 1496613269}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1496613269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496613268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1215aec69471d6428051a4b6cd65757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayTime: 0
+  PlayerSpeed: 2.5
+  DashSpeed: 0
+  MonsterSpawnTime: 0.5
+  MonsterSpeed: 2
+  PoolManagerRef: {fileID: 0}
+  PlaySceneManagerRef: {fileID: 0}
+  ScrollManagerRef: {fileID: 0}
+  ImageChangeRef: {fileID: 0}
+  CurrentChar: 0
+  CurrentScene: 0
+  Player: {fileID: 0}
+  playerCtrl: {fileID: 0}
+--- !u!4 &1496613270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496613268}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -7.910373, y: -1.3665595, z: -0.09594294}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1609715993
 GameObject:
   m_ObjectHideFlags: 3

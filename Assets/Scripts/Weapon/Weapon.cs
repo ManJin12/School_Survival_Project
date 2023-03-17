@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (SceneManager.GetActiveScene().name != "PlayScene")
+        if (GameManager.GMInstance.CurrentScene != Define.ESceneType.PlayScene)
         {
             return;
         }
@@ -42,7 +42,7 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name != "PlayScene")
+        if (GameManager.GMInstance.CurrentScene != Define.ESceneType.PlayScene)
         {
             return;
         }
@@ -80,7 +80,7 @@ public class Weapon : MonoBehaviour
         /** TODO## Test 수정 */
         if (Input.GetButtonDown("Jump"))
         {
-            Levelup(20, 1);
+            Levelup(2, 1);
         }
     }
 
@@ -99,6 +99,7 @@ public class Weapon : MonoBehaviour
                 break;
 
             case 1:
+                
                 break;
 
             default:
@@ -110,7 +111,7 @@ public class Weapon : MonoBehaviour
     /** 스킬 레벨업 시 효과 */
     public void Levelup(float damage, int count)
     {
-        this.damage = damage;
+        this.damage += damage;
         this.count += count;
 
         if (id == 0)
@@ -145,20 +146,20 @@ public class Weapon : MonoBehaviour
             bullet.localRotation = Quaternion.identity;
 
             /** 생성된 Weopon을 위치시킬 각도 계산 */
-            Vector3 rotVec = Vector3.forward * 360 * index / count;
+            Vector3 rotVec = Vector3.back * 360 * index / count;
             /** bullet의 각도는 rotVec으로 한다 */
             bullet.Rotate(rotVec);
             /** bullet의 위치는 Space.World 기준으로 up방향으로 0.8만큼 위로 위치 */
             bullet.Translate(bullet.up * 0.8f, Space.World);
             /** bullet의 scale은 1.2로 만든다 */
-            bullet.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            bullet.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
             /** bullet의 스크립트에있는 Init함수를 들고온다. */
             bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // -1 is Infinity per.
         }
     }
     #endregion
 
-    #region Fire()
+    #region Far Weapon Fire
     void Fire()
     {
         /** 플레이어 컨트롤러에서 스캔된 가까운 적이없으면 return */

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using My;
+using static Define;
+
 public class CharacterSpawn : MonoBehaviour
 {
     public GameObject[] CharPrefabs;
     GameObject Player;
 
-    public CharType CurrentCharType;
+    public ECharacterType CurrentCharType;
 
     // Start is called before the first frame update
     void Start()

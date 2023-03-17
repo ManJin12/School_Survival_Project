@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using My;
+using static Define;
 
 public class ImageChange : MonoBehaviour
 {
     /** 캐릭터 스프라이트 저장할 배열 변수 */
     public Sprite[] CharImage;
     /** 현재 캐릭터 타입 확인용 */
-    public CharType ECurrentCharacter;
+    public ECharacterType ECurrentCharacter;
 
     /** Image에 접근할 변수 선언 */
     public Image m_Image;

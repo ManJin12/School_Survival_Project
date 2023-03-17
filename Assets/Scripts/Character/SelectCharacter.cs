@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using My;
+using static Define;
+
 public class SelectCharacter : MonoBehaviour
 {
     /** 캐릭터 타입 관련 */
-    public CharType Enum_character;
+    public ECharacterType Enum_character;
 
     [HideInInspector]
     /** 캐릭터 저장 공간 */

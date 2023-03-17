@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using static Define;
 
 namespace My
 {
     /** TODO ## GamaManager Script */
     public class GameManager : MonoBehaviour
     {
-        [Header("-----this-----")]
         /** GameManager타입의 메모리를 미리 확보해 둔다. */
         public static GameManager GMInstance;
+        [Header("-----InGameData-----")]
+        public float PlayTime;
 
         [Header("-----PlayerData-----")]
         public float PlayerSpeed;
@@ -33,7 +35,10 @@ namespace My
         GameObject SceneSelectManager;
 
         [Header("-----CharacterType-----")]
-        public CharType CurrentChar;
+        public ECharacterType CurrentChar;
+
+        [Header("-----CharacterType-----")]
+        public ESceneType CurrentScene;
 
         [Header("-----GameObject-----")]
         public GameObject Player;
@@ -48,16 +53,6 @@ namespace My
 
             /** 화면이 바껴도 클래스 유지 */
             DontDestroyOnLoad(gameObject);
-        }
-
-        void Start()
-        {
-
-        }
-
-        void Update()
-        {
-
         }
     }
 }

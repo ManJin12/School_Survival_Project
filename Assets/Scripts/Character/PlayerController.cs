@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 m_InputVec;
     /** VariableJoystick 스크립트를 Joystick라고 선언해준다. */
     // public VariableJoystick Joystick;
+
     /** 캐릭터 속도 값 */
     public float Speed;
     /** SpriteRenderer기능을 사용할 수 있도록 sprite이름의 변수 선언 */
@@ -27,9 +28,9 @@ public class PlayerController : MonoBehaviour
 
     float DashDirection;
     public bool bIsDash = true;
-    public float DashSpeed;
-    public float DashCooltime = 5.0f;
-    public float RemainingDashCoolTime = 5.0f;
+    // public float DashSpeed;
+    // public float DashCooltime = 5.0f;
+    // public float RemainingDashCoolTime = 5.0f;
 
     public FloatingJoystick Joystick;
 
@@ -37,13 +38,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         /** 만약 Scene이름이  PlayScene이 아니라면 */
-        if (SceneManager.GetActiveScene().name != "PlayScene")
+        if (GameManager.GMInstance.CurrentScene != Define.ESceneType.PlayScene)
         {
             /** 스크립트 비활성화 */
             enabled = false;
         }
         /** 만약 오브젝트 생성 시 현재 Scene이름이 PlayScene이라면 */
-        else if (SceneManager.GetActiveScene().name == "PlayScene")
+        if (GameManager.GMInstance.CurrentScene == Define.ESceneType.PlayScene)
         {
 
             /** FloatingJoystick타입의 조이스틱을 찾는다. */
@@ -63,6 +64,7 @@ public class PlayerController : MonoBehaviour
             #endregion
         }
 
+
         /** rigid가 Rigidbody2D컴포넌트의 기능에 접근할 수 있도록 한다. */
         m_rigid = GetComponent<Rigidbody2D>();
         /** sprite가 SpriteRenderer컴포넌트의 기능에 접근할 수 있도록 한다. */
@@ -70,7 +72,7 @@ public class PlayerController : MonoBehaviour
         /** anim이 Animator컴포넌트의 기능에 접근할 수 있도록 한다. */
         m_anim = GetComponent<Animator>();
         /** DashSpeed는 GameManager.GMInstance.DashSpeed로 바꾼다. */
-        DashSpeed = GameManager.GMInstance.DashSpeed;
+        // DashSpeed = GameManager.GMInstance.DashSpeed;
         scanner = GetComponent<Scanner>();
     }
 
@@ -103,19 +105,19 @@ public class PlayerController : MonoBehaviour
         m_InputVec.y = Joystick.Vertical;
 
         /** bIsDash가 false면 RemainingDashCoolTime을 깎아준다 */
-        if (bIsDash == false)
-        {
-            RemainingDashCoolTime -= Time.deltaTime;
-        }
+        //if (bIsDash == false)
+        //{
+        //    RemainingDashCoolTime -= Time.deltaTime;
+        //}
 
         /** RemainingDashCoolTime이 0보다 작거나 같으면 */
-        if (RemainingDashCoolTime <= 0)
-        {
-            /** 대쉬가 가능해진다. */
-            bIsDash = true;
-            /** 줄어드는 쿨타임을 설정된 대쉬의 쿨타임으로 바꿔준다. */
-            RemainingDashCoolTime = DashCooltime;
-        }
+        //if (RemainingDashCoolTime <= 0)
+        //{
+        //    /** 대쉬가 가능해진다. */
+        //    bIsDash = true;
+        //    /** 줄어드는 쿨타임을 설정된 대쉬의 쿨타임으로 바꿔준다. */
+        //    RemainingDashCoolTime = DashCooltime;
+        //}
     }
 
     /** 물리 연산 프레임마다 호출되는 생명주기 함수 */
@@ -126,7 +128,7 @@ public class PlayerController : MonoBehaviour
         newVec은 m_InputVec의 대각선 이동 시 크기가 다르기 때문에 1의값을 반환받을 수 있도록
         normalize를 사용한다. Speed변수로 속력의 크기를 곱하고 물리프레임 하나가 소비한 시간을 곱해준다.
         */
-        Vector2 newVec = m_InputVec.normalized * Speed * Time.fixedDeltaTime;
+        Vector2 newVec = m_InputVec.normalized * GameManager.GMInstance.PlayerSpeed * Time.fixedDeltaTime;
         m_rigid.MovePosition(m_rigid.position + newVec);
     }
 

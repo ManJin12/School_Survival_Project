@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
-/** 캐릭터 타입 */
-public enum CharType
-{
-    BoyChar,
-    GirlChar,
-    OldBoyChar,
-    YoungChar,
-}
+using My;
 
 public class SelectSceneManager : MonoBehaviour
 {
+    private void Start()
+    {
+        GameManager.GMInstance.CurrentScene = Define.ESceneType.DungeonSelectScene;
+    }
+
 
     public void OnClickLobby_Btn()
     {

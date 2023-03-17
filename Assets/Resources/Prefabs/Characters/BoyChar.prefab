@@ -167,9 +167,6 @@ MonoBehaviour:
   scanner: {fileID: 0}
   DashBtn: {fileID: 0}
   bIsDash: 1
-  DashSpeed: 0
-  DashCooltime: 5
-  RemainingDashCoolTime: 5
   Joystick: {fileID: 0}
 --- !u!95 &144254074567364356
 Animator:
@@ -481,7 +478,7 @@ MonoBehaviour:
   damage: 3
   count: 0
   per: 0
-  speed: 1
+  speed: 100
   TargetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1732781895563312693
 GameObject:
@@ -685,7 +682,7 @@ MonoBehaviour:
   id: 0
   prefabId: 4
   damage: 5
-  count: 1
+  count: 0
   per: 0
   speed: 0
   TargetPos: {x: 0, y: 0, z: 0}

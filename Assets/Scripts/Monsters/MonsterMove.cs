@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using My;
+using static Define;
+
 public class MonsterMove : MonoBehaviour
 {
     /** 물리적으로 따라갈 타겟 */
@@ -15,9 +15,11 @@ public class MonsterMove : MonoBehaviour
     /** 이 클래스를 가진 오브젝트 SpritrRenderer접근을 위한 선언 */
     SpriteRenderer sprite;
 
+    public EMonsterType CurrentMonsterType;
+
     public GameObject PlayerFind;
 
-    public float health = 10;
+    public float health = 20;
 
     void Start()
     {
@@ -35,6 +37,26 @@ public class MonsterMove : MonoBehaviour
 
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+
+        /** TODO ## 몬스터 타입 정하기 */
+        #region MonsterType
+        if (gameObject.name == "Monster_A(Clone)")
+        {
+            CurrentMonsterType = EMonsterType.MonsterTypeA;
+        }
+        else if (gameObject.name == "Monster_B(Clone)")
+        {
+            CurrentMonsterType = EMonsterType.MonsterTypeB;
+        }
+        else if (gameObject.name == "Monster_C(Clone)")
+        {
+            CurrentMonsterType = EMonsterType.MonsterTypeC;
+        }
+        else if (gameObject.name == "Monster_D(Clone)")
+        {
+            CurrentMonsterType = EMonsterType.MonsterTypeD;
+        }
+        #endregion
     }
 
     void Update()
@@ -44,7 +66,7 @@ public class MonsterMove : MonoBehaviour
             return;
         }
 
-        sprite.flipX = Target.position.x < rigid.position.x;
+        
     }
 
     void FixedUpdate()
@@ -69,6 +91,9 @@ public class MonsterMove : MonoBehaviour
 
         /** 물리적 속력 0으로 */
         rigid.velocity = Vector2.zero;
+
+        /** 몬스터 방향 전환 */
+        sprite.flipX = Target.position.x < rigid.position.x;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

@@ -3,19 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using My;
 
 public class TitleSceneManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        /** ÇöÀç ¾À ·Îºñ */
+        GameManager.GMInstance.CurrentScene = Define.ESceneType.TitleScene;
     }
 
     public void OnClickGameStart()
