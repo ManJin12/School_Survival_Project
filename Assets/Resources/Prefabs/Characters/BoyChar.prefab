@@ -478,7 +478,7 @@ MonoBehaviour:
   damage: 3
   count: 0
   per: 0
-  speed: 1
+  speed: 10
   TargetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1732781895563312693
 GameObject:
