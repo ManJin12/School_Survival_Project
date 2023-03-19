@@ -14114,7 +14114,7 @@ MonoBehaviour:
   PlayerSpeed: 2.5
   DashSpeed: 0
   MonsterSpawnTime: 0.5
-  MonsterSpeed: 2
+  MonsterSpeed: 1
   PoolManagerRef: {fileID: 0}
   PlaySceneManagerRef: {fileID: 0}
   ScrollManagerRef: {fileID: 0}

@@ -1,6 +1,9 @@
 using UnityEngine;
 using My;
 using static Define;
+//IEnumerator : 코루틴만의 반환형 인터페이스 = 가져오기 위해 밑에 5,6번 줄 추가
+using System.Collections;
+using System.Collections.Generic;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -21,6 +24,14 @@ public class MonsterMove : MonoBehaviour
 
     public float health = 20;
 
+    Animator anim;
+    WaitForFixedUpdate wait;
+    Collider2D coll;
+    
+    void Awake()
+    {
+        wait = new WaitForFixedUpdate();
+    }
     void Start()
     {
         if (PlayerFind == null)
@@ -37,6 +48,15 @@ public class MonsterMove : MonoBehaviour
 
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+
+        anim = GetComponent<Animator>();
+        coll = GetComponent<Collider2D>();
+
+        bIsLive = true;
+        coll.enabled = true;
+        rigid.simulated = true;
+        sprite.sortingOrder = 2;
+        anim.SetBool("Dead", false);
 
         /** TODO ## 몬스터 타입 정하기 */
         #region MonsterType
@@ -75,7 +95,8 @@ public class MonsterMove : MonoBehaviour
         {
             return;
         }
-
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+            return;
         /** TODO ## 몬스터 이동 구현 */
         /** 몬스터와 플레이어의 위치 차이(방향값이 나옴) */
         Vector2 DirVec = Target.position - rigid.position;
@@ -96,6 +117,16 @@ public class MonsterMove : MonoBehaviour
         sprite.flipX = Target.position.x < rigid.position.x;
     }
 
+    /*void OnEnable()
+    {
+        // 재활용하기 위해
+        bIsLive = true;
+        coll.enabled = true;
+        rigid.simulated = true;
+        sprite.sortingOrder = 2;
+        anim.SetBool("Dead", false);
+    }*/
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         /** 태그가 Bullet이 아니라면 return */
@@ -104,18 +135,36 @@ public class MonsterMove : MonoBehaviour
 
         /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
         health -= collision.GetComponent<Bullet>().m_Damage;
+        StartCoroutine(KnockBack());
 
         /** health 0보다 크면 몬스터가 살아있다면 */ 
         if (health > 0)
         {
-
+            //피격 부분에 애니메이터를 호출하여 상태 변경
+            anim.SetTrigger("Hit");
         }
         /** 몬스터가 죽으면 */
         else
         {
+            // 몬스터가 죽었으므로 비활성화
+            bIsLive = false;
+            coll.enabled = false;
+            rigid.simulated = false;
+            sprite.sortingOrder = 1;
+            //죽는 애니메이션
+            anim.SetBool("Dead", true);
             /** 함수 호출 */
-            Dead();
+            //Dead();
         }
+    }
+
+    IEnumerator KnockBack()
+    {
+        yield return wait; // 다음 하나의 물리 프레임 딜레이
+        Vector3 playerpos = GameManager.GMInstance.Player.transform.position;
+        Vector3 dirVec = transform.position - playerpos;
+        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
+        
     }
 
     void Dead()
