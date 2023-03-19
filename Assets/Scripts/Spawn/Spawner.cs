@@ -17,6 +17,11 @@ public class Spawner : MonoBehaviour
 
     float m_PlayTime;
 
+    /** 몬스터 능력 Init변수 */
+    public float MonsterSpeed;
+    public float MonsterMaxHp;
+    public float MonsterCurrentSpeed;
+
     private void Awake()
     {
         /** 배열로 생성된 Spawn포인트는 이 오브젝트의 자식들이 들어간다. */

@@ -476,7 +476,7 @@ MonoBehaviour:
   id: 1
   prefabId: 5
   damage: 0
-  NormalAttack: 10
+  NormalAttack: 5
   count: 0
   per: 0
   speed: 1
