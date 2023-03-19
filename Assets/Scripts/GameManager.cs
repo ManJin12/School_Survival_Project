@@ -30,6 +30,7 @@ namespace My
         public PlaySceneManager PlaySceneManagerRef;
         public ScrollManager ScrollManagerRef;
         public ImageChange ImageChangeRef;
+        public CharacterDataManager CharacterDataManagerRef;
 
         [Header("-----PlaySceneObject-----")]
         GameObject SceneSelectManager;

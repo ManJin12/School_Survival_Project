@@ -14,6 +14,10 @@ public class Weapon : MonoBehaviour
 
     /** 무기가 주는 공격력 damage */
     public float damage;
+
+    /** 무기가 주는 공격력 damage */
+    public float NormalAttack;
+
     /** count 웨폰의 개수 */
     public int count;
     /** 불릿 몬스터 관통 횟수 */
@@ -99,7 +103,6 @@ public class Weapon : MonoBehaviour
                 break;
 
             case 1:
-                
                 break;
 
             default:
@@ -108,14 +111,20 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    /** TODO ## 스킬 레벨업 */
     /** 스킬 레벨업 시 효과 */
-    public void Levelup(float damage, int count)
+    public void Levelup(float _damage, int _count)
     {
-        this.damage += damage;
-        this.count += count;
-
+        /** id가 0이면 */
         if (id == 0)
+        {
+           /** Batch함수 호출 */
             Batch();
+            /** 매개변수만큼 데미지 증가 */
+            this.damage += _damage;
+            /** 매개변수만큼 수량 증가 */
+            this.count += _count;
+        }
     }
 
     #region Near Weapon Batch
@@ -184,7 +193,7 @@ public class Weapon : MonoBehaviour
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, TargetDir);
 
-        bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
+        bullet.GetComponent<Bullet>().Init(NormalAttack, per, TargetDir);
     }
     #endregion
 }

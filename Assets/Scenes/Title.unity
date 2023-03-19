@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 324139377}
+  - component: {fileID: 324139378}
   m_Layer: 0
   m_Name: CharacterDataMgr
   m_TagString: Untagged
@@ -154,6 +155,22 @@ Transform:
   m_Father: {fileID: 2026644383}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &324139378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 324139376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b6f60229d76ba48839490139fb74ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CharacterHp_Up: 0
+  CharacterDamage_Up: 0
+  CharacterDefense_Up: 0
+  CharacterSpeed_Up: 0
 --- !u!1 &587830084
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,6 +770,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1215aec69471d6428051a4b6cd65757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayTime: 0
   PlayerSpeed: 1
   DashSpeed: 5
   MonsterSpawnTime: 0.2
@@ -761,7 +779,9 @@ MonoBehaviour:
   PlaySceneManagerRef: {fileID: 0}
   ScrollManagerRef: {fileID: 0}
   ImageChangeRef: {fileID: 0}
+  CharacterDataManagerRef: {fileID: 0}
   CurrentChar: 0
+  CurrentScene: 0
   Player: {fileID: 0}
   playerCtrl: {fileID: 0}
 --- !u!1 &2039001662
