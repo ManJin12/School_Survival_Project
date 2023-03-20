@@ -10,6 +10,33 @@ namespace My
     /** TODO ## GamaManager Script */
     public class GameManager : MonoBehaviour
     {
+        public float gameTime;
+        public float maxGameTime = 2 * 10f;
+
+
+        [Header("# Player Info")]
+        public int Health;
+        public int MaxHealth = 100;
+        public int level;
+        public int killcount;
+        public int exp;
+        public int[] nextExp = { 10, 30, 60, 100, 150, 210, 280, 360, 450, 600 };
+
+        void Update()
+        {
+            gameTime += Time.deltaTime;
+
+            if (gameTime > maxGameTime)
+            {
+                gameTime = maxGameTime;
+            }
+        }
+        void Start()
+        {
+            Health = MaxHealth;
+        }
+
+
         /** GameManager타입의 메모리를 미리 확보해 둔다. */
         public static GameManager GMInstance;
         [Header("-----InGameData-----")]
@@ -56,6 +83,18 @@ namespace My
 
             /** 화면이 바껴도 클래스 유지 */
             DontDestroyOnLoad(gameObject);
+        }
+
+        public void GetExp()
+        {
+            exp++;
+            
+            if(exp == nextExp[level])
+            {
+                level++;
+                exp = 0;
+
+            }
         }
     }
 }

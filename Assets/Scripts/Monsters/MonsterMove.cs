@@ -136,7 +136,7 @@ public class MonsterMove : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         /** 태그가 Bullet이 아니라면 return */
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") || !bIsLive)
         {
             /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
             CurrentMonsterHp -= collision.GetComponent<Bullet>().m_Damage;
@@ -169,6 +169,10 @@ public class MonsterMove : MonoBehaviour
             // 죽는 애니메이션
             anim.SetBool("Dead", true);
             /** 함수 호출 */
+            GameManager.GMInstance.killcount++;
+            // 몬스터 사망 시 킬수 증가 함수 호출
+            GameManager.GMInstance.GetExp();
+            // 몬스터 사망 시 경험치 함수 호출
             // Dead();
         }
     }
