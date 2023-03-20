@@ -12,6 +12,7 @@ TagManager:
   - DashBtn
   - ScrollParent
   - Bullet
+  - Skill
   layers:
   - Default
   - TransparentFX

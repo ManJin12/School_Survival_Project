@@ -43,6 +43,7 @@ public class Define
 
     public enum ESkillType
     {
+        Skill_Mateo,
 
     }
 }

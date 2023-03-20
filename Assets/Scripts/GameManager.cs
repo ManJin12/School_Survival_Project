@@ -31,6 +31,8 @@ namespace My
         public ScrollManager ScrollManagerRef;
         public ImageChange ImageChangeRef;
         public CharacterDataManager CharacterDataManagerRef;
+        public SkillManager SkillManagerRef;
+        public MonsterMove MonsterMoveRef;
 
         [Header("-----PlaySceneObject-----")]
         GameObject SceneSelectManager;

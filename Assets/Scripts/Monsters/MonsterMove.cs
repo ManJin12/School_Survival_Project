@@ -41,6 +41,7 @@ public class MonsterMove : MonoBehaviour
     }
     void Start()
     {
+        GameManager.GMInstance.MonsterMoveRef = this;
         #region PlayerFind
         //if (playerfind == null)
         //{
@@ -135,14 +136,20 @@ public class MonsterMove : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         /** 태그가 Bullet이 아니라면 return */
-        if (!collision.CompareTag("Bullet"))
-            return;
+        if (collision.CompareTag("Bullet"))
+        {
+            /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
+            CurrentMonsterHp -= collision.GetComponent<Bullet>().m_Damage;
+            StartCoroutine(KnockBack());
+        }
 
-        /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
-        CurrentMonsterHp -= collision.GetComponent<Bullet>().m_Damage;
-        StartCoroutine(KnockBack());
+        if (collision.CompareTag("Skill"))
+        {
+            /** 메테오 데미지 매개변수로 함수 호출 */
+            GetDamage(GameManager.GMInstance.SkillManagerRef.MateoDamage);
+        }
 
-        /** health 0보다 크면 몬스터가 살아있다면 */ 
+        /** health 0보다 크면 몬스터가 살아있다면 */
         if (CurrentMonsterHp > 0)
         {
             //피격 부분에 애니메이터를 호출하여 상태 변경
@@ -185,5 +192,11 @@ public class MonsterMove : MonoBehaviour
     {
         /** 게임 오브젝트 비활성화 */
         gameObject.SetActive(false);
+    }
+
+    /** 데이미지를 받음 */
+    public void GetDamage(float _damage)
+    {
+        CurrentMonsterHp -= _damage; 
     }
 }
