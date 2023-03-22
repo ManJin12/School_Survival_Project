@@ -770,8 +770,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1215aec69471d6428051a4b6cd65757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTime: 0
+  maxGameTime: 20
+  Health: 0
+  MaxHealth: 100
+  level: 0
+  killcount: 0
+  exp: 0
+  nextExp: 0a0000001e0000003c0000006400000096000000d20000001801000068010000c201000058020000
   PlayTime: 0
-  PlayerSpeed: 1
+  PlayerSpeed: 2
   DashSpeed: 5
   MonsterSpawnTime: 0.2
   MonsterSpeed: 1
@@ -780,6 +788,8 @@ MonoBehaviour:
   ScrollManagerRef: {fileID: 0}
   ImageChangeRef: {fileID: 0}
   CharacterDataManagerRef: {fileID: 0}
+  SkillManagerRef: {fileID: 0}
+  MonsterMoveRef: {fileID: 0}
   CurrentChar: 0
   CurrentScene: 0
   Player: {fileID: 0}

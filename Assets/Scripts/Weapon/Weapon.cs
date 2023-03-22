@@ -161,7 +161,7 @@ public class Weapon : MonoBehaviour
             /** bullet의 위치는 Space.World 기준으로 up방향으로 0.8만큼 위로 위치 */
             bullet.Translate(bullet.up * 0.8f, Space.World);
             /** bullet의 scale은 1.2로 만든다 */
-            bullet.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
+            bullet.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             /** bullet의 스크립트에있는 Init함수를 들고온다. */
             bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // -1 is Infinity per.
         }

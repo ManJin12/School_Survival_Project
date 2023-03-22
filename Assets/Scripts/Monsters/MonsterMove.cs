@@ -135,14 +135,21 @@ public class MonsterMove : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        /** 태그가 Bullet이 아니라면 return */
-        if (collision.CompareTag("Bullet") || !bIsLive)
+        /** 몬스터가 살아있지 않다면 */
+        if (!bIsLive)
+        {
+            return;
+        }
+
+        /** 태그가 Bullet이면 */
+        if (collision.CompareTag("Bullet"))
         {
             /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
-            CurrentMonsterHp -= collision.GetComponent<Bullet>().m_Damage;
+            GetDamage(collision.GetComponent<Bullet>().m_Damage);
             StartCoroutine(KnockBack());
         }
 
+        /** 몬스터가 스킬에 닿았다면 */
         if (collision.CompareTag("Skill"))
         {
             /** 메테오 데미지 매개변수로 함수 호출 */

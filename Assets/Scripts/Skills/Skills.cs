@@ -25,6 +25,11 @@ public class Skills : MonoBehaviour
 
     void Start()
     {
+        if (GameManager.GMInstance.CurrentScene != ESceneType.PlayScene)
+        {
+            enabled = false;
+            return;
+        }
         /** 플레이어 찾음 */
         Player = GameManager.GMInstance.Player;
 
