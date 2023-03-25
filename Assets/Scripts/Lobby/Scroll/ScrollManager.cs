@@ -145,7 +145,7 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         m_TargetPos = SetPos();
 
-        /** TODO ## 로비 화면 이동 전환 로직 */
+        /** TODO ## ScrollManager.cs 로비 화면 이동 전환 로직 */
         for (int i = 0; i < m_PanelSize; i++)
         {
             /** 만약 드래그가 끝났을을 때 현재 scroll.value가 m_Pos[i]에 저장된 value의 절반보다 작거나 클때. */
@@ -161,7 +161,7 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
 
-    /** TODO ## 로비 매니저 스크롤 수직 이동관련 */
+    /** TODO ## ScrollManager.cs 로비 매니저 스크롤 수직 이동관련 */
     void VerticalScroll()
     {
         /** 목표가 수직 스크롤이고, 화면을 옆에서 옮겨왔다면 수직 스크롤을 맨 아래로 내린다. */

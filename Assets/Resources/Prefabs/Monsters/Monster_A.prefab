@@ -246,7 +246,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   CurrentMonsterType: 0
   PlayerFind: {fileID: 0}
-  health: 10
+  CurrentMonsterHp: 20
 --- !u!114 &3040397504322174512
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -19,6 +19,11 @@ public class Bullet : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        
+    }
+
     public void Init(float damage, int per, Vector3 dir)
     {
         /** m_Damage는 매개변수로 받은 _damage */

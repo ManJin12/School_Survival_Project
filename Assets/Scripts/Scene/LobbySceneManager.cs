@@ -10,7 +10,7 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject[] SelectCharacterPrefabs;
     public GameObject MyCharacter;
 
-    /** TODO ## 캐릭터 능력치 증가 변수 */
+    /** TODO ## LobbyManager.cs 캐릭터 능력치 증가 변수 */
     public int Up_Hp;
     public int Up_Damage;
     public int Up_Defense;

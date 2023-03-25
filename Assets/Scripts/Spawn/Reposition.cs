@@ -43,7 +43,7 @@ public class Reposition : MonoBehaviour
         float DirY = PlayerDir.y < 0 ? -1 : 1;
 
 
-        /** TODO ## 몬스터 및 타일 재배치 로직 */
+        /** TODO ## Resposition.cs 몬스터 및 타일 재배치 로직 */
         switch (transform.tag)
         {
             case "Ground":

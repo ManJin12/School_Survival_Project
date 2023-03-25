@@ -22,7 +22,7 @@ public class HUD : MonoBehaviour
     {
         switch (type)
         {
-            /** TODO ## 최대 레벨 도달 시 게임 끊김 수정 요함 */
+            /** TODO ## HUD.cs 최대 레벨 도달 시 게임 끊김 수정 요함 */
             case InfoType.Exp:
                 float curExp = GameManager.GMInstance.exp;
                 float maxExp = GameManager.GMInstance.nextExp[GameManager.GMInstance.level];

@@ -81,7 +81,7 @@ public class Weapon : MonoBehaviour
 
         }
 
-        /** TODO## Test 수정 */
+        /** TODO ## Weapon.cs Test 수정 */
         if (Input.GetButtonDown("Jump"))
         {
             Levelup(2, 1);
@@ -111,7 +111,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
-    /** TODO ## 스킬 레벨업 */
+    /** TODO ## Weapon.cs 스킬 레벨업 */
     /** 스킬 레벨업 시 효과 */
     public void Levelup(float _damage, int _count)
     {
@@ -127,6 +127,7 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    /** TODO ## Weapon.cs ## 근접 무기 */
     #region Near Weapon Batch
     void Batch()
     {
@@ -168,6 +169,7 @@ public class Weapon : MonoBehaviour
     }
     #endregion
 
+    /** TODO ## Weapon.cs 원거리 무기 */
     #region Far Weapon Fire
     void Fire()
     {

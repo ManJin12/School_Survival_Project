@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
             Joystick = FindObjectOfType<FloatingJoystick>();
 
             #region DashBtn
-            /** TODO ## DashBtn 주석처리 */
+            /** TODO ## PlayerController.cs DashBtn 주석처리 */
             /** DashBtn에 DashBtn이라는 이름을 가진 버튼을 넣어주고 */
             // DashBtn = GameObject.Find("DashBtn").GetComponent<Button>();
 
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        /** TODO ## TEST용 Input */
+        /** TODO ## PlayerController.cs TEST용 Input */
         // m_InputVec.x = Input.GetAxisRaw("Horizontal");
         // m_InputVec.y = Input.GetAxisRaw("Vertical");
 
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour
     /** 물리 연산 프레임마다 호출되는 생명주기 함수 */
     void FixedUpdate()
     {
-        /** TODO ## 위치 이동 관련 */
+        /** TODO ## PlayerController.cs 위치 이동 관련 */
         /**
         newVec은 m_InputVec의 대각선 이동 시 크기가 다르기 때문에 1의값을 반환받을 수 있도록
         normalize를 사용한다. Speed변수로 속력의 크기를 곱하고 물리프레임 하나가 소비한 시간을 곱해준다.
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
     void LateUpdate()
     {
         
-        /** TODO ## 애니메이션 설정 */
+        /** TODO ## PlayerController.cs 애니메이션 설정 */
         /** 만약 입력받은 x값이 있다면(움직이는 중 이라면) */
         if(m_InputVec.x != 0)
         {

@@ -49,7 +49,7 @@ public class Spawner : MonoBehaviour
         /** 게임 전체 시간 */
         m_PlayTime = GameManager.GMInstance.PlayTime;
 
-        /** TODO ## 몬스터 생성 로직 */
+        /** TODO ## Spawner.cs 몬스터 생성 로직 */
         /** m_timer는 업데이트 함수가 호출되는 프레임마다 증가 */
         m_timer += Time.deltaTime;
 
@@ -66,7 +66,7 @@ public class Spawner : MonoBehaviour
         WaveLevelUp();
     }
 
-    /** TODO ## 몬스터 생성 함수 */
+    /** TODO ## Spawner.cs 몬스터 생성 함수 */
     void Spawn(int _spawnlevel)
     {
         /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
 
     void WaveLevelUp()
     {
-        /** TODO ## 몬스터 종류 스폰 제어 */
+        /** TODO ## Spawner.cs 몬스터 종류 스폰 제어 */
         if (m_PlayTime > WaveLevelUpTime)
         {
             /** 스폰단계가 저장되있는 인덱스보다 크면 리턴 */

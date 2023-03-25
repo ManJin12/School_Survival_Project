@@ -51,6 +51,9 @@ namespace My
         public float MonsterSpawnTime;
         /** 몬스터 이동속도 */
         public float MonsterSpeed;
+        /** TODO ## GameManager 몬스터 Init함수 */
+        public float MonsterMaxHp;
+        public float MonsterCurrentSpeed;
 
         [Header("-----ManagerRef-----")]
         public PoolManager PoolManagerRef;

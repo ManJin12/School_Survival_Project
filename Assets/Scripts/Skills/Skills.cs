@@ -39,11 +39,11 @@ public class Skills : MonoBehaviour
             /** Skills_ID는 스킬이 저장된 인덱스 번호가 된다 */
             Skills_ID = (int)ESkillType.Skill_Mateo;
             /** 중력값은 랜덤으로 준다 */
-            rigid.gravityScale = Random.Range(1, 3);
+            rigid.gravityScale = Random.Range(3, 5);
             /** 사라질 순간의 y값을 랜덤으로 준다. */
             DestroySkillLength = Random.Range(Player.transform.position.y - 4.5f, Player.transform.position.y + 4.5f);
             /** 크기를 0.5만큼한다 */
-            gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
     }
 

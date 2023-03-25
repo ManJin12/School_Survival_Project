@@ -4968,6 +4968,8 @@ MonoBehaviour:
   DashSpeed: 0
   MonsterSpawnTime: 0.2
   MonsterSpeed: 1
+  MonsterMaxHp: 0
+  MonsterCurrentSpeed: 0
   PoolManagerRef: {fileID: 0}
   PlaySceneManagerRef: {fileID: 0}
   ScrollManagerRef: {fileID: 0}

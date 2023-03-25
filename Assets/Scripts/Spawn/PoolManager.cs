@@ -31,7 +31,7 @@ public class PoolManager : MonoBehaviour
     }
 
 
-    /** TODO ## 몬스터 유형 반환 함수 */
+    /** TODO ## PoolManager.cs 몬스터 유형 반환 함수 */
     public GameObject Get(int index)
     {
         GameObject m_Select = null;
