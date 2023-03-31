@@ -80,7 +80,7 @@ public class Spawner : MonoBehaviour
 
     void WaveLevelUp()
     {
-        /** TODO ## Spawner.cs 몬스터 종류 스폰 제어 */
+        /** TODO ## Spawner.cs 몬스터 종류 스폰 제어 레벨디자인 필요 */
         if (m_PlayTime > WaveLevelUpTime)
         {
             /** 스폰단계가 저장되있는 인덱스보다 크면 리턴 */
@@ -91,7 +91,10 @@ public class Spawner : MonoBehaviour
             /** 스폰단계를 올린다. */
             SpawnLevel++;
 
-            /** 다음 종류의 몬스터를 위해서 시간을 추가한다. */
+            /** 
+            다음 종류의 몬스터를 생성하기 위해서 시간을 추가한다.
+            EX 10초마다 새로운 종류의 몬스터가 생성된다
+            */
             WaveLevelUpTime += 10;
         }
     }
