@@ -24,12 +24,23 @@ public class Weapon : MonoBehaviour
     public int per;
     /** 웨폰 회전속도 */
     public float speed;
+    /** 데미지 증가 폭 */
+    public float UpDamage;
+    /** 개수 증가 */
+    public int UpCount;
+    public int Index = 0;
+
 
     PlayerController PlayerCtrl;
 
     float Timer;
 
     public Vector3 TargetPos;
+
+    private void Awake()
+    {
+        PlayerCtrl = GameManager.GMInstance.playerCtrl;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -38,9 +49,6 @@ public class Weapon : MonoBehaviour
         {
             return;
         }
-
-        PlayerCtrl = GetComponentInParent<PlayerController>();
-        Init();
     }
 
     // Update is called once per frame
@@ -82,15 +90,36 @@ public class Weapon : MonoBehaviour
         }
 
         /** TODO ## Weapon.cs Test 수정 */
-        if (Input.GetButtonDown("Jump"))
-        {
-            Levelup(2, 1);
-        }
+        //if (Input.GetButtonDown("Jump"))
+        //{
+        //    Levelup(2, 1);
+        //}
     }
 
     /** 시작할 때 호출되는 Init함수 */
-    public void Init()
+    public void Init(SkillData data)
     {
+        /** TODO ## 스킬 데이터 초기화 */
+        //Basic Set
+        name = "weapon " + data.Skill_Id;
+        transform.parent = GameManager.GMInstance.Player.transform;
+        transform.localPosition = Vector3.zero;
+
+        // Property Set
+        id = data.Skill_Id;
+        damage = data.baseDamage;
+        count = data.baseCount;
+        speed = data.SkillSpeed;
+
+        for(int index = 0; index < GameManager.GMInstance.PoolManagerRef.MonsterPrefabs.Length; index++)
+        {
+            if(data.projectile == GameManager.GMInstance.PoolManagerRef.MonsterPrefabs[index])
+            {
+                prefabId = index;
+                break;
+            }
+        }
+
         /** id에 따른 */
         switch (id)
         {
@@ -107,24 +136,26 @@ public class Weapon : MonoBehaviour
 
             default:
                 break;
-
         }
+        PlayerCtrl.BroadcastMessage("ApplyPassiveSkill", SendMessageOptions.DontRequireReceiver);
     }
-
     /** TODO ## Weapon.cs 스킬 레벨업 */
     /** 스킬 레벨업 시 효과 */
     public void Levelup(float _damage, int _count)
     {
+        /** 매개변수만큼 데미지 증가 */
+        this.damage = _damage;
+        /** 매개변수만큼 수량 증가 */
+        this.count += _count;
+
         /** id가 0이면 */
         if (id == 0)
-        {
-           /** Batch함수 호출 */
+        {  
+            /** Batch함수 호출 */
             Batch();
-            /** 매개변수만큼 데미지 증가 */
-            this.damage += _damage;
-            /** 매개변수만큼 수량 증가 */
-            this.count += _count;
         }
+
+        PlayerCtrl.BroadcastMessage("ApplyPassiveSkill", SendMessageOptions.DontRequireReceiver);
     }
 
     /** TODO ## Weapon.cs ## 근접 무기 */
@@ -162,7 +193,7 @@ public class Weapon : MonoBehaviour
             /** bullet의 위치는 Space.World 기준으로 up방향으로 0.8만큼 위로 위치 */
             bullet.Translate(bullet.up * 0.8f, Space.World);
             /** bullet의 scale은 1.2로 만든다 */
-            bullet.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            bullet.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             /** bullet의 스크립트에있는 Init함수를 들고온다. */
             bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); // -1 is Infinity per.
         }
@@ -195,7 +226,7 @@ public class Weapon : MonoBehaviour
         bullet.position = transform.position;
         bullet.rotation = Quaternion.FromToRotation(Vector3.up, TargetDir);
 
-        bullet.GetComponent<Bullet>().Init(NormalAttack, per, TargetDir);
+        bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
     }
     #endregion
 }

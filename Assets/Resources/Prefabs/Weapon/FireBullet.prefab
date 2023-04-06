@@ -100,7 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Damage: 0
-  m_Per: 0
+  m_Per: 1
+  DiffDistance: 0
 --- !u!70 &5267709916660143687
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
