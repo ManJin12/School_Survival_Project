@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     // public VariableJoystick Joystick;
 
     /** 캐릭터 속도 값 */
-    public float Speed;
+    //public float Speed;
     /** SpriteRenderer기능을 사용할 수 있도록 sprite이름의 변수 선언 */
     SpriteRenderer m_sprite;
     /** Rigidbody2D기능을 사용할 수 있도록 rigid이름의 변수 선언 */
