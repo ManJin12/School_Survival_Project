@@ -5,7 +5,7 @@ using UnityEngine;
 using static Define;
 using My;
 
-public class Skills : MonoBehaviour
+public class WizardSkills : MonoBehaviour
 {
     /** 스킬이펙트 배열 */
     public GameObject[] SkillEffect;

@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill", menuName = "Scriptble Object/SkillData")]
 public class SkillData : ScriptableObject
 {
-    public enum SkillType { Skill_00, Skill_01, Skill_02, Skill_03, Skill_04, Meteo, }
+    public enum SkillType { Skill_00, Skill_01, Skill_02, Skill_03, Skill_04, Mateo, }
 
     [Header("# Main Info")]
     public SkillType skillType;
@@ -18,8 +18,8 @@ public class SkillData : ScriptableObject
     [Header("# Level Data")]
     public float baseDamage;
     public int baseCount;
-    public float[] damages;
-    public int[] counts;
+    public float[] damageRates;
+    public int[] countRates;
     public float SkillSpeed;
 
     [Header("# Weapon")]
