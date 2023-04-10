@@ -19,12 +19,12 @@ MonoBehaviour:
   Skill_Icon: {fileID: -201829820, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 0
   baseCount: 0
-  damageRates:
+  damages:
   - 0.1
-  - 0.25
-  - 0.4
-  - 0.55
-  - 0.7
-  countRates: 0000000000000000000000000000000000000000
+  - 0.2
+  - 0.35
+  - 0.5
+  - 0.75
+  counts: 0000000000000000000000000000000000000000
   SkillSpeed: 0
   projectile: {fileID: 0}
