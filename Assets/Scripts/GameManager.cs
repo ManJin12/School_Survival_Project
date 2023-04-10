@@ -34,6 +34,10 @@ namespace My
         void Start()
         {
             Health = MaxHealth;
+
+
+            //임시 스크립트 (첫번째 캐릭터 선택)
+            // UiLevelUp.Select(2);
         }
 
 
@@ -75,6 +79,7 @@ namespace My
 
         [Header("-----GameObject-----")]
         public GameObject Player;
+        public LevelUp UiLevelUp;
 
         [Header("-----Component-----")]
         public PlayerController playerCtrl;
@@ -96,7 +101,7 @@ namespace My
             {
                 level++;
                 exp = 0;
-
+                UiLevelUp.Show();
             }
         }
     }

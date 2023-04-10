@@ -15,7 +15,7 @@ MonoBehaviour:
   skillType: 4
   Skill_Id: 4
   Skill_Name: "\uC74C\uB8CC\uC218"
-  Skill_Desc: 
+  Skill_Desc: "\uC0DD\uBA85\uB825 \uC804\uCCB4 \uD68C\uBCF5"
   Skill_Icon: {fileID: 927338625, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 0
   baseCount: 0
@@ -26,4 +26,5 @@ MonoBehaviour:
   - 0
   - 0
   counts: 0000000000000000000000000000000000000000
+  SkillSpeed: 0
   projectile: {fileID: 0}
