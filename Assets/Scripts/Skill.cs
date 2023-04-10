@@ -17,6 +17,8 @@ public class Skill : MonoBehaviour
 
     Image icon;
     Text textLevel;
+    Text textName;
+    Text textDesc;
 
     void Awake()
     {
@@ -25,15 +27,37 @@ public class Skill : MonoBehaviour
 
         Text[] texts = GetComponentsInChildren<Text>();
         textLevel = texts[0];
-        
+        textName = texts[1];
+        textDesc = texts[2];
+        textName.text = data.Skill_Name;
     }
 
-  
-    void LateUpdate()
+    void Start()
+    {
+
+    }
+
+    void OnEnable()
     {
         textLevel.text = "Lv." + (level + 1);
-    }
 
+        switch(data.skillType)
+        {
+            case SkillData.SkillType.Skill_00:
+            case SkillData.SkillType.Skill_01:
+                textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100, data.counts[level]);
+                break;
+            case SkillData.SkillType.Skill_02:
+            case SkillData.SkillType.Skill_03:
+                textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100);
+                break;
+            default:
+                textDesc.text = string.Format(data.Skill_Desc);
+                break;
+        }
+       
+    }
+    
     public void OnClick()
     {
         switch(data.skillType)

@@ -8,10 +8,13 @@ using My;
 public class PlaySceneManager : MonoBehaviour
 {
     public float PlayTime;
+    public Text SkillSelectPaneltext;
 
     void Start()
     {
+        TextInit();
         GameManager.GMInstance.CurrentScene = Define.ESceneType.PlayScene;
+        GameManager.GMInstance.PlaySceneManagerRef = this;
     }
 
     void Update()
@@ -24,4 +27,17 @@ public class PlaySceneManager : MonoBehaviour
     {
         SceneManager.LoadScene("DungeonSelect");
     }
+    public void TextInit()
+    {
+        if (GameManager.GMInstance.level == 1)
+        {
+            SkillSelectPaneltext.text = "스킬을 선택해 주세요!";
+        }
+        else if (GameManager.GMInstance.level != 1)
+        {
+            SkillSelectPaneltext.text = "축하합니다!\n 레벨 업!";
+        }
+    }
+
+
 }

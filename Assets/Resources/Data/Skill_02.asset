@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillType: 2
   Skill_Id: 2
-  Skill_Name: "\uB370\uD06C\uB2C8\uCEEC \uC7A5\uAC11"
-  Skill_Desc: 
+  Skill_Name: "\uC2A4\uD0AC\uC18D\uB3C4 \uC99D\uAC00"
+  Skill_Desc: "\uC5F0\uC0AC\uC18D\uB3C4 {0}% \uC99D\uAC00"
   Skill_Icon: {fileID: -201829820, guid: d71a3dc7aa20fad4f9a99fc76a9254ba, type: 3}
   baseDamage: 0
   baseCount: 0
