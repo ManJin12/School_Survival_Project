@@ -96,6 +96,7 @@ public class Skill : MonoBehaviour
                 GameManager.GMInstance.bIsLive = true;
 
                 level++;
+
                 break;
 
             case SkillData.SkillType.Skill_02:

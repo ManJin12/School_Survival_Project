@@ -162,7 +162,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InputVec: {x: 0, y: 0}
-  Speed: 2
   scanner: {fileID: 0}
   DashBtn: {fileID: 0}
   bIsDash: 1
@@ -510,7 +509,7 @@ MonoBehaviour:
   - {fileID: 267891613884382739, guid: db032024d2ba4c04c99a7b214295e376, type: 3}
   SkillTime: 2
   MateoDamage: 0
-  bIsMateo: 1
+  bIsMateo: 0
 --- !u!1 &2242225708862712819
 GameObject:
   m_ObjectHideFlags: 0

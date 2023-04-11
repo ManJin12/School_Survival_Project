@@ -28,5 +28,5 @@ MonoBehaviour:
   - 1.2
   counts: 0100000001000000010000000100000001000000
   SkillSpeed: 0
-  projectile: {fileID: 90730771693678607, guid: 75e75d8f58b32184bb27400c3bc93344,
+  projectile: {fileID: 6072987928380983443, guid: c693ff170a4bd3440a313759a24e5a45,
     type: 3}

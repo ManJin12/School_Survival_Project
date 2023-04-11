@@ -11,36 +11,16 @@ namespace My
     public class GameManager : MonoBehaviour
     {
         public float gameTime;
-        public float maxGameTime = 2 * 10f;
-
+        public float maxGameTime;
 
         [Header("# Player Info")]
-        public int Health;
-        public int MaxHealth = 100;
+        public float Health;
+        public float MaxHealth = 100;
         public int level;
         public int killcount;
         public int exp;
         public int[] nextExp = { 0, 1, 3, 5, 8, 13, 21, 44, 65, 109, 174 };
         public bool bIsLive;
-
-        void Update()
-        {
-            gameTime += Time.deltaTime;
-
-            if (gameTime > maxGameTime)
-            {
-                gameTime = maxGameTime;
-            }
-        }
-        void Start()
-        {
-            Health = MaxHealth;
-
-
-            //임시 스크립트 (첫번째 캐릭터 선택)
-            // UiLevelUp.Select(2);
-        }
-
 
         /** GameManager타입의 메모리를 미리 확보해 둔다. */
         public static GameManager GMInstance;
@@ -94,19 +74,48 @@ namespace My
             DontDestroyOnLoad(gameObject);
         }
 
+        void Update()
+        {
+            /** 플레이 화면이 아니라면 */
+            if (SceneManager.GetActiveScene().name != "PlayScene")
+            {
+                /** 게임 플레이 시간 0으로 */
+                gameTime = 0;
+                return;
+            }
+
+            if (bIsLive == false)
+            {
+                return;
+            }
+
+            /** 플레이 시간 증가 */
+            gameTime += Time.deltaTime;
+
+            if (gameTime > maxGameTime)
+            {
+                gameTime = maxGameTime;
+            }
+        }
+
         /** 경험치 획득 함수 */
         public void GetExp()
         {
             /** EXP 증가 */
             exp++;
-            
-            /** 만약 EXP가 다음 레벨 업 경험치를 다 획득했다면 */
-            if(exp == nextExp[level])
+
+            /**
+            만약 EXP가 다음 레벨 업 경험치를 다 획득했다면 
+            Mathf.Min(level, nextExp.Length - 1) : 10레벨 이후의 경험치는 똑같음
+            */
+            if (exp == nextExp[Mathf.Min(level, nextExp.Length - 1)])
             {
                 /** 레벨 증가 */
                 level++;
+
                 /** 경험치 량 초기화 */
                 exp = 0;
+
                 /** 스킬 선택창 오픈 */
                 UiLevelUp.Show();
             }
@@ -124,6 +133,13 @@ namespace My
         {
             bIsLive = true;
             Time.timeScale = 1;
+        }
+
+        public void PlaySceneInit(bool _bIsLive, float _gametime, float _maxHp)
+        {
+            bIsLive = _bIsLive;
+            gameTime = _gametime;
+            Health = _maxHp;
         }
     }
 }

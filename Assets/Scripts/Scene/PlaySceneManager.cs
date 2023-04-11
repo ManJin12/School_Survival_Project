@@ -9,12 +9,18 @@ public class PlaySceneManager : MonoBehaviour
 {
     public float PlayTime;
     public Text SkillSelectPaneltext;
+    public Image GameOverImage;
+    float fadeImage = 1;
 
     void Start()
     {
+        /** 스킬 선택 텍스트UI 함수 호출 */
         TextInit();
         GameManager.GMInstance.CurrentScene = Define.ESceneType.PlayScene;
         GameManager.GMInstance.PlaySceneManagerRef = this;
+
+        /** 게임 플레이 변수 초기화 */
+        GameManager.GMInstance.PlaySceneInit(false, 0, GameManager.GMInstance.MaxHealth);
     }
 
     void Update()
@@ -44,5 +50,20 @@ public class PlaySceneManager : MonoBehaviour
         }
     }
 
+    public void GameOver()
+    {
+        StartCoroutine(GameOverRoutine());
+    }
+
+    IEnumerator GameOverRoutine()
+    {
+        GameManager.GMInstance.bIsLive = false;
+
+        GameOverImage.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        GameManager.GMInstance.PlayStop();
+    }
 
 }

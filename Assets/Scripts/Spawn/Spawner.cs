@@ -77,6 +77,7 @@ public class Spawner : MonoBehaviour
         /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
         GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get(Random.Range(0, _spawnlevel));
 
+        // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
         /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
         Monster.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
 

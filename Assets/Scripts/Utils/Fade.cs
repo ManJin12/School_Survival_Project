@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -18,37 +18,37 @@ public class Fade : MonoBehaviour
 
     void Update()
     {
-        /** ÆäÀÌµå ÀÎ ÁßÀÌ¶ó¸é */
+        /** í˜ì´ë“œ ì¸ ì¤‘ì´ë¼ë©´ */
         if (FadeIn_ing)
         {
-            /** _timeÀº Æ½´ç ¿Ã¶ó°¨ */
+            /** _timeì€ í‹±ë‹¹ ì˜¬ë¼ê° */
             _time += Time.deltaTime;
-            /** Black_screen.color´Â °ËÀº È­¸é¿¡¼­ Åõ¸í»ö È­¸éÀ¸·Î Fade_Time½Ã°£ ¸¸Å­ ÀüÈ¯ */
+            /** Black_screen.colorëŠ” ê²€ì€ í™”ë©´ì—ì„œ íˆ¬ëª…ìƒ‰ í™”ë©´ìœ¼ë¡œ Fade_Timeì‹œê°„ ë§Œí¼ ì „í™˜ */
             Black_screen.color = Color.Lerp(new Color(0, 0, 0, Fade_Max), new Color(0, 0, 0, 0), _time / Fade_Time);
         }
 
-        /** ÆäÀÌµå ¾Æ¿ô ÁßÀÌ¶ó¸é */
+        /** í˜ì´ë“œ ì•„ì›ƒ ì¤‘ì´ë¼ë©´ */
         if (FadeOut_ing)
         {
-            /** _timeÀº Æ½´ç ¿Ã¶ó°¨ */
+            /** _timeì€ í‹±ë‹¹ ì˜¬ë¼ê° */
             _time += Time.deltaTime;
-            /** Black_screen.color´Â Åõ¸í»ö È­¸é¿¡¼­ °ËÀº È­¸é Fade_Time½Ã°£ ¸¸Å­ ÀüÈ¯ */
+            /** Black_screen.colorëŠ” íˆ¬ëª…ìƒ‰ í™”ë©´ì—ì„œ ê²€ì€ í™”ë©´ Fade_Timeì‹œê°„ ë§Œí¼ ì „í™˜ */
             Black_screen.color = Color.Lerp(new Color(0, 0, 0, 0), new Color(0, 0, 0, Fade_Max), _time / Fade_Time);
         }
 
-        /** ¸¸¾à _time ½Ã°£ÀÌ Fade_Timeº¸´Ù Å©´Ù¸é È­¸é ÀüÈ¯ÀÌ ³¡³µ´Ù¸é */
+        /** ë§Œì•½ _time ì‹œê°„ì´ Fade_Timeë³´ë‹¤ í¬ë‹¤ë©´ í™”ë©´ ì „í™˜ì´ ëë‚¬ë‹¤ë©´ */
         if (_time >= Fade_Time)
         {
-            /** _time = 0À¸·Î ÃÊ±âÈ­ */
+            /** _time = 0ìœ¼ë¡œ ì´ˆê¸°í™” */
             _time = 0;
 
-            /** È­¸éÀüÈ¯ÀÌ ³¡³µ±â ¶§¹®¿¡ FadeOut_ing false */
+            /** í™”ë©´ì „í™˜ì´ ëë‚¬ê¸° ë•Œë¬¸ì— FadeOut_ing false */
             FadeOut_ing = false;
 
-            /** FadeIn_ingÀÌ true¸é */
+            /** FadeIn_ingì´ trueë©´ */
             if (FadeIn_ing == true)
             {
-                /** ÀÌ Å¬·¡½º °¡Áö°í ÀÖ´Â ¿ÀºêÁ§Æ® Á¦°Å */
+                /** ì´ í´ë˜ìŠ¤ ê°€ì§€ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ ì œê±° */
                 Destroy(this.gameObject);
             }
         }

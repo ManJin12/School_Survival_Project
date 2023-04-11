@@ -185,4 +185,34 @@ public class PlayerController : MonoBehaviour
     //    bIsDash = false;
     //}
     #endregion
+
+    /** 몬스터와 캐릭터가 닿고 있다면 */
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        /** 게임이 멈춰 있다면 */
+        if (GameManager.GMInstance.bIsLive == false)
+        {
+            return;
+        }
+
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            /** 플레이어의 체력을 달게 한다. */
+            GameManager.GMInstance.Health -= Time.deltaTime * 10;
+        }
+
+        /** 플레이어의 피가 0이되면 */
+        if (GameManager.GMInstance.Health <= 0)
+        {
+            /** 플레이어의 2번째 자식 오브젝트부터 반복문 */
+            for (int i = 2; i < transform.childCount; i++)
+            {
+                /** 2번째부터 오브젝트 모두 비활성화 */
+                transform.GetChild(i).gameObject.SetActive(false);
+            }
+
+            m_anim.SetTrigger("Dead");
+            GameManager.GMInstance.PlaySceneManagerRef.GameOver();
+        }
+    }
 }
