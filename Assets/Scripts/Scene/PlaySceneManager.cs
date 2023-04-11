@@ -19,6 +19,11 @@ public class PlaySceneManager : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.GMInstance.bIsLive == false)
+        {
+            return;
+        }
+
         PlayTime += Time.deltaTime;
         GameManager.GMInstance.PlayTime = PlayTime;
     }

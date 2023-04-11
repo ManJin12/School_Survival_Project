@@ -64,8 +64,6 @@ public class Skill : MonoBehaviour
         {
             case SkillData.SkillType.Skill_00:
             case SkillData.SkillType.Skill_01:
-             
-
                 if (level == 0)
                 {
                     GameObject newWeapon = new GameObject();
@@ -93,8 +91,10 @@ public class Skill : MonoBehaviour
                     Debug.Log(nextDamage);
 
                     weapon.Levelup(nextDamage, nextCount);
-
                 }
+
+                GameManager.GMInstance.bIsLive = true;
+
                 level++;
                 break;
 
@@ -111,11 +111,17 @@ public class Skill : MonoBehaviour
                     float nextRate = data.damages[level];
                     passiveSkill.LevelUp(nextRate);
                 }
+
+                GameManager.GMInstance.bIsLive = true;
+
                 level++;
                 break;
 
             case SkillData.SkillType.Skill_04:
                 GameManager.GMInstance.Health = GameManager.GMInstance.MaxHealth;
+
+                GameManager.GMInstance.bIsLive = true;
+
                 break;
         }
 

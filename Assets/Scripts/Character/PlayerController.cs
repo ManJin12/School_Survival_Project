@@ -80,6 +80,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.GMInstance.bIsLive)
+        {
+            return;
+        }
 
         #region DashBtnReturn
         /** DashBtn버튼 못찾았으면 return */
@@ -88,7 +92,6 @@ public class PlayerController : MonoBehaviour
         //    return;
         //}
         #endregion
-
         /** Joystick 못 찾았으면 return */
         if (Joystick == null)
         {
@@ -123,6 +126,11 @@ public class PlayerController : MonoBehaviour
     /** 물리 연산 프레임마다 호출되는 생명주기 함수 */
     void FixedUpdate()
     {
+        if (!GameManager.GMInstance.bIsLive)
+        {
+            return;
+        }
+
         /** TODO ## PlayerController.cs 위치 이동 관련 */
         /**
         newVec은 m_InputVec의 대각선 이동 시 크기가 다르기 때문에 1의값을 반환받을 수 있도록
@@ -135,10 +143,14 @@ public class PlayerController : MonoBehaviour
     /** 업데이트 함수가 끝나고 다음 프레임으로 넘어가기 직전에 사용되는 생명주기 함수 */
     void LateUpdate()
     {
-        
+        if (!GameManager.GMInstance.bIsLive)
+        {
+            return;
+        }
+
         /** TODO ## PlayerController.cs 애니메이션 설정 */
         /** 만약 입력받은 x값이 있다면(움직이는 중 이라면) */
-        if(m_InputVec.x != 0)
+        if (m_InputVec.x != 0)
         {
             /** Animator의 Parameter에 있는 IsMove를 true로 바꿔준다. */
             m_anim.SetBool("IsMove", true);

@@ -770,15 +770,16 @@ MonoBehaviour:
   maxGameTime: 20
   Health: 0
   MaxHealth: 100
-  level: 0
+  level: 1
   killcount: 0
   exp: 0
-  nextExp: 0a0000001e0000003c0000006400000096000000d20000001801000068010000c201000058020000
+  nextExp: 00000000010000000300000005000000080000000d000000150000002c000000410000006d000000
+  bIsLive: 0
   PlayTime: 0
-  PlayerSpeed: 2
+  PlayerSpeed: 1.8
   DashSpeed: 5
   MonsterSpawnTime: 0.2
-  MonsterSpeed: 1
+  MonsterSpeed: 1.5
   MonsterMaxHp: 0
   MonsterCurrentSpeed: 0
   PoolManagerRef: {fileID: 0}
@@ -791,6 +792,7 @@ MonoBehaviour:
   CurrentChar: 0
   CurrentScene: 0
   Player: {fileID: 0}
+  UiLevelUp: {fileID: 0}
   playerCtrl: {fileID: 0}
 --- !u!1 &2039001662
 GameObject:

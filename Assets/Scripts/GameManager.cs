@@ -20,7 +20,8 @@ namespace My
         public int level;
         public int killcount;
         public int exp;
-        public int[] nextExp = { 10, 30, 60, 100, 150, 210, 280, 360, 450, 600 };
+        public int[] nextExp = { 0, 1, 3, 5, 8, 13, 21, 44, 65, 109, 174 };
+        public bool bIsLive;
 
         void Update()
         {
@@ -93,16 +94,36 @@ namespace My
             DontDestroyOnLoad(gameObject);
         }
 
+        /** 경험치 획득 함수 */
         public void GetExp()
         {
+            /** EXP 증가 */
             exp++;
             
+            /** 만약 EXP가 다음 레벨 업 경험치를 다 획득했다면 */
             if(exp == nextExp[level])
             {
+                /** 레벨 증가 */
                 level++;
+                /** 경험치 량 초기화 */
                 exp = 0;
+                /** 스킬 선택창 오픈 */
                 UiLevelUp.Show();
             }
+        }
+
+        /** 플레이화면 정지 */
+        public void PlayStop()
+        {
+            bIsLive = false;
+            Time.timeScale = 0;
+        }
+
+        /** 플레이화면 다시시작 */
+        public void PlayResume()
+        {
+            bIsLive = true;
+            Time.timeScale = 1;
         }
     }
 }

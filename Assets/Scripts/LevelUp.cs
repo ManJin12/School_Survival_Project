@@ -10,6 +10,7 @@ public class LevelUp : MonoBehaviour
 
     void Start()
     {
+        GameManager.GMInstance.UiLevelUp = this;
         rect = GetComponent<RectTransform>();
         skills = GetComponentsInChildren<Skill>(false);
     }
@@ -18,12 +19,17 @@ public class LevelUp : MonoBehaviour
     public void Show()
     {
         rect.localScale = Vector3.one;
+        /** 화면에 보일 때 마다 텍스트 초기화 */
         GameManager.GMInstance.PlaySceneManagerRef.TextInit();
+        /** 플레이 화면 멈춤 */
+        GameManager.GMInstance.PlayStop();
     }
 
     public void Hide()
     {
         rect.localScale = Vector3.zero;
+        /** 플레이 화면 다시하기 함수 호출 */
+        GameManager.GMInstance.PlayResume();
     }
 
     //public void Select(int index)

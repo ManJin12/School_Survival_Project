@@ -20,6 +20,11 @@ public class HUD : MonoBehaviour
 
     void LateUpdate()
     {
+        if(!GameManager.GMInstance.bIsLive)
+        {
+            return;
+        }
+
         switch (type)
         {
             /** TODO ## HUD.cs 최대 레벨 도달 시 게임 끊김 수정 요함 */

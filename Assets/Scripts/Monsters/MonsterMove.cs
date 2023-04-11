@@ -93,11 +93,15 @@ public class MonsterMove : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!bIsLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+        if (!GameManager.GMInstance.bIsLive)
         {
             return;
         }
 
+        if (!bIsLive || anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+        {
+            return;
+        }
 
         /** TODO ## MonsterMove.cs 몬스터 이동 구현 */
         /** 몬스터와 플레이어의 위치 차이(방향값이 나옴) */

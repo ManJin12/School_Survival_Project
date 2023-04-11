@@ -46,6 +46,11 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.GMInstance.bIsLive)
+        {
+            return;
+        }
+
         /** 게임 전체 시간 */
         m_PlayTime = GameManager.GMInstance.PlayTime;
 

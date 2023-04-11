@@ -54,6 +54,11 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.GMInstance.bIsLive == false)
+        {
+            return;
+        }
+
         if (GameManager.GMInstance.CurrentScene != Define.ESceneType.PlayScene)
         {
             return;
