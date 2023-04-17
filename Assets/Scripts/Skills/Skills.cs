@@ -1,4 +1,4 @@
-
+ï»¿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,13 +7,13 @@ using My;
 
 public class Skills : MonoBehaviour
 {
-    /** ½ºÅ³ÀÌÆåÆ® ¹è¿­ */
+    /** ìŠ¤í‚¬ì´í™íŠ¸ ë°°ì—´ */
     public GameObject[] SkillEffect;
-    /** ½ºÅ³ »ç¶óÁö´Â °Å¸® */
+    /** ìŠ¤í‚¬ ì‚¬ë¼ì§€ëŠ” ê±°ë¦¬ */
     public float DestroySkillLength;
-    /** ÇÃ·¹ÀÌ¾î */
+    /** í”Œë ˆì´ì–´ */
     public GameObject Player;
-    /** ½ºÅ³ id */
+    /** ìŠ¤í‚¬ id */
     public int Skills_ID;
     /** rigid */
     Rigidbody2D rigid;
@@ -31,46 +31,46 @@ public class Skills : MonoBehaviour
             enabled = false;
             return;
         }
-        /** ÇÃ·¹ÀÌ¾î Ã£À½ */
+        /** í”Œë ˆì´ì–´ ì°¾ìŒ */
         Player = GameManager.GMInstance.Player;
 
-        /** ÀÌ¸§ÀÌ Mateo(Clone)¶ó¸é */
+        /** ì´ë¦„ì´ Mateo(Clone)ë¼ë©´ */
         if (gameObject.name == "Mateo(Clone)")
         {
-            /** Skills_ID´Â ½ºÅ³ÀÌ ÀúÀåµÈ ÀÎµ¦½º ¹øÈ£°¡ µÈ´Ù */
+            /** Skills_IDëŠ” ìŠ¤í‚¬ì´ ì €ì¥ëœ ì¸ë±ìŠ¤ ë²ˆí˜¸ê°€ ëœë‹¤ */
             Skills_ID = (int)ESkillType.Skill_Mateo;
-            /** Áß·Â°ªÀº ·£´ıÀ¸·Î ÁØ´Ù */
+            /** ì¤‘ë ¥ê°’ì€ ëœë¤ìœ¼ë¡œ ì¤€ë‹¤ */
             rigid.gravityScale = Random.Range(3, 5);
-            /** »ç¶óÁú ¼ø°£ÀÇ y°ªÀ» ·£´ıÀ¸·Î ÁØ´Ù. */
+            /** ì‚¬ë¼ì§ˆ ìˆœê°„ì˜ yê°’ì„ ëœë¤ìœ¼ë¡œ ì¤€ë‹¤. */
             DestroySkillLength = Random.Range(Player.transform.position.y - 4.5f, Player.transform.position.y + 4.5f);
-            /** Å©±â¸¦ 0.5¸¸Å­ÇÑ´Ù */
+            /** í¬ê¸°ë¥¼ 0.5ë§Œí¼í•œë‹¤ */
             gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
     }
 
     void Update()
     {
-        /** ÀÌ¸§ÀÌ Mateo(Clone)ÀÏ¶§ */
+        /** ì´ë¦„ì´ Mateo(Clone)ì¼ë•Œ */
         if (gameObject.name == "Mateo(Clone)")
         {
-            /** ÀÌÆåÆ® »ı¼º */
+            /** ì´í™íŠ¸ ìƒì„± */
             MakeMateoEffect();
         }
     }
 
     void MakeMateoEffect()
     {
-        /** ¿ÀºêÁ§Æ®ÀÇ y°ªÀÌ DestroySkillLengthº¸´Ù ÀÛÀ¸¸é */
+        /** ì˜¤ë¸Œì íŠ¸ì˜ yê°’ì´ DestroySkillLengthë³´ë‹¤ ì‘ìœ¼ë©´ */
         if (gameObject.transform.position.y < DestroySkillLength)
         {
-            /** SkillEffect 0¹ø¿¡ ÀúÀåµÈ °ÔÀÓ¿ÀºêÁ§Æ® »ı¼º */
+            /** SkillEffect 0ë²ˆì— ì €ì¥ëœ ê²Œì„ì˜¤ë¸Œì íŠ¸ ìƒì„± */
             GameObject MateoEffect = Instantiate(SkillEffect[0]);
-            /** À§Ä¡´Â ¿ÀºêÁ§Æ®ÀÇ À§Ä¡ */
+            /** ìœ„ì¹˜ëŠ” ì˜¤ë¸Œì íŠ¸ì˜ ìœ„ì¹˜ */
             MateoEffect.transform.position = gameObject.transform.position;
-            /** ¸ŞÅ×¿À ÀÌÆåÆ® Å©±â Á¶Àı */
+            /** ë©”í…Œì˜¤ ì´í™íŠ¸ í¬ê¸° ì¡°ì ˆ */
             MateoEffect.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
 
-            /** ½ºÅ³°ú ÀÌÆåÆ® »ç¶óÁü */
+            /** ìŠ¤í‚¬ê³¼ ì´í™íŠ¸ ì‚¬ë¼ì§ */
             Destroy(gameObject);
             Destroy(MateoEffect, 0.5f);
         }

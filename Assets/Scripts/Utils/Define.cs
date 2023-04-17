@@ -6,7 +6,7 @@ public class Define
 { 
     public enum ECharacterType
     {
-        BoyChar,
+        WizardChar,
         GirlChar,
         OldBoyChar,
         YoungChar,

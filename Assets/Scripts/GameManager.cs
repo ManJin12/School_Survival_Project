@@ -48,6 +48,7 @@ namespace My
         public CharacterDataManager CharacterDataManagerRef;
         public SkillManager SkillManagerRef;
         public MonsterMove MonsterMoveRef;
+        public Skill SkillRef;
 
         [Header("-----PlaySceneObject-----")]
         GameObject SceneSelectManager;

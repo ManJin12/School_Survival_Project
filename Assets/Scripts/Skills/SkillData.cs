@@ -6,7 +6,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill", menuName = "Scriptble Object/SkillData")]
 public class SkillData : ScriptableObject
 {
-    public enum SkillType { Skill_00, Skill_01, Skill_02, Skill_03, Skill_04, Meteo, }
+    public enum SkillType
+    { 
+        Skill_ElectricBall,
+        Skill_FireBall,
+        Skill_SkillSpeedUp, 
+        Skill_CharSpeedUp,
+        Skill_Hill,
+        Skill_Meteo,
+    }
 
     [Header("# Main Info")]
     public SkillType skillType;

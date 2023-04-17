@@ -8,12 +8,15 @@ using My;
 public class SkillManager : MonoBehaviour
 {
     public GameObject[] Skills;
-    public float SkillTime = 2.0f;
     GameObject Player;
 
-    public float MateoDamage;
+    /** 메테오 스킬 관련 */
+    public float MateoDamage = 10.0f;
     public bool bIsMateo = true;
-  
+    public float MateoSkillTime;
+    public float MateoSkillCoolTime;
+    /** 메테오 스킬 관련 */
+
     private void Awake()
     {
         Player = GameManager.GMInstance.Player;
@@ -39,21 +42,20 @@ public class SkillManager : MonoBehaviour
     void Update()
     {
         /** 플레이 씬일때만 */
-        if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene)
+        if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsMateo)
         {
             /** 스킬 쿨타임 감소 */
-            SkillTime -= Time.deltaTime;
+            MateoSkillTime -= Time.deltaTime;
 
             /** 메테오 스킬 활성화 시 */
             if (bIsMateo)
             {
                 /** 스킬쿨타임이 0보다 작거나 같으면 */
-                if (SkillTime <= 0)
+                if (MateoSkillTime <= 0)
                 {
                     /** 다시 쿨타임 최대치로 바꿈 */
-                    SkillTime = 2.0f;
-                    /** 메테오 데미지 */
-                    MateoDamage = 10.0f;
+                    MateoSkillTime = MateoSkillCoolTime;
+                    Debug.Log(MateoSkillTime);
                     /** 메테오 생성 로직 */
                     MakeMateo();
                 }

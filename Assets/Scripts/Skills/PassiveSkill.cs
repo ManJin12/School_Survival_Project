@@ -31,10 +31,10 @@ public class PassiveSkill : MonoBehaviour
     {
         switch(type)
         {
-            case SkillData.SkillType.Skill_02:
+            case SkillData.SkillType.Skill_SkillSpeedUp:
                 RateUp();
                 break;
-            case SkillData.SkillType.Skill_03:
+            case SkillData.SkillType.Skill_CharSpeedUp:
                 SpeedUp();
                 break;
         }
