@@ -4,7 +4,7 @@ using UnityEngine;
 using My;
 public class Reposition : MonoBehaviour
 {
-    Collider2D Coll;
+    public Collider2D Coll;
 
     void Start()
     {
@@ -51,14 +51,14 @@ public class Reposition : MonoBehaviour
                 if (diff_X > diff_Y)
                 {
                     /** 오브젝트를 오른쪽 방향으로 40만큼 이동한다.  */
-                    transform.Translate(Vector3.right * DirX * 40);
+                    transform.Translate(Vector3.right * DirX * 39.5f);
 
                 }
                 /** 두 오브젝트의 거리차이가 y축이 더 크다면 */
                 else if (diff_X < diff_Y)
                 {
                     /** 오브젝트를 윗 방향으로 40만큼 이동한다.  */
-                    transform.Translate(Vector3.up * DirY * 40);
+                    transform.Translate(Vector3.up * DirY * 39.5f);
 
                 }
                 break;
