@@ -229,7 +229,7 @@ public class Weapon : MonoBehaviour
         bullet.transform.localScale = new Vector3(0.6f, 0.6f, 0.6f);
         /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
         bullet.position = transform.position;
-        bullet.rotation = Quaternion.FromToRotation(Vector3.up, TargetDir);
+        bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);
 
         bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
     }

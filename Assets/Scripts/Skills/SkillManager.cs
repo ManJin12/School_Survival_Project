@@ -69,7 +69,5 @@ public class SkillManager : MonoBehaviour
         GameObject Mateo = Instantiate(Skills[0]);
         /** 생성된 메테오의 위치 */
         Mateo.transform.position = new Vector3(Random.Range(transform.position.x - 2.5f, transform.position.x + 2.5f), transform.position.y, 0);
-        /** 메테오 크기 조절 */
-        Mateo.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 }

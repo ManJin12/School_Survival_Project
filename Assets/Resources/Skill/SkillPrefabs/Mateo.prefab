@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8531792653455846926}
   - component: {fileID: 936641347026846070}
   - component: {fileID: 5554058921412261399}
+  - component: {fileID: -253584967208279279}
   m_Layer: 0
   m_Name: Mateo
   m_TagString: Untagged
@@ -28,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 267891613884382739}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.6816328, y: -0.48053503, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 19976326df2607f43a352ff79e2a65dd, type: 3}
-  m_Color: {r: 0, g: 0.5628009, b: 1, a: 1}
+  m_Sprite: {fileID: -1027567578, guid: a0df4ce6f796e9a41a379aea9d7278fe, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -124,3 +125,23 @@ MonoBehaviour:
   DestroySkillLength: 0
   Player: {fileID: 0}
   Skills_ID: 0
+--- !u!95 &-253584967208279279
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267891613884382739}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2264ad77fbccc4c4d82ab0bb74efd971, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

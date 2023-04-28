@@ -43,8 +43,8 @@ public class Skills : MonoBehaviour
             rigid.gravityScale = Random.Range(3, 5);
             /** 사라질 순간의 y값을 랜덤으로 준다. */
             DestroySkillLength = Random.Range(Player.transform.position.y - 4.5f, Player.transform.position.y + 4.5f);
-            /** 크기를 0.5만큼한다 */
-            gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            /** 크기를 2만큼한다 */
+            gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
     }
 
@@ -68,7 +68,7 @@ public class Skills : MonoBehaviour
             /** 위치는 오브젝트의 위치 */
             MateoEffect.transform.position = gameObject.transform.position;
             /** 메테오 이펙트 크기 조절 */
-            MateoEffect.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+            MateoEffect.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
 
             /** 스킬과 이펙트 사라짐 */
             Destroy(gameObject);
