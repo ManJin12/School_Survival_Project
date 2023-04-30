@@ -11,11 +11,22 @@ public class SkillManager : MonoBehaviour
     GameObject Player;
 
     /** 메테오 스킬 관련 */
-    public float MateoDamage = 10.0f;
-    public bool bIsMateo = true;
+    [Header("Mateo")]
+    public float MateoDamage;
+    public bool bIsMateo;
     public float MateoSkillTime;
     public float MateoSkillCoolTime;
-    /** 메테오 스킬 관련 */
+    
+    /** 아이스 에이지 스킬 관련 */
+    [Header("IceAge")]
+    public float IceAgeDamage;
+    /** 아이스에이지 스킬 적용중인지 */
+    public bool bIsIceAgeSkill;
+    /** 아이스에이지 스킬 온 */
+    public bool bIsIceAge;
+
+    public float IceAgeSkillTime;
+    public float IceAgeSkillCoolTime;
 
     private void Awake()
     {
@@ -41,15 +52,15 @@ public class SkillManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /** 플레이 씬일때만 */
+        /** 플레이 씬일때만 메테오가 true일 때 */
         if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsMateo)
         {
             /** 스킬 쿨타임 감소 */
             MateoSkillTime -= Time.deltaTime;
 
             /** 메테오 스킬 활성화 시 */
-            if (bIsMateo)
-            {
+            // if (bIsMateo)
+            // {
                 /** 스킬쿨타임이 0보다 작거나 같으면 */
                 if (MateoSkillTime <= 0)
                 {
@@ -59,10 +70,19 @@ public class SkillManager : MonoBehaviour
                     /** 메테오 생성 로직 */
                     MakeMateo();
                 }
-            }
+           //  }
+        }
+
+        if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsIceAge)
+        {
+            
+            IceAgeSkillTime -= Time.deltaTime;
+
+
         }
     }
 
+    /** 메테오 생성 함수 정의 */
     void MakeMateo()
     {
         /** 메테오 생성 */
