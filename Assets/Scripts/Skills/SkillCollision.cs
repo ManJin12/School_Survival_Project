@@ -5,7 +5,7 @@ using UnityEngine;
 using static Define;
 using My;
 
-public class Skills : MonoBehaviour
+public class SkillCollision : MonoBehaviour
 {
     /** 스킬이펙트 배열 */
     public GameObject[] SkillEffect;
@@ -55,6 +55,21 @@ public class Skills : MonoBehaviour
         {
             /** 이펙트 생성 */
             MakeMateoEffect();
+        }
+
+        /** 만약 게임오브젝트 이름이 Tornado면 */
+        if (gameObject.name == "Tornado(Clone)")
+        {
+            /** 캐릭터가 우측이동하고 있을 때 */
+            if (GameManager.GMInstance.playerCtrl.m_InputVec.x > 0)
+            {
+                gameObject.transform.Translate(Vector2.right * Time.deltaTime * 8);
+            }
+            /** 캐릭터가 좌측 이동하고 있을 떄 */
+            else if (GameManager.GMInstance.playerCtrl.m_InputVec.x < 0)
+            {
+                gameObject.transform.Translate(Vector2.left * Time.deltaTime * 8);
+            }
         }
     }
 

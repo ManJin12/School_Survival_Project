@@ -1,60 +1,60 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using My;
 public class Scanner : MonoBehaviour
 {
-    /** ½ºÄµÇÒ ¹üÀ§ */
+    /** ìŠ¤ìº”í•  ë²”ìœ„ */
     public float ScanRange;
 
-    /** ¾î´À ¿ÀºêÁ§Æ®¸¦ °Ë»öÇÒÁö */
+    /** ì–´ëŠ ì˜¤ë¸Œì íŠ¸ë¥¼ ê²€ìƒ‰í• ì§€ */
     public LayerMask TargetLayer;
 
-    /** ½ºÄµÇÑ °á°ú¸¦ ÀúÀåÇÒ ¹è¿­ */
+    /** ìŠ¤ìº”í•œ ê²°ê³¼ë¥¼ ì €ì¥í•  ë°°ì—´ */
     public RaycastHit2D[] Targets;
 
-    /** °¡Àå °¡±î¿î ¸ñÇ¥¸¦ ´ãÀ» º¯¼ö */
+    /** ê°€ì¥ ê°€ê¹Œìš´ ëª©í‘œë¥¼ ë‹´ì„ ë³€ìˆ˜ */
     public Transform NearestTarget;
 
 
     void Start()
     {
-        
+        GameManager.GMInstance.ScannerRef = this;
     }
     void FixedUpdate()
     {
         /** 
-        Targets´Â CircleCastAllÇÔ¼ö¸¦ ÀÌ¿ëÇØ¼­ ÇöÀç À§Ä¡¿¡¼­ ScanRangeÀÇ ¹İÁö¸§¸¸Å­ Ä³½ºÆÃ ¹æÇâÀº ¾ø°í,
-        Ä³½ºÆÃ ±æÀÌµµ ¿øÇüÀÌ¿©¼­ 0À¸·Î ÇÑ ´ÙÀ½ TargetLayer¸¦ °Ë»öÇÑ´Ù.
+        TargetsëŠ” CircleCastAllí•¨ìˆ˜ë¥¼ ì´ìš©í•´ì„œ í˜„ì¬ ìœ„ì¹˜ì—ì„œ ScanRangeì˜ ë°˜ì§€ë¦„ë§Œí¼ ìºìŠ¤íŒ… ë°©í–¥ì€ ì—†ê³ ,
+        ìºìŠ¤íŒ… ê¸¸ì´ë„ ì›í˜•ì´ì—¬ì„œ 0ìœ¼ë¡œ í•œ ë‹¤ìŒ TargetLayerë¥¼ ê²€ìƒ‰í•œë‹¤.
         */
         Targets = Physics2D.CircleCastAll(transform.position, ScanRange, Vector2.zero, 0, TargetLayer);
-        /** NearestTargetÀº ½ºÄµµÈ Å¸°Ù Áß °¡±î¿î ¿ÀºêÁ§Æ® À§Ä¡¸¦ ¹İÈ¯ÇÑ´Ù. */
+        /** NearestTargetì€ ìŠ¤ìº”ëœ íƒ€ê²Ÿ ì¤‘ ê°€ê¹Œìš´ ì˜¤ë¸Œì íŠ¸ ìœ„ì¹˜ë¥¼ ë°˜í™˜í•œë‹¤. */
         NearestTarget = GetNearest();
     }
 
     Transform GetNearest()
     {
-        /** TransformÀ» ¹İÈ¯ÇÒ result º¯¼ö¼±¾ğ */
+        /** Transformì„ ë°˜í™˜í•  result ë³€ìˆ˜ì„ ì–¸ */
         Transform result = null;
-        /** °Å¸® °è»ê */
+        /** ê±°ë¦¬ ê³„ì‚° */
         float Diff = 100.0f;
 
-        /** Targets¹è¿­¿¡ ÀúÀåµÈ °ªÀ» TargetÀ¸·Î ºÒ·¯¿Â´Ù */
+        /** Targetsë°°ì—´ì— ì €ì¥ëœ ê°’ì„ Targetìœ¼ë¡œ ë¶ˆëŸ¬ì˜¨ë‹¤ */
         foreach (RaycastHit2D Target in Targets)
         {
-            /** MyPos´Â ÀÌ ½ºÅ©¸³Æ®¸¦ °¡Áö°í ÀÖ´Â ¿ÀºêÁ§Æ®ÀÇ À§Ä¡ */
+            /** MyPosëŠ” ì´ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ê°€ì§€ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ì˜ ìœ„ì¹˜ */
             Vector3 MyPos = transform.position;
-            /** TargetPos´Â foreach¹®¿¡¼­ °Ë»öÇÑ TargetÀÇ À§Ä¡*/
+            /** TargetPosëŠ” foreachë¬¸ì—ì„œ ê²€ìƒ‰í•œ Targetì˜ ìœ„ì¹˜*/
             Vector3 TargetPos = Target.transform.position;
-            /** ¸ó½ºÅÍ¿Í ÇÃ·¹ÀÌ¾î »çÀÌÀÇ °Å¸® */
+            /** ëª¬ìŠ¤í„°ì™€ í”Œë ˆì´ì–´ ì‚¬ì´ì˜ ê±°ë¦¬ */
             float CurDiff = Vector3.Distance(MyPos, TargetPos);
 
-            /** ÇöÀç °Å¸®°¡ Diffº¸´Ù ÀÛÀ¸¸é */
+            /** í˜„ì¬ ê±°ë¦¬ê°€ Diffë³´ë‹¤ ì‘ìœ¼ë©´ */
             if (CurDiff < Diff)
             {
-                /** Diff´Â CurDiff·Î ¹Ù²ãÁØ´Ù. */
+                /** DiffëŠ” CurDiffë¡œ ë°”ê¿”ì¤€ë‹¤. */
                 Diff = CurDiff;
-                /** result´Â Target.transformÀ» °¡Áø´Ù. */
+                /** resultëŠ” Target.transformì„ ê°€ì§„ë‹¤. */
                 result = Target.transform;
             }
         }

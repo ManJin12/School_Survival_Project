@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
     //}
     #endregion
 
-    /** 몬스터와 캐릭터가 닿고 있다면 */
+    /** TODO ## PlayerController.cs 캐릭터 피격판정 몬스터와 캐릭터가 닿고 있다면 */
     void OnCollisionStay2D(Collision2D collision)
     {
         /** 게임이 멈춰 있다면 */

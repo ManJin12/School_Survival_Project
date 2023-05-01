@@ -14,9 +14,11 @@ public class LevelUp : MonoBehaviour
         GameManager.GMInstance.UiLevelUp = this;
         rect = GetComponent<RectTransform>();
         skills = GetComponentsInChildren<Skill>(true);
+
+        Next();
     }
 
-    // Update is called once per frame
+
     public void Show()
     {
         /** Next함수 호출 */
@@ -42,7 +44,7 @@ public class LevelUp : MonoBehaviour
 
 
     /** TODO ## 스킬 선택시 랜덤으로 생성 함수 핵심!!!!!!!!! */
-    void Next()
+    public void Next()
     {
         // 1. 모든 아이템 비활성화
         foreach (Skill skill in skills)

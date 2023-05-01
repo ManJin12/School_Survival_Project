@@ -14,6 +14,9 @@ public class SkillData : ScriptableObject
         Skill_CharSpeedUp,
         Skill_Hill,
         Skill_Meteo,
+        Skill_IceAge,
+        Skill_Lightning,
+        Skill_Tornado,
     }
 
     [Header("# Main Info")]

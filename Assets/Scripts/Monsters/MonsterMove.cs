@@ -181,10 +181,112 @@ public class MonsterMove : MonoBehaviour
         }
 
         /** TODO ## MonsterMove.cs 몬스터가 스킬에 닿았다면 */
-        if (collision.CompareTag("Skill"))
+        if (collision.CompareTag("Mateo"))
         {
             /** 메테오 데미지 매개변수로 함수 호출 */
             GetDamage(GameManager.GMInstance.SkillManagerRef.MateoDamage);
+
+            if (CurrentMonsterHp > 0)
+            {
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                // Dead();
+            }
+        }
+
+        /** 라이트닝에 닿았다면 */
+        if (collision.gameObject.CompareTag("Lightning"))
+        {
+            /** 메테오 데미지 매개변수로 함수 호출 */
+            GetDamage(GameManager.GMInstance.SkillManagerRef.LightningDamage);
+
+            if (CurrentMonsterHp > 0)
+            {
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                // Dead();
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Tornado"))
+        {
+            /** 메테오 데미지 매개변수로 함수 호출 */
+            GetDamage(GameManager.GMInstance.SkillManagerRef.TornadoDamage);
+
+            if (CurrentMonsterHp > 0)
+            {
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                // Dead();
+            }
+        }
+    }
+
+    /** TODO ## MonsterMove.cs 아이스 에이지에 닿았을 때 데미지 */
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        /** 아이스에이지에 닿았다면 */
+        if (collision.gameObject.CompareTag("IceAge"))
+        {
+            CurrentMonsterHp -= Time.deltaTime * GameManager.GMInstance.SkillManagerRef.IceAgeDamage;
+            // Debug.Log(GameManager.GMInstance.SkillManagerRef.IceAgeDamage);
 
             if (CurrentMonsterHp > 0)
             {
