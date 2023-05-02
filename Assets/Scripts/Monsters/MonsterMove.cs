@@ -180,6 +180,41 @@ public class MonsterMove : MonoBehaviour
             }
         }
 
+        /** TODO ## MonsterMove.cs 태그가 IceArrow이면 */
+        if (collision.CompareTag("IceArrow"))
+        {
+            /** 몬스터의 체력은 IceArrow 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
+            GetDamage(collision.GetComponent<Bullet>().m_Damage);
+            StartCoroutine(KnockBack());
+
+            /** health 0보다 크면 몬스터가 살아있다면 */
+            if (CurrentMonsterHp > 0)
+            {
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                // Dead();
+            }
+        }
+
         /** TODO ## MonsterMove.cs 몬스터가 스킬에 닿았다면 */
         if (collision.CompareTag("Mateo"))
         {
@@ -330,6 +365,7 @@ public class MonsterMove : MonoBehaviour
         rigid.AddForce(dirVec.normalized * 1.5f, ForceMode2D.Impulse);
     }
 
+    /** 죽는 함수 */
     void Dead()
     {
         /** 게임 오브젝트 비활성화 */

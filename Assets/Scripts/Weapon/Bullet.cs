@@ -21,7 +21,12 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        
+        /** 생성된 오브젝트 이름이 아이스 에로우라면 */
+        if (gameObject.name == "IceArrow(Clone)")
+        {
+            /** 아이스 에로우 크기 조절 */
+            this.transform.localScale = new Vector2(0.04f, 0.04f);
+        }
     }
 
     public void Init(float damage, int per, Vector3 dir)
@@ -68,9 +73,15 @@ public class Bullet : MonoBehaviour
         {
             /** 속도를 0으로 해준다. */
             rigid.velocity = Vector2.zero;
+
+            /** 만약 이 오브젝트 이름이 IceArrow(Clone)이라면 */
+            //if (this.gameObject.name == "IceArrow(Clone)")
+            //{
+            //    this.transform.localScale = new Vector2(0.04f, 0.04f);
+            //}
+
             /** 총앟 비활성화 */
             gameObject.SetActive(false);
-
         }
     }
 }

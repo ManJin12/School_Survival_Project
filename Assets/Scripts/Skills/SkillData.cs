@@ -8,6 +8,7 @@ public class SkillData : ScriptableObject
 {
     public enum SkillType
     { 
+        /** 마법사 스킬 */
         Skill_ElectricBall,
         Skill_FireBall,
         Skill_SkillSpeedUp, 
@@ -17,6 +18,7 @@ public class SkillData : ScriptableObject
         Skill_IceAge,
         Skill_Lightning,
         Skill_Tornado,
+        Skill_IceArrow,
     }
 
     [Header("# Main Info")]

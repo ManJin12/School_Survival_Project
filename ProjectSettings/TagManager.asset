@@ -17,6 +17,7 @@ TagManager:
   - IceAge
   - Lightning
   - Tornado
+  - IceArrow
   layers:
   - Default
   - TransparentFX

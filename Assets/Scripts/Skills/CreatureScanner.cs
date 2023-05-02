@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using My;
-public class Scanner : MonoBehaviour
-{
+
+public class CreatureScanner : MonoBehaviour
+{ 
     /** 스캔할 범위 */
     public float ScanRange;
 
@@ -14,13 +15,16 @@ public class Scanner : MonoBehaviour
     public RaycastHit2D[] Targets;
 
     /** 가장 가까운 목표를 담을 변수 */
-    public Transform NearestTarget;
+    public Transform CreatureNearestTarget;
 
+    // Start is called before the first frame update
     void Start()
     {
-        GameManager.GMInstance.ScannerRef = this;
+        GameManager.GMInstance.CreatureScannerRef = this;
     }
-    void FixedUpdate()
+
+    // Update is called once per frame
+    void Update()
     {
         /** 
         Targets는 CircleCastAll함수를 이용해서 현재 위치에서 ScanRange의 반지름만큼 캐스팅 방향은 없고,
@@ -28,10 +32,10 @@ public class Scanner : MonoBehaviour
         */
         Targets = Physics2D.CircleCastAll(transform.position, ScanRange, Vector2.zero, 0, TargetLayer);
         /** NearestTarget은 스캔된 타겟 중 가까운 오브젝트 위치를 반환한다. */
-        NearestTarget = GetNearest();
+        CreatureNearestTarget = GetCreatureNearest();
     }
 
-    Transform GetNearest()
+    Transform GetCreatureNearest()
     {
         /** Transform을 반환할 result 변수선언 */
         Transform result = null;

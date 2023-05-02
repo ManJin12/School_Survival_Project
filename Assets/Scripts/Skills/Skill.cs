@@ -121,6 +121,19 @@ public class Skill : MonoBehaviour
                 }
                 break;
 
+            case SkillData.SkillType.Skill_IceArrow:
+                /** 스킬레벨 0일떄  */
+                if (level == 0)
+                {
+                    textDesc.text = "스킬\n활성화";
+                }
+                else
+                {
+                    /** 스킬 설명을 밑과 같이 적용함 */
+                    textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100, data.counts[level]);
+                }
+                break;
+
             default:
                 textDesc.text = string.Format(data.Skill_Desc);
                 break;
@@ -134,9 +147,16 @@ public class Skill : MonoBehaviour
             /** 전기구체나 파이어 볼을 선택했을때 */
             case SkillData.SkillType.Skill_ElectricBall:
             case SkillData.SkillType.Skill_FireBall:
+            case SkillData.SkillType.Skill_IceArrow:
                 /** 만약 스킬레벨이 0이라면 */
                 if (level == 0)
-                {
+                {                   
+                    /** 만약 스킬 타입이 아이스에로우라면? */
+                    if (data.skillType == SkillData.SkillType.Skill_IceArrow)
+                    {
+                        GameManager.GMInstance.SkillManagerRef.IceArrow.SetActive(true);
+                    }
+
                     /** 빈 게임 오브젝트 생성 */
                     GameObject newWeapon = new GameObject();
                     /** weapon은 생성된 newWeapon에 추가해준 Weapon Comoponent를 사용한다. */
@@ -180,7 +200,6 @@ public class Skill : MonoBehaviour
 
                 /** 스킬레벨 증가 */
                 level++;
-
                 break;
 
             /** 스킬 속도 증가나 이동 속도 증가를 선택했을때 */
@@ -362,6 +381,32 @@ public class Skill : MonoBehaviour
                 /** 스킬레벨 증가 */
                 level++;
                 break;
+
+            /** TODO ## Skill.cs 아이스 에로우 주석 */
+            //case SkillData.SkillType.Skill_IceArrow:
+            //     /** 만약 스킬레벨이 0이라면 */
+            //    if (level == 0)
+            //    {
+            //        /** 아이스에로우 활성화 */
+            //        GameManager.GMInstance.SkillManagerRef.IceArrow.SetActive(true);
+            //    }
+            //    /** 스킬레벨이 0이 아니라면 */
+            //    else
+            //    {
+            //        /** 다음 데미지는 현재 데미지에서 데미지 증가치만큼 곱한 값으로 적용된다. */
+            //        nextDamage = CurrentDamage * data.damages[level];
+            //        /** 현재 데미지는 값이 계산된 nextDamage로 변경 */
+            //        CurrentDamage = nextDamage;
+            //        Debug.Log(data.Skill_Name + " " + nextDamage);
+            //        /** Weapon.cs의 Levelup함수에 nextDamage와 nextCount를 매개변수로 호출 */
+            //        weapon.Levelup(nextDamage, nextCount);
+            //    }
+
+            //    /** 게임을 실행시킨다. */
+            //    GameManager.GMInstance.bIsLive = true;
+            //    /** 스킬레벨 증가 */
+            //    level++;
+            //    break;
 
             default:
                 break;

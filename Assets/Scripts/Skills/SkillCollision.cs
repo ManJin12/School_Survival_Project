@@ -17,6 +17,7 @@ public class SkillCollision : MonoBehaviour
     public int Skills_ID;
     /** rigid */
     Rigidbody2D rigid;
+    float CharacterDir;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class SkillCollision : MonoBehaviour
             enabled = false;
             return;
         }
+
         /** 플레이어 찾음 */
         Player = GameManager.GMInstance.Player;
 
@@ -46,6 +48,13 @@ public class SkillCollision : MonoBehaviour
             /** 크기를 2만큼한다 */
             gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
+
+        if (gameObject.name == "Tornado(Clone)")
+        {
+            CharacterDir = GameManager.GMInstance.playerCtrl.m_InputVec.x;
+        }
+
+        
     }
 
     void Update()
@@ -60,15 +69,15 @@ public class SkillCollision : MonoBehaviour
         /** 만약 게임오브젝트 이름이 Tornado면 */
         if (gameObject.name == "Tornado(Clone)")
         {
-            /** 캐릭터가 우측이동하고 있을 때 */
-            if (GameManager.GMInstance.playerCtrl.m_InputVec.x > 0)
+            /** 캐릭터가 우측 이동하고 있을 때 */
+            if (CharacterDir >= 0)
             {
-                gameObject.transform.Translate(Vector2.right * Time.deltaTime * 8);
+                gameObject.transform.Translate(Vector2.right * Time.deltaTime * 5);
             }
             /** 캐릭터가 좌측 이동하고 있을 떄 */
-            else if (GameManager.GMInstance.playerCtrl.m_InputVec.x < 0)
+            else if (CharacterDir <= 0)
             {
-                gameObject.transform.Translate(Vector2.left * Time.deltaTime * 8);
+                gameObject.transform.Translate(Vector2.right * -1.0f * Time.deltaTime * 5);
             }
         }
     }

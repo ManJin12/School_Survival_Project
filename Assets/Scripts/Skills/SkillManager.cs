@@ -47,17 +47,21 @@ public class SkillManager : MonoBehaviour
 
     /** 토네이도 스킬 관련 */
     [Header("---Tornado---")]
-    GameObject Tornado;
     /** 토네이도 데미지 */
     public float TornadoDamage;
     /** 토네이도 활성화 여부 */
     public bool bIsTornado;
     /** 토네이도 생성 여부 */
     public bool bOnTornado;
+    public float CharDir;
     /** 감소되는 토네이도 스킬 재사용 시간 */
     public float TornadoSkillTime;
     /** 낙뢰를 재발동 시키기 위한 시간 */
     public float TornadoSkillCoolTime;
+    GameObject Tornado;
+
+    [Header("---IceArrow---")]
+    public GameObject IceArrow;
 
     private void Awake()
     {
@@ -192,6 +196,12 @@ public class SkillManager : MonoBehaviour
 
     void MakeLighining()
     {
+        /** 가까운적이 없다면 */
+        if (!GameManager.GMInstance.ScannerRef.NearestTarget)
+        {
+            return;
+        }
+
         /** 스킬 배열 2번에 저장된 오브젝트를 생성 */
         GameObject Lightning = Instantiate(Skills[2]);
         /** 생성될 위치는 가장 가까운 적의 위치에 생성되게한다. */
@@ -205,8 +215,9 @@ public class SkillManager : MonoBehaviour
     {
         /** 토네이도 생성 */
         Tornado = Instantiate(Skills[3]);
-        Tornado.transform.position = GameManager.GMInstance.playerCtrl.transform.position;
 
+        Tornado.transform.position = GameManager.GMInstance.playerCtrl.transform.position;
+        
         /** 토네이도 생성 중 */
         bOnTornado = true;
 
@@ -214,7 +225,7 @@ public class SkillManager : MonoBehaviour
         StartCoroutine(TornadoDisabled());
     }
 
-    /** 토네이도 함수 비활성화 코루틴 */
+    /** 토네이도 오브젝트 삭제 코루틴 */
     IEnumerator TornadoDisabled()
     {
         yield return new WaitForSeconds(2.0f);

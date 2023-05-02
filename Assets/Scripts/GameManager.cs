@@ -50,6 +50,7 @@ namespace My
         public MonsterMove MonsterMoveRef;
         public Skill SkillRef;
         public Scanner ScannerRef;
+        public CreatureScanner CreatureScannerRef;
 
         [Header("-----PlaySceneObject-----")]
         GameObject SceneSelectManager;
