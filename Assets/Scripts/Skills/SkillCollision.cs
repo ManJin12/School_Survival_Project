@@ -80,6 +80,21 @@ public class SkillCollision : MonoBehaviour
                 gameObject.transform.Translate(Vector2.right * -1.0f * Time.deltaTime * 5);
             }
         }
+
+        ///** 만약 게임오브젝트 이름이 Tornado면 */
+        //if (gameObject.name == "Tornado(Clone)")
+        //{
+        //    /** 캐릭터가 우측 이동하고 있을 때 */
+        //    if (GameManager.GMInstance.playerCtrl.m_InputVec.x >= 0)
+        //    {
+        //        gameObject.transform.Translate(Vector2.right * Time.deltaTime * 5);
+        //    }
+        //    /** 캐릭터가 좌측 이동하고 있을 떄 */
+        //    else if (GameManager.GMInstance.playerCtrl.m_InputVec.x <= 0)
+        //    {
+        //        gameObject.transform.Translate(Vector2.right * -1.0f * Time.deltaTime * 5);
+        //    }
+        //}
     }
 
     void MakeMateoEffect()

@@ -15952,10 +15952,10 @@ MonoBehaviour:
   nextExp: 00000000010000000300000005000000080000000d000000150000002c000000410000006d000000
   bIsLive: 0
   PlayTime: 0
-  PlayerSpeed: 1.8
+  PlayerSpeed: 1.2
   DashSpeed: 5
-  MonsterSpawnTime: 0.2
-  MonsterSpeed: 1.5
+  MonsterSpawnTime: 0.25
+  MonsterSpeed: 0.5
   MonsterMaxHp: 0
   MonsterCurrentSpeed: 0
   PoolManagerRef: {fileID: 0}

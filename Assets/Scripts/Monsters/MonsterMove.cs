@@ -25,7 +25,7 @@ public class MonsterMove : MonoBehaviour
     /** TODO ## MonsterMove.cs 몬스터 체력 설정 재설정 필요 */
     public float CurrentMonsterHp = 20f;
     float MonsterMaxHp = 20f;
-    float MonsterSpeed = 1.5f;
+    float MonsterSpeed;
 
     Animator anim;
     WaitForFixedUpdate wait;
@@ -55,6 +55,8 @@ public class MonsterMove : MonoBehaviour
         //    }
         //}
         #endregion // 안쓰는거 주석
+
+        MonsterSpeed = GameManager.GMInstance.MonsterSpeed;
 
         bIsLive = true;
         coll.enabled = true;
