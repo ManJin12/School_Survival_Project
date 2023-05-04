@@ -74,10 +74,9 @@ public class Weapon : MonoBehaviour
                 break;
 
             case 1:
-            case 9:
                 /** Timer는 틱당 증가 */
-
                 Timer += Time.deltaTime;
+
                 /** Timer가 speed보다 크면 */
                 if (Timer > speed)
                 {
@@ -86,7 +85,25 @@ public class Weapon : MonoBehaviour
 
                     /** 발사 함수 호출 */
                     Fire();
-                   
+                }
+
+                break;
+            case 9:
+                /** Timer는 틱당 증가 */
+                Timer += Time.deltaTime;
+
+                /** Timer가 speed보다 크면 */
+                if (Timer > speed)
+                {
+                    /** Timer 0으로 초기화 */
+                    Timer = 0.0f;
+
+                    /** 크리처가 발견한 타킷이 있으면 발사 */
+                    if (GameManager.GMInstance.CreatureScannerRef.CreatureNearestTarget)
+                    {
+                        /** 발사 함수 호출 */
+                        Fire();
+                    }
                 }
                 break;
 
@@ -157,12 +174,14 @@ public class Weapon : MonoBehaviour
 
         /** id가 0이면 */
         if (id == 0)
-        {  
+        {
             /** Batch함수 호출 */
             Batch();
         }
-
-        PlayerCtrl.BroadcastMessage("ApplyPassiveSkill", SendMessageOptions.DontRequireReceiver);
+        if (id == 2 || id == 3)
+        {
+            PlayerCtrl.BroadcastMessage("ApplyPassiveSkill", SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     /** TODO ## Weapon.cs ## 근접 무기 */
@@ -241,16 +260,10 @@ public class Weapon : MonoBehaviour
         /** 만약 bullet태그가 IceArrow라면 */
         else if (bullet.CompareTag("IceArrow"))
         {
-            /** 만약 소환진에 적용된 가까운 타깃이 없다면 return */
-            if (!GameManager.GMInstance.CreatureScannerRef.CreatureNearestTarget)
-            {
-                return;
-            }
-
             /** 소환수와 가까운 몬스터의 위치 */
             TargetPos = GameManager.GMInstance.CreatureScannerRef.CreatureNearestTarget.position;
             /** 플레이어가 가까운 적을 보는 방향 */
-            Vector3 TargetDir = TargetPos - transform.position;
+            Vector3 TargetDir = TargetPos - GameManager.GMInstance.SkillManagerRef.IceArrow.transform.position;
             /** TargetDir을 정규화 해준다(0, 1)*/
             TargetDir = TargetDir.normalized;
 

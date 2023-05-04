@@ -17,7 +17,8 @@ public class SkillCollision : MonoBehaviour
     public int Skills_ID;
     /** rigid */
     Rigidbody2D rigid;
-    float CharacterDir;
+    bool CharacterDir;
+    
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class SkillCollision : MonoBehaviour
 
         if (gameObject.name == "Tornado(Clone)")
         {
-            CharacterDir = GameManager.GMInstance.playerCtrl.m_InputVec.x;
+            CharacterDir = GameManager.GMInstance.playerCtrl.m_sprite.flipX;
         }
 
         
@@ -70,12 +71,12 @@ public class SkillCollision : MonoBehaviour
         if (gameObject.name == "Tornado(Clone)")
         {
             /** 캐릭터가 우측 이동하고 있을 때 */
-            if (CharacterDir >= 0)
+            if (CharacterDir == false)
             {
                 gameObject.transform.Translate(Vector2.right * Time.deltaTime * 5);
             }
             /** 캐릭터가 좌측 이동하고 있을 떄 */
-            else if (CharacterDir <= 0)
+            else if (CharacterDir == true)
             {
                 gameObject.transform.Translate(Vector2.right * -1.0f * Time.deltaTime * 5);
             }

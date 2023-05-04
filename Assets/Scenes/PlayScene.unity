@@ -260,6 +260,7 @@ MonoBehaviour:
   PlayTime: 0
   SkillSelectPaneltext: {fileID: 810115048}
   GameOverImage: {fileID: 379256584}
+  bIsFirstStart: 1
 --- !u!4 &17448531
 Transform:
   m_ObjectHideFlags: 0
@@ -5702,7 +5703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &242006440
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5722,10 +5723,10 @@ RectTransform:
   m_Father: {fileID: 299572379}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 372.5, y: -500}
-  m_SizeDelta: {x: 235, y: 1000}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &242006441
 MonoBehaviour:
@@ -5741,8 +5742,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3429d0cdf91599240bebd670e237b895, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 0}
+  FireBallData: {fileID: 0}
 --- !u!114 &242006442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6198,7 +6200,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &341838011
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6218,10 +6220,10 @@ RectTransform:
   m_Father: {fileID: 299572379}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 627.5, y: -500}
-  m_SizeDelta: {x: 235, y: 1000}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &341838012
 MonoBehaviour:
@@ -6237,8 +6239,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 48d02ef316b568a46925161cae39958e, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &341838013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15965,7 +15968,6 @@ MonoBehaviour:
   CharacterDataManagerRef: {fileID: 0}
   SkillManagerRef: {fileID: 0}
   MonsterMoveRef: {fileID: 0}
-  SkillRef: {fileID: 0}
   ScannerRef: {fileID: 0}
   CreatureScannerRef: {fileID: 0}
   CurrentChar: 0
@@ -16423,8 +16425,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b94876fff1376204dba7142d922c3b9f, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &1023603769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16550,7 +16553,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1059691127
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16570,10 +16573,10 @@ RectTransform:
   m_Father: {fileID: 299572379}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 839.99994, y: -500}
-  m_SizeDelta: {x: 319.99997, y: 1000}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1059691128
 MonoBehaviour:
@@ -16589,8 +16592,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 2f21334b930937440b4351693f77bbdf, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &1059691129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16755,8 +16759,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 64582b9ba001b1248a4e116e28763ecb, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &1064644479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17155,7 +17160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1157269014
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17175,10 +17180,10 @@ RectTransform:
   m_Father: {fileID: 299572379}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 704, y: -500}
-  m_SizeDelta: {x: 184, y: 1000}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1157269015
 MonoBehaviour:
@@ -17194,8 +17199,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: ecf5a8f8f915b6347a17f4cc7079241a, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &1157269016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23579,7 +23585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1764662085
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23599,10 +23605,10 @@ RectTransform:
   m_Father: {fileID: 299572379}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 627.5, y: -500}
-  m_SizeDelta: {x: 235, y: 1000}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1764662086
 MonoBehaviour:
@@ -23618,8 +23624,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 8382d8318305d5b4a9314aa5436ed3d1, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &1764662087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23905,7 +23912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1790660078
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23925,10 +23932,10 @@ RectTransform:
   m_Father: {fileID: 299572379}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 908, y: -500}
-  m_SizeDelta: {x: 184, y: 1000}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1790660079
 MonoBehaviour:
@@ -23944,8 +23951,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b661d0c7bb995314fbf6139f481c9bbc, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &1790660080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24166,7 +24174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1895159024
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24186,10 +24194,10 @@ RectTransform:
   m_Father: {fileID: 299572379}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 372.5, y: -500}
-  m_SizeDelta: {x: 235, y: 1000}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1895159025
 MonoBehaviour:
@@ -24205,8 +24213,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a23fb15dd0da97a4395884fe66a2d7ed, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &1895159026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25030,8 +25039,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 095a796c263e21540bb9d65ed7bb2513, type: 2}
   level: 0
-  weapon: {fileID: 0}
   passiveSkill: {fileID: 0}
+  FireBallObj: {fileID: 242006439}
+  FireBallData: {fileID: 0}
 --- !u!114 &2047947777
 MonoBehaviour:
   m_ObjectHideFlags: 0

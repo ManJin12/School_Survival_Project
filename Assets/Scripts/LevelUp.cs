@@ -15,6 +15,14 @@ public class LevelUp : MonoBehaviour
         rect = GetComponent<RectTransform>();
         skills = GetComponentsInChildren<Skill>(true);
 
+        /** 0.2초있다가 next함수 실행 */
+        StartCoroutine(ShowBtn());
+    }
+
+    IEnumerator ShowBtn()
+    {
+        yield return 0.2f;
+
         Next();
     }
 

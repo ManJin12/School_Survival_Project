@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using My;
+using static Define;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
     /** 캐릭터 속도 값 */
     //public float Speed;
     /** SpriteRenderer기능을 사용할 수 있도록 sprite이름의 변수 선언 */
-    SpriteRenderer m_sprite;
+    public SpriteRenderer m_sprite;
     /** Rigidbody2D기능을 사용할 수 있도록 rigid이름의 변수 선언 */
     Rigidbody2D m_rigid;
     /** Animator기능을 사용할 수 있도록 anim이름의 변수 선언 */
@@ -37,12 +38,14 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         /** 만약 Scene이름이  PlayScene이 아니라면 */
         if (GameManager.GMInstance.CurrentScene != Define.ESceneType.PlayScene)
         {
             /** 스크립트 비활성화 */
             enabled = false;
         }
+
         /** 만약 오브젝트 생성 시 현재 Scene이름이 PlayScene이라면 */
         if (GameManager.GMInstance.CurrentScene == Define.ESceneType.PlayScene)
         {

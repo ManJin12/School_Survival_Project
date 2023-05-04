@@ -11,6 +11,7 @@ public class PlaySceneManager : MonoBehaviour
     public Text SkillSelectPaneltext;
     public Image GameOverImage;
     float fadeImage = 1;
+    public bool bIsFirstStart;
 
     void Start()
     {
@@ -21,6 +22,9 @@ public class PlaySceneManager : MonoBehaviour
 
         /** 게임 플레이 변수 초기화 */
         GameManager.GMInstance.PlaySceneInit(false, 0, GameManager.GMInstance.MaxHealth);
+
+        /** 처음 시작하는지 확인하기 위한 변수 */
+        bIsFirstStart = true;
     }
 
     void Update()

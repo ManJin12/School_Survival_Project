@@ -163,6 +163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InputVec: {x: 0, y: 0}
+  m_sprite: {fileID: 0}
+  FireballData: {fileID: 11400000, guid: 3429d0cdf91599240bebd670e237b895, type: 2}
+  weapon: {fileID: 0}
   scanner: {fileID: 0}
   DashBtn: {fileID: 0}
   bIsDash: 1
