@@ -3,7 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Define
-{ 
+{
+    /** 아이템 등급 */
+    public enum ItemGrade
+    {
+        Epic,
+        Rare,
+        Normal,
+    }
+
     public enum ECharacterType
     {
         WizardChar,
@@ -44,6 +52,5 @@ public class Define
     public enum ESkillType
     {
         Skill_Mateo,
-
     }
 }
