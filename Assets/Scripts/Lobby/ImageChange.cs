@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,17 +7,17 @@ using static Define;
 
 public class ImageChange : MonoBehaviour
 {
-    /** Ä³¸¯ÅÍ ½ºÇÁ¶óÀÌÆ® ÀúÀåÇÒ ¹è¿­ º¯¼ö */
+    /** ìºë¦­í„° ìŠ¤í”„ë¼ì´íŠ¸ ì €ì¥í•  ë°°ì—´ ë³€ìˆ˜ */
     public Sprite[] CharImage;
-    /** ÇöÀç Ä³¸¯ÅÍ Å¸ÀÔ È®ÀÎ¿ë */
+    /** í˜„ì¬ ìºë¦­í„° íƒ€ì… í™•ì¸ìš© */
     public ECharacterType ECurrentCharacter;
 
-    /** Image¿¡ Á¢±ÙÇÒ º¯¼ö ¼±¾ğ */
+    /** Imageì— ì ‘ê·¼í•  ë³€ìˆ˜ ì„ ì–¸ */
     public Image m_Image;
     // Start is called before the first frame update
     void Start()
     {
-        /** m_Image´Â Image¿¡ Á¢±ÙÇÒ ¼ö ÀÖ´Ù. */
+        /** m_ImageëŠ” Imageì— ì ‘ê·¼í•  ìˆ˜ ìˆë‹¤. */
         m_Image = GetComponent<Image>();
                
     }
@@ -25,17 +25,17 @@ public class ImageChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /** ECurrentCharacter°¡ GameManager.GMInstance.CurrentChar¿Í °°´Ù¸é return */
+        /** ECurrentCharacterê°€ GameManager.GMInstance.CurrentCharì™€ ê°™ë‹¤ë©´ return */
         if (ECurrentCharacter == GameManager.GMInstance.CurrentChar)
         {
             return;
         }
-        /**  ECurrentCharacter°¡ GameManager.GMInstance.CurrentChar¿Í ´Ù¸£¸é */
+        /**  ECurrentCharacterê°€ GameManager.GMInstance.CurrentCharì™€ ë‹¤ë¥´ë©´ */
         else if (ECurrentCharacter != GameManager.GMInstance.CurrentChar)
         {
-            /** ECurrentCharacter¸¦ ÇöÀç Ä³¸¯ÅÍÅ¸ÀÔÀ¸·Î ¹Ù²ãÁØ´Ù. */
+            /** ECurrentCharacterë¥¼ í˜„ì¬ ìºë¦­í„°íƒ€ì…ìœ¼ë¡œ ë°”ê¿”ì¤€ë‹¤. */
             ECurrentCharacter = GameManager.GMInstance.CurrentChar;
-            /** m_ImageÀÇ ½ºÇÁ¶óÀÌÆ®¸¦ ÀúÀåµÈ ¹è¿­°ú ÇöÀç GameManger°¡ °¡Áö°í ÀÖ´Â Ä³¸¯ÅÍ¿¡ ¸Â°Ô ³ª¿Â´Ù. */
+            /** m_Imageì˜ ìŠ¤í”„ë¼ì´íŠ¸ë¥¼ ì €ì¥ëœ ë°°ì—´ê³¼ í˜„ì¬ GameMangerê°€ ê°€ì§€ê³  ìˆëŠ” ìºë¦­í„°ì— ë§ê²Œ ë‚˜ì˜¨ë‹¤. */
             m_Image.sprite = CharImage[(int)GameManager.GMInstance.CurrentChar];
         }
     }
