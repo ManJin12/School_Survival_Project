@@ -29,6 +29,7 @@ namespace My
 
         [Header("-----PlayerData-----")]
         public float PlayerSpeed;
+        float BasePlayerSpeed;
         public float DashSpeed;
 
         [Header("-----MonsterData-----")]
@@ -67,10 +68,18 @@ namespace My
         [Header("-----Component-----")]
         public PlayerController playerCtrl;
 
+        public float GetPlayerBaseSpeed() 
+        {
+            return BasePlayerSpeed;
+        }
+
         void Awake()
         {
             /** GMInstance는 이 클래스를 의미한다. */
             GMInstance = this;
+
+            /** 캐릭터 기본이동속도 저장 */
+            BasePlayerSpeed = PlayerSpeed;
 
             /** 화면이 바껴도 클래스 유지 */
             DontDestroyOnLoad(gameObject);
@@ -83,6 +92,7 @@ namespace My
             {
                 /** 게임 플레이 시간 0으로 */
                 gameTime = 0;
+                PlayTime = 0;
                 return;
             }
 
@@ -127,6 +137,7 @@ namespace My
         public void PlayStop()
         {
             bIsLive = false;
+
             Time.timeScale = 0;
         }
 

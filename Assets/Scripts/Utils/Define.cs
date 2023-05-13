@@ -15,8 +15,8 @@ public class Define
     public enum ECharacterType
     {
         WizardChar,
-        GirlChar,
-        OldBoyChar,
+        AcherChar,
+        WorriorChar,
         YoungChar,
     }
 

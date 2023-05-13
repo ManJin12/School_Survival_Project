@@ -63,6 +63,8 @@ public class SkillManager : MonoBehaviour
     [Header("---IceArrow---")]
     public GameObject IceArrow;
 
+
+
     private void Awake()
     {
         Player = GameManager.GMInstance.Player;

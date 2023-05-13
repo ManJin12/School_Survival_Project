@@ -15,14 +15,27 @@ public class LevelUp : MonoBehaviour
         rect = GetComponent<RectTransform>();
         skills = GetComponentsInChildren<Skill>(true);
 
+        Debug.Log(skills[1].name);
+        Debug.Log(skills.Length);
+
+        /** TODO ## LevelUp.cs 기본공격 */
+        rect.localScale = Vector3.zero;
+        BaseAttack(1);
+
+        /** TODO ## LevelUp.cs 인게임 시작할 시 스킬 선택 X */
         /** 0.2초있다가 next함수 실행 */
-        StartCoroutine(ShowBtn());
+        // StartCoroutine(ShowBtn());
+    }
+
+    public void BaseAttack(int index)
+    {
+        skills[index].OnClick();
     }
 
     IEnumerator ShowBtn()
     {
         yield return 0.2f;
-
+         
         Next();
     }
 
@@ -44,12 +57,6 @@ public class LevelUp : MonoBehaviour
         /** 플레이 화면 다시하기 함수 호출 */
         GameManager.GMInstance.PlayResume();
     }
-
-    //public void Select(int index)
-    //{
-    //    skills[index].OnClick();
-    //}
-
 
     /** TODO ## 스킬 선택시 랜덤으로 생성 함수 핵심!!!!!!!!! */
     public void Next()

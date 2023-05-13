@@ -6,10 +6,11 @@ public class CharacterDataManager : MonoBehaviour
 {
 
     /** 캐릭터 능력치 업 */
-    public float CharacterHp_Up;
+    public float CharacterMaxHp_Up;
     public float CharacterDamage_Up;
-    public float CharacterDefense_Up;
     public float CharacterSpeed_Up;
+    public float CharacterCriticalPercent_Up;
+    public float CharacterCiriticalDamage_Up;
 
     void Start()
     {
