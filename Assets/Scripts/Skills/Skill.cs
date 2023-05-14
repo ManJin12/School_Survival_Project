@@ -52,6 +52,7 @@ public class Skill : MonoBehaviour
         {
             FireBallData = this.data;
         }
+
         /** 시작할 때 레벨 0으로 초기화 */
         // level = 0;
     }

@@ -31,7 +31,6 @@ public class Define
     {
         TitleScene,
         LobbyScene,
-        DungeonSelectScene,
         PlayScene,
     }
 

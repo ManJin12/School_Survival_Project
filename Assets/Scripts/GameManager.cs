@@ -51,6 +51,7 @@ namespace My
         public MonsterMove MonsterMoveRef;
         public Scanner ScannerRef;
         public CreatureScanner CreatureScannerRef;
+        public SoundManager SoundManagerRef;
 
         [Header("-----PlaySceneObject-----")]
         GameObject SceneSelectManager;
@@ -64,6 +65,7 @@ namespace My
         [Header("-----GameObject-----")]
         public GameObject Player;
         public LevelUp UiLevelUp;
+        public AcherLevelUp AcherLevelUpRef;
 
         [Header("-----Component-----")]
         public PlayerController playerCtrl;
@@ -71,6 +73,13 @@ namespace My
         public float GetPlayerBaseSpeed() 
         {
             return BasePlayerSpeed;
+        }
+
+        public void InfoInit()
+        {
+            level = 1;
+            killcount = 0;
+            exp = 0;
         }
 
         void Awake()

@@ -15,7 +15,7 @@ public class SelectCharacter : MonoBehaviour
     /** 캐릭터 저장 공간 */
     public SelectCharacter[] Characters;
 
-    public SelectSceneManager SelectSceneManager;
+    // public SelectSceneManager SelectSceneManager;
 
     Animator m_anim;
     SpriteRenderer m_sprite;

@@ -18,12 +18,16 @@ public class CharacterSpawn : MonoBehaviour
         /** Player는 배열에 저장된 캐릭터를 SelectScene에서 선택된 캐릭터 타입으로 생성 */
         Player = Instantiate(CharPrefabs[(int)GameManager.GMInstance.CurrentChar]);
 
-        if (Player != null)
-        {
-            Player.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-            GameManager.GMInstance.Player = Player;
-            GameManager.GMInstance.playerCtrl = Player.GetComponent<PlayerController>();
+        //if (Player != null)
+        //{
+        //    Player.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        //    GameManager.GMInstance.Player = Player;
+        //    GameManager.GMInstance.playerCtrl = Player.GetComponent<PlayerController>();
             
-        } 
+        //}
+
+        Player.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        GameManager.GMInstance.Player = Player;
+        GameManager.GMInstance.playerCtrl = Player.GetComponent<PlayerController>();
     }
 }

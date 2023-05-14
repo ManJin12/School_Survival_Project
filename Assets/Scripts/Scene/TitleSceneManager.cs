@@ -15,6 +15,9 @@ public class TitleSceneManager : MonoBehaviour
 
     public void OnClickGameStart()
     {
+        /** 효과음 실행 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
         SceneManager.LoadScene("Lobby");
     }
 }

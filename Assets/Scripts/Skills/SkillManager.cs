@@ -198,6 +198,9 @@ public class SkillManager : MonoBehaviour
 
     void MakeLighining()
     {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Lightning);
+
         /** 가까운적이 없다면 */
         if (!GameManager.GMInstance.ScannerRef.NearestTarget)
         {
@@ -215,10 +218,14 @@ public class SkillManager : MonoBehaviour
     /** 토네이도 활성화 함수 */
     void MakeTorando()
     {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Tornado);
+
         /** 토네이도 생성 */
         Tornado = Instantiate(Skills[3]);
 
         Tornado.transform.position = GameManager.GMInstance.playerCtrl.transform.position;
+        Tornado.transform.localScale = new Vector2(5.0f, 5.0f);
         
         /** 토네이도 생성 중 */
         bOnTornado = true;

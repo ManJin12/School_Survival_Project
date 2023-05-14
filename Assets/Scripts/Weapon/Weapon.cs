@@ -242,6 +242,9 @@ public class Weapon : MonoBehaviour
         /**  bullet 오브젝트 태그가 Bullet(파이어볼)이라면 */
         if (bullet.CompareTag("Bullet"))
         {
+            /** 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.FireBall);
+
             /** 가까운 몬스터의 위치 */
             TargetPos = PlayerCtrl.scanner.NearestTarget.position;
             /** 플레이어가 가까운 적을 보는 방향 */
@@ -260,6 +263,9 @@ public class Weapon : MonoBehaviour
         /** 만약 bullet태그가 IceArrow라면 */
         else if (bullet.CompareTag("IceArrow"))
         {
+            /** 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.IceArrow);
+
             /** 소환수와 가까운 몬스터의 위치 */
             TargetPos = GameManager.GMInstance.CreatureScannerRef.CreatureNearestTarget.position;
             /** 플레이어가 가까운 적을 보는 방향 */

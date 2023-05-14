@@ -29,6 +29,8 @@ public class PlaySceneManager : MonoBehaviour
         /** 게임 생명 활성화 */
         GameManager.GMInstance.bIsLive = true;
 
+        GameManager.GMInstance.InfoInit();
+
         /** 처음 시작하는지 확인하기 위한 변수 */
         bIsFirstStart = true;
     }
@@ -48,8 +50,9 @@ public class PlaySceneManager : MonoBehaviour
 
     public void OnClickBack()
     {
-        SceneManager.LoadScene("DungeonSelect");
+        SceneManager.LoadScene("Lobby");
     }
+
     public void TextInit()
     {
         if (GameManager.GMInstance.level == 1)
