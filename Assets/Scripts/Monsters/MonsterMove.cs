@@ -150,8 +150,26 @@ public class MonsterMove : MonoBehaviour
         /** TODO ## MonsterMove.cs 태그가 Bullet이면 */
         if (collision.CompareTag("Bullet"))
         {
-            /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
-            GetDamage(collision.GetComponent<Bullet>().m_Damage);
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
+            /** 크리티커 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.CharacterCriticalPercent)
+            {
+                GetDamage(GameManager.GMInstance.CharacterCriticalDamage * (collision.GetComponent<Bullet>().m_Damage));
+                Debug.Log("파이어볼 크리티컬 데미지 : " + GameManager.GMInstance.CharacterCriticalDamage * (collision.GetComponent<Bullet>().m_Damage));
+            }
+            else
+            {
+                /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
+                GetDamage(collision.GetComponent<Bullet>().m_Damage);
+                Debug.Log("파이어볼 일반공격 데미지 : " + collision.GetComponent<Bullet>().m_Damage);
+            }
+
             StartCoroutine(KnockBack());
 
             /** health 0보다 크면 몬스터가 살아있다면 */
@@ -185,9 +203,87 @@ public class MonsterMove : MonoBehaviour
         /** TODO ## MonsterMove.cs 태그가 IceArrow이면 */
         if (collision.CompareTag("IceArrow"))
         {
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
+            /** 크리티커 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.CharacterCriticalPercent)
+            {
+                GetDamage(GameManager.GMInstance.CharacterCriticalDamage * (collision.GetComponent<Bullet>().m_Damage));
+                Debug.Log("아이스에로우 크리티컬 데미지 : " + GameManager.GMInstance.CharacterCriticalDamage * (collision.GetComponent<Bullet>().m_Damage));
+            }
+            else
+            {
+                /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
+                GetDamage(collision.GetComponent<Bullet>().m_Damage);
+                Debug.Log("아이스에로우 일반공격 데미지 : " + collision.GetComponent<Bullet>().m_Damage);
+            }
+
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
             /** 몬스터의 체력은 IceArrow 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
             GetDamage(collision.GetComponent<Bullet>().m_Damage);
             StartCoroutine(KnockBack());
+
+            /** health 0보다 크면 몬스터가 살아있다면 */
+            if (CurrentMonsterHp > 0)
+            {
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                // Dead();
+            }
+        }
+
+        /** TODO ## MonsterMove.cs 태그가 ElectricBall이면 */
+        if (collision.CompareTag("ElectricBall"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            /** 몬스터의 체력은 IceArrow 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
+            GetDamage(collision.GetComponent<Bullet>().m_Damage);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
+            /** 크리티커 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.CharacterCriticalPercent)
+            {
+                GetDamage(GameManager.GMInstance.CharacterCriticalDamage * (collision.GetComponent<Bullet>().m_Damage));
+                Debug.Log("뇌구 크리티컬 데미지 : " + GameManager.GMInstance.CharacterCriticalDamage * (collision.GetComponent<Bullet>().m_Damage));
+            }
+            else
+            {
+                /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
+                GetDamage(collision.GetComponent<Bullet>().m_Damage);
+                Debug.Log("뇌구 일반공격 데미지 : " + collision.GetComponent<Bullet>().m_Damage);
+            }
+
+            StartCoroutine(KnockBack());
+
+
 
             /** health 0보다 크면 몬스터가 살아있다면 */
             if (CurrentMonsterHp > 0)
@@ -223,6 +319,9 @@ public class MonsterMove : MonoBehaviour
             /** 메테오 데미지 매개변수로 함수 호출 */
             GetDamage(GameManager.GMInstance.SkillManagerRef.MateoDamage);
 
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
             if (CurrentMonsterHp > 0)
             {
                 //피격 부분에 애니메이터를 호출하여 상태 변경
@@ -253,11 +352,15 @@ public class MonsterMove : MonoBehaviour
         /** 라이트닝에 닿았다면 */
         if (collision.gameObject.CompareTag("Lightning"))
         {
-            /** 메테오 데미지 매개변수로 함수 호출 */
+            /** 낙뢰 데미지 매개변수로 함수 호출 */
             GetDamage(GameManager.GMInstance.SkillManagerRef.LightningDamage);
 
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+
             if (CurrentMonsterHp > 0)
-            {
+            {        
                 //피격 부분에 애니메이터를 호출하여 상태 변경
                 anim.SetTrigger("Hit");
             }
@@ -285,11 +388,15 @@ public class MonsterMove : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Tornado"))
         {
-            /** 메테오 데미지 매개변수로 함수 호출 */
+            /** 토네이도 데미지 매개변수로 함수 호출 */
             GetDamage(GameManager.GMInstance.SkillManagerRef.TornadoDamage);
+
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
             if (CurrentMonsterHp > 0)
             {
+
                 //피격 부분에 애니메이터를 호출하여 상태 변경
                 anim.SetTrigger("Hit");
             }
@@ -325,8 +432,13 @@ public class MonsterMove : MonoBehaviour
             CurrentMonsterHp -= Time.deltaTime * GameManager.GMInstance.SkillManagerRef.IceAgeDamage;
             // Debug.Log(GameManager.GMInstance.SkillManagerRef.IceAgeDamage);
 
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+
             if (CurrentMonsterHp > 0)
             {
+
                 //피격 부분에 애니메이터를 호출하여 상태 변경
                 anim.SetTrigger("Hit");
             }

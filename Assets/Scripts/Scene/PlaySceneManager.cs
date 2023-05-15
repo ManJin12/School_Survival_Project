@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using My;
+using static Define;
 
 public class PlaySceneManager : MonoBehaviour
 {
@@ -14,10 +15,53 @@ public class PlaySceneManager : MonoBehaviour
     public bool bIsFirstStart;
     public GameObject GameClearPanel;
     public GameObject GameOverPanel;
+    public GameObject ConfigPanel;
     public LevelUp WizardLevelUp;
+
+    [Header("---DungeonTile0---")]
+    public GameObject GrassLandTile;
+    public GameObject RockLandTile;
+    public GameObject DeathLandTile;
+
+    [Header("---Check---")]
+    public Image PlayScene_BGM_Off_Check;
+    public Image PlayScene_BGM_On_Check;
+    public Image PlayScene_EffectSound_On_Check;
+    public Image PlayScene_EffectSound_Off_Check;
 
     void Start()
     {
+        /** 만약 선택된 모드가 초원지대라면 */
+        if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.GrassLand)
+        {
+            /** 초원지대 배경음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.Dungeon_Grassland);
+
+            GrassLandTile.SetActive(true);
+            RockLandTile.SetActive(false);
+            DeathLandTile.SetActive(false);
+        }
+        /** 만약 선택된 모드가 암석지대라면 */
+        else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.RockLand)
+        {
+            /** 암석지대 배경음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.Dungeon_Rockland);
+
+            GrassLandTile.SetActive(false);
+            RockLandTile.SetActive(true);
+            DeathLandTile.SetActive(false);
+        }
+        /** 만약 선택된 모드가 망자의 숲이라면 */
+        else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.DeathLand)
+        {
+            /** 망자의 숲 배경음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.Dungeon_Deathland);
+
+            GrassLandTile.SetActive(false);
+            RockLandTile.SetActive(false);
+            DeathLandTile.SetActive(true);
+        }
+
         /** 스킬 선택 텍스트UI 함수 호출 */
         TextInit();
         GameManager.GMInstance.CurrentScene = Define.ESceneType.PlayScene;
@@ -48,8 +92,43 @@ public class PlaySceneManager : MonoBehaviour
         GameClear();
     }
 
-    public void OnClickBack()
+    /** 환경설정 클릭 */
+    public void OnClickConfig()
     {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        ConfigPanel.SetActive(true);
+
+        /** 화면이 멈췄기 때문에 다음 입장을 위해 false로 해준다. */
+        GameManager.GMInstance.bIsLive = false;
+
+        Time.timeScale = 0.0f;
+    }
+
+    /** 환경설정 닫기 버튼 */
+    public void OnClickConfig_Resume()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        Time.timeScale = 1.0f;
+
+        /** 화면이 멈췄기 때문에 다음 입장을 위해 false로 해준다. */
+        GameManager.GMInstance.bIsLive = true;
+
+        ConfigPanel.SetActive(false);
+    }
+
+    /** Lobby Scene으로 이동 */
+    public void OnClickConfig_GoLobby()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 시간흐름 정상화 */
+        Time.timeScale = 1.0f;
+
         SceneManager.LoadScene("Lobby");
     }
 
@@ -117,7 +196,6 @@ public class PlaySceneManager : MonoBehaviour
         Time.timeScale = 1.0f;
         /** 로비 씬으로 전환되기 때문에 다음 입장을 위해 false로 해준다. */
         GameManager.GMInstance.bIsLive = false;
-
         /** 로비화면 이동 */
         SceneManager.LoadScene("Lobby");
     }
@@ -141,5 +219,74 @@ public class PlaySceneManager : MonoBehaviour
         SceneManager.LoadScene("PlayScene");
     }
 
+    /** 효과음 off 함수 */
+    public void OnClickSoundOff()
+    {
+        GameManager.GMInstance.SoundManagerRef.bIsSFXOn = false;
 
+        /** 저장된 효과음 개수만큼 반복 */
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
+        {
+            /** 효과음 소거 */
+            GameManager.GMInstance.SoundManagerRef.SFXPlayers[i].mute = true;
+        }
+
+        PlayScene_EffectSound_On_Check.gameObject.SetActive(false);
+        PlayScene_EffectSound_Off_Check.gameObject.SetActive(true);
+    }
+
+    /** 효과음 on 함수 */
+    public void OnClickSoundOn()
+    {
+        GameManager.GMInstance.SoundManagerRef.bIsSFXOn = true;
+
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 저장된 효과음 개수만큼 반복 */
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
+        {
+            /** 효과음 소거 */
+            GameManager.GMInstance.SoundManagerRef.SFXPlayers[i].mute = false;
+        }
+
+        PlayScene_EffectSound_On_Check.gameObject.SetActive(true);
+        PlayScene_EffectSound_Off_Check.gameObject.SetActive(false);
+    }
+
+    /** 배경음 on 함수 */
+    public void OnClickBGMOn()
+    {
+        GameManager.GMInstance.SoundManagerRef.bIsBGMOn = true;
+
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            /** 배경음 On */
+            GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].mute = false;
+        }
+
+        PlayScene_BGM_On_Check.gameObject.SetActive(true);
+        PlayScene_BGM_Off_Check.gameObject.SetActive(false);
+    }
+
+    /** 배경음 off 함수 */
+    public void OnClickBGMOff()
+    {
+        GameManager.GMInstance.SoundManagerRef.bIsBGMOn = false;
+
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            /** 배경음 off */
+            GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].mute = true;
+        }
+
+        PlayScene_BGM_On_Check.gameObject.SetActive(false);
+        PlayScene_BGM_Off_Check.gameObject.SetActive(true);
+    }
 }

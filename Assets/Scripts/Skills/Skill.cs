@@ -191,20 +191,20 @@ public class Skill : MonoBehaviour
                     weapon.Init(data);
 
                     /** 파이어볼 레벨이 0이라면 */
-                    if (FireBallObj.GetComponent<Skill>().level == 0)
-                    {
-                        /** 빈게임 오브젝트 생성 */
-                        GameObject FireBallWeaponObj = new GameObject();
-                        /** 생성된 오브젝트에 Weapon 스크립트 추가 */
-                        FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
-                        /** 파이어볼의 레벨을 올린다 */
-                        FireBallObj.GetComponent<Skill>().level++;
-                        /** 파이어볼의 기본 데미지 */
-                        FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
-                        /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
-                        FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
-                        FireBallWeapon.Init(FireBallData);
-                    }
+                    //if (FireBallObj.GetComponent<Skill>().level == 0)
+                    //{
+                    //    /** 빈게임 오브젝트 생성 */
+                    //    GameObject FireBallWeaponObj = new GameObject();
+                    //    /** 생성된 오브젝트에 Weapon 스크립트 추가 */
+                    //    FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
+                    //    /** 파이어볼의 레벨을 올린다 */
+                    //    FireBallObj.GetComponent<Skill>().level++;
+                    //    /** 파이어볼의 기본 데미지 */
+                    //    FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
+                    //    /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
+                    //    FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
+                    //    FireBallWeapon.Init(FireBallData);
+                    //}
                 }
                 /** 스킬레벨이 0이 아니라면 */
                 else
@@ -264,6 +264,7 @@ public class Skill : MonoBehaviour
 
                     /** 현재 데미지는 값이 계산된 nextDamage로 변경 */
                     CurrentDamage = nextDamage;
+                    FireBallWeapon.Levelup(CurrentDamage, 0);
 
                     Debug.Log(data.Skill_Name + " " + nextDamage);
 
@@ -291,20 +292,20 @@ public class Skill : MonoBehaviour
                     passiveSkill.Init(data);
 
                     /** 파이어볼 레벨이 0이라면 */
-                    if (FireBallObj.GetComponent<Skill>().level == 0)
-                    {
-                        /** 빈게임 오브젝트 생성 */
-                        GameObject FireBallWeaponObj = new GameObject();
-                        /** 생성된 오브젝트에 Weapon 스크립트 추가 */
-                        FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
-                        /** 파이어볼의 레벨을 올린다 */
-                        FireBallObj.GetComponent<Skill>().level++;
-                        /** 파이어볼의 기본 데미지 */
-                        FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
-                        /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
-                        FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
-                        FireBallWeapon.Init(FireBallData);
-                    }
+                    //if (FireBallObj.GetComponent<Skill>().level == 0)
+                    //{
+                    //    /** 빈게임 오브젝트 생성 */
+                    //    GameObject FireBallWeaponObj = new GameObject();
+                    //    /** 생성된 오브젝트에 Weapon 스크립트 추가 */
+                    //    FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
+                    //    /** 파이어볼의 레벨을 올린다 */
+                    //    FireBallObj.GetComponent<Skill>().level++;
+                    //    /** 파이어볼의 기본 데미지 */
+                    //    FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
+                    //    /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
+                    //    FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
+                    //    FireBallWeapon.Init(FireBallData);
+                    //}
                 }
                 /** 레벨이 0이 아니라면 */
                 else
@@ -345,21 +346,21 @@ public class Skill : MonoBehaviour
                     CurrentDamage = GameManager.GMInstance.SkillManagerRef.MateoDamage;
 
 
-                    /** 파이어볼 레벨이 0이라면 */
-                    if (FireBallObj.GetComponent<Skill>().level == 0)
-                    {
-                        /** 빈게임 오브젝트 생성 */
-                        GameObject FireBallWeaponObj = new GameObject();
-                        /** 생성된 오브젝트에 Weapon 스크립트 추가 */
-                        FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
-                        /** 파이어볼의 레벨을 올린다 */
-                        FireBallObj.GetComponent<Skill>().level++;
-                        /** 파이어볼의 기본 데미지 */
-                        FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
-                        /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
-                        FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
-                        FireBallWeapon.Init(FireBallData);
-                    }
+                    ///** 파이어볼 레벨이 0이라면 */
+                    //if (FireBallObj.GetComponent<Skill>().level == 0)
+                    //{
+                    //    /** 빈게임 오브젝트 생성 */
+                    //    GameObject FireBallWeaponObj = new GameObject();
+                    //    /** 생성된 오브젝트에 Weapon 스크립트 추가 */
+                    //    FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
+                    //    /** 파이어볼의 레벨을 올린다 */
+                    //    FireBallObj.GetComponent<Skill>().level++;
+                    //    /** 파이어볼의 기본 데미지 */
+                    //    FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
+                    //    /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
+                    //    FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
+                    //    FireBallWeapon.Init(FireBallData);
+                    //}
                 }
                 else
                 {
@@ -399,21 +400,21 @@ public class Skill : MonoBehaviour
                     GameManager.GMInstance.SkillManagerRef.EnabledIceAge();
 
 
-                    /** 파이어볼 레벨이 0이라면 */
-                    if (FireBallObj.GetComponent<Skill>().level == 0)
-                    {
-                        /** 빈게임 오브젝트 생성 */
-                        GameObject FireBallWeaponObj = new GameObject();
-                        /** 생성된 오브젝트에 Weapon 스크립트 추가 */
-                        FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
-                        /** 파이어볼의 레벨을 올린다 */
-                        FireBallObj.GetComponent<Skill>().level++;
-                        /** 파이어볼의 기본 데미지 */
-                        FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
-                        /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
-                        FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
-                        FireBallWeapon.Init(FireBallData);
-                    }
+                    ///** 파이어볼 레벨이 0이라면 */
+                    //if (FireBallObj.GetComponent<Skill>().level == 0)
+                    //{
+                    //    /** 빈게임 오브젝트 생성 */
+                    //    GameObject FireBallWeaponObj = new GameObject();
+                    //    /** 생성된 오브젝트에 Weapon 스크립트 추가 */
+                    //    FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
+                    //    /** 파이어볼의 레벨을 올린다 */
+                    //    FireBallObj.GetComponent<Skill>().level++;
+                    //    /** 파이어볼의 기본 데미지 */
+                    //    FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
+                    //    /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
+                    //    FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
+                    //    FireBallWeapon.Init(FireBallData);
+                    //}
 
                 }
                 else
@@ -452,21 +453,21 @@ public class Skill : MonoBehaviour
                     GameManager.GMInstance.SkillManagerRef.LightningSkillTime = GameManager.GMInstance.SkillManagerRef.LightningSkillCoolTime;
 
 
-                    /** 파이어볼 레벨이 0이라면 */
-                    if (FireBallObj.GetComponent<Skill>().level == 0)
-                    {
-                        /** 빈게임 오브젝트 생성 */
-                        GameObject FireBallWeaponObj = new GameObject();
-                        /** 생성된 오브젝트에 Weapon 스크립트 추가 */
-                        FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
-                        /** 파이어볼의 레벨을 올린다 */
-                        FireBallObj.GetComponent<Skill>().level++;
-                        /** 파이어볼의 기본 데미지 */
-                        FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
-                        /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
-                        FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
-                        FireBallWeapon.Init(FireBallData);
-                    }
+                    ///** 파이어볼 레벨이 0이라면 */
+                    //if (FireBallObj.GetComponent<Skill>().level == 0)
+                    //{
+                    //    /** 빈게임 오브젝트 생성 */
+                    //    GameObject FireBallWeaponObj = new GameObject();
+                    //    /** 생성된 오브젝트에 Weapon 스크립트 추가 */
+                    //    FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
+                    //    /** 파이어볼의 레벨을 올린다 */
+                    //    FireBallObj.GetComponent<Skill>().level++;
+                    //    /** 파이어볼의 기본 데미지 */
+                    //    FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
+                    //    /** 파이어볼 버튼 오브젝트의 스크립트가 가지고 있는 FireBallWeapon는 이 스크립트가 들고 있는 FireBallWeapon  */
+                    //    FireBallObj.GetComponent<Skill>().FireBallWeapon = this.FireBallWeapon;
+                    //    FireBallWeapon.Init(FireBallData);
+                    //}
                 }
                 /** 낙뢰스킬레벨이 0이 아닐 때 */
                 else
@@ -507,18 +508,18 @@ public class Skill : MonoBehaviour
 
 
                     /** 파이어볼 레벨이 0이라면 */
-                    if (FireBallObj.GetComponent<Skill>().level == 0)
-                    {
-                        /** 빈게임 오브젝트 생성 */
-                        GameObject FireBallWeaponObj = new GameObject();
-                        /** 생성된 오브젝트에 Weapon 스크립트 추가 */
-                        FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
-                        /** 파이어볼의 레벨을 올린다 */
-                        FireBallObj.GetComponent<Skill>().level++;
-                        /** 파이어볼의 기본 데미지 */
-                        FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
-                        FireBallWeapon.Init(FireBallData);
-                    }
+                    //if (FireBallObj.GetComponent<Skill>().level == 0)
+                    //{
+                    //    /** 빈게임 오브젝트 생성 */
+                    //    GameObject FireBallWeaponObj = new GameObject();
+                    //    /** 생성된 오브젝트에 Weapon 스크립트 추가 */
+                    //    FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
+                    //    /** 파이어볼의 레벨을 올린다 */
+                    //    FireBallObj.GetComponent<Skill>().level++;
+                    //    /** 파이어볼의 기본 데미지 */
+                    //    FireBallObj.GetComponent<Skill>().CurrentDamage = FireBallData.baseDamage;
+                    //    FireBallWeapon.Init(FireBallData);
+                    //}
 
                 }
                 else

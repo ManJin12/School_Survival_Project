@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -3255018875715749923}
   m_Layer: 0
   m_Name: ElectricBall
-  m_TagString: Bullet
+  m_TagString: ElectricBall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

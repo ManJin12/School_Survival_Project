@@ -11,8 +11,9 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject MenuPanel;
     public GameObject ConfigPanel;
     public GameObject MyCharacter;
+    public GameObject DungeonSelectPanel;
+    public GameObject AbilityCheckPanel;
 
-    
     public GameObject[] SelectCharacterPrefabs;
 
 
@@ -21,15 +22,40 @@ public class LobbySceneManager : MonoBehaviour
     public int Up_Damage;
     public int Up_Defense;
 
+    /** 캐릭터 능력치 창 Text변수 */
+    [Header("---CharInfoText---")]
+    public Text AttackText;
+    public Text MaxHPText;
+    public Text CharSpeedText;
+    public Text CharCriticalPer;
+    public Text CharCriticalDamage;
+
+
+
+    /** 캐릭터 능력치 레벨 텍스트 */
+    [Header("---CharAbilityLevelText---")]
+    public Text AttackLevelText;
+    public Text MaxHpLevelText;
+    public Text CharSpeedLevelText;
+    public Text CharCriticalPerLevelText;
+    public Text CharCriticalDamageLevelText;
+
     [Header("---Check---")]
     public Image BGM_Off_Check;
     public Image BGM_On_Check;
     public Image EffectSound_On_Check;
     public Image EffectSound_Off_Check;
 
-    // Start is called before the first frame update
-    private void Start()
+    void Awake()
     {
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        GameManager.GMInstance.SoundManagerRef.PlayBGM(SoundManager.BGM.Lobby);
+
         // Time.timeScale = 1;
 
         /** 현재 화면 로비씬*/
@@ -57,7 +83,25 @@ public class LobbySceneManager : MonoBehaviour
             /** 효과음 on 체크박스 활성화 */
             EffectSound_On_Check.gameObject.SetActive(false);
         }
+
+        CharInfoInit();
     }
+
+    public void CharInfoInit()
+    {
+        // AttackText.text
+
+        MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
+        CharSpeedText.text = GameManager.GMInstance.PlayerSpeed.ToString("F2") + "%";
+        CharCriticalPer.text = (100 * GameManager.GMInstance.CharacterCriticalPercent).ToString("F2") + "%";
+        CharCriticalDamage.text = (100 * GameManager.GMInstance.CharacterCriticalDamage).ToString("F1") + "%";
+
+        CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
+        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
+        MaxHpLevelText.text = "Lv" + GameManager.GMInstance.MaxHpLevel + " 최대 체력 증가";
+        CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
+    }
+
 
     public void OnClickMenuBtn()
     {
@@ -73,13 +117,19 @@ public class LobbySceneManager : MonoBehaviour
 
     public void OnClickGameplayBtn()
     {
-        /** 화면 전환 */
-        SceneManager.LoadScene("PlayScene");
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        DungeonSelectPanel.SetActive(true);
     }
 
     /** 다음 캐릭터 버튼 눌렀을 때 */
     public void OnClickNextCharacter()
     {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+
         /** 현재 캐릭터 타입이 마법사라면? */
         if (GameManager.GMInstance.CurrentChar == ECharacterType.WizardChar)
         {
@@ -103,6 +153,10 @@ public class LobbySceneManager : MonoBehaviour
     /** 이전 캐릭터 버튼 눌렀을 때 */
     public void OnClickPreviousCharacter()
     {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+
         /** 현재 캐릭터 타입이 마법사라면? */
         if (GameManager.GMInstance.CurrentChar == ECharacterType.WizardChar)
         {
@@ -183,8 +237,11 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
-        /** 배경음 Off */
-        GameManager.GMInstance.SoundManagerRef.BGMPlayer.mute = false;
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            /** 배경음 On */
+            GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].mute = false;
+        }
 
         BGM_On_Check.gameObject.SetActive(true);
         BGM_Off_Check.gameObject.SetActive(false);
@@ -198,10 +255,155 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
-        /** 배경음 On */
-        GameManager.GMInstance.SoundManagerRef.BGMPlayer.mute = true;
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            /** 배경음 off */
+            GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].mute = true;
+        }
 
         BGM_On_Check.gameObject.SetActive(false);
         BGM_Off_Check.gameObject.SetActive(true);
+    }
+
+    public void OnClickCloseSelectDungeonPanel()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 던전 판넬 끄기 */
+        DungeonSelectPanel.gameObject.SetActive(false);
+    }
+
+    public void OnClickEnterGrassLand()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 게임매니저 모드를 초원지대로 바꾸고 */
+        GameManager.GMInstance.SelectDungeonMode = ESelectDungeon.GrassLand;
+
+        SceneManager.LoadScene("PlayScene");
+    }
+
+    public void OnClickEnterRockLand()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 게임매니저 모드를 초원지대로 바꾸고 */
+        GameManager.GMInstance.SelectDungeonMode = ESelectDungeon.RockLand;
+
+        SceneManager.LoadScene("PlayScene");
+    }
+
+    public void OnClickEnterDeathLand()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 게임매니저 모드를 초원지대로 바꾸고 */
+        GameManager.GMInstance.SelectDungeonMode = ESelectDungeon.DeathLand;
+
+        SceneManager.LoadScene("PlayScene");
+    }
+
+
+    /** 크리티컬확률 증가 */
+    public void OnClickCrticalUp()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 크리티컬 확률 계산 */
+        GameManager.GMInstance.CharacterCriticalPercent += 0.0035f;
+
+        /** 크리티컬 증가확률 레벨 1+ */
+        GameManager.GMInstance.CharCriticalPerLevel++;
+
+        CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
+
+        /** 능력치 창 크리티컬 확률 초기화 */
+        CharCriticalPer.text =(100 * GameManager.GMInstance.CharacterCriticalPercent).ToString("F2") + "%";
+    }
+
+    /** 크리티컬 데미지 증가 */
+    public void OnClickCrticalDamageUp()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 크리티컬 데미지 계산 */
+        GameManager.GMInstance.CharacterCriticalDamage += 0.002f;
+
+        /** 크리티컬 데미지 증가 레벨 1+ */
+        GameManager.GMInstance.CharCriticalDamageLevel++;
+
+        /** 크리티컬 데미지 레벨 증가 텍스트 초기화 */
+        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
+
+        /** 능력치 창 크리티컬 데미지 수치 초기화 */
+        CharCriticalDamage.text = (100 * GameManager.GMInstance.CharacterCriticalDamage).ToString("F1") + "%";
+    }
+
+    /** 체력 증가 */
+    public void OnClickMaxHpUp()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+        /** 최대체력 증가 계산 */
+        GameManager.GMInstance.MaxHealth += GameManager.GMInstance.MaxHealth * 0.1f;
+
+        /** 캐릭터 최대체력 증가레벨 1+ */
+        GameManager.GMInstance.MaxHpLevel++;
+
+        /** 최대체력증가 레벨 텍스트 초기화 */
+        MaxHpLevelText.text = "Lv" + GameManager.GMInstance.MaxHpLevel + " 최대 체력 증가";
+
+        /** 능력치 창 이동속도 표시 초기화 */
+        MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
+
+    }
+
+
+    /** 이동속도 증가 */
+    public void OnClickSpeedUp()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 이동속도 증가 계산 */
+        GameManager.GMInstance.PlayerSpeed += GameManager.GMInstance.PlayerSpeed * 0.005f;
+
+        /** 이동속도 증가 레벨 1+ */
+        GameManager.GMInstance.CharSpeedLevel++;
+
+        /** 이동속도 레벨 텍스트 초기화 */
+        CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
+
+        /** 능력치 창 이동속도 표시 초기화 */
+        CharSpeedText.text = GameManager.GMInstance.PlayerSpeed.ToString("F2") + "%";
+
+    }
+
+    /** 데미지 증가 */
+    public void OnClickDamageUp()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+    }
+
+    public void OnClickAbilityCheckOpen()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        AbilityCheckPanel.gameObject.SetActive(true);
+    }
+
+    public void OnClickAbilityCheckClose()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+        AbilityCheckPanel.gameObject.SetActive(false);
     }
 }

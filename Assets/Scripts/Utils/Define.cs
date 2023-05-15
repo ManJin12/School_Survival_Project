@@ -52,4 +52,11 @@ public class Define
     {
         Skill_Mateo,
     }
+
+    public enum ESelectDungeon
+    {
+        GrassLand,
+        RockLand,
+        DeathLand,
+    }
 }

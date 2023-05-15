@@ -63,8 +63,6 @@ public class SkillManager : MonoBehaviour
     [Header("---IceArrow---")]
     public GameObject IceArrow;
 
-
-
     private void Awake()
     {
         Player = GameManager.GMInstance.Player;
@@ -198,14 +196,15 @@ public class SkillManager : MonoBehaviour
 
     void MakeLighining()
     {
-        /** 효과음 재생 */
-        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Lightning);
-
         /** 가까운적이 없다면 */
         if (!GameManager.GMInstance.ScannerRef.NearestTarget)
         {
             return;
         }
+
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Lightning);
+
 
         /** 스킬 배열 2번에 저장된 오브젝트를 생성 */
         GameObject Lightning = Instantiate(Skills[2]);

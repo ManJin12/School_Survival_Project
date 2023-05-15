@@ -60,8 +60,8 @@ public class PassiveSkill : MonoBehaviour
     
     void SpeedUp()
     {
-        float speed = 1.2f;
-        GameManager.GMInstance.PlayerSpeed = speed + speed * rate;
+        
+        GameManager.GMInstance.PlayerSpeed += GameManager.GMInstance.PlayerSpeed * rate;
     }
 
 }

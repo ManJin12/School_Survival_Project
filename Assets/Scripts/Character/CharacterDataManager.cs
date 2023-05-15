@@ -22,4 +22,11 @@ public class CharacterDataManager : MonoBehaviour
     {
         
     }
+
+    public void OnClickCharacterCriticalPercent_Up()
+    {
+
+        CharacterCriticalPercent_Up += 0.0035f;
+    }
+
 }

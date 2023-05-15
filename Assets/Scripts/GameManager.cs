@@ -31,6 +31,8 @@ namespace My
         public float PlayerSpeed;
         float BasePlayerSpeed;
         public float DashSpeed;
+        public float CharacterCriticalPercent;
+        public float CharacterCriticalDamage;
 
         [Header("-----MonsterData-----")]
         /** 몬스터 스폰시간 */
@@ -59,16 +61,50 @@ namespace My
         [Header("-----CharacterType-----")]
         public ECharacterType CurrentChar;
 
-        [Header("-----CharacterType-----")]
+        [Header("-----SceneType-----")]
         public ESceneType CurrentScene;
+
+        [Header("-----DungeonType-----")]
+        public ESelectDungeon SelectDungeonMode;
 
         [Header("-----GameObject-----")]
         public GameObject Player;
         public LevelUp UiLevelUp;
         public AcherLevelUp AcherLevelUpRef;
 
+        /** 능력치 레벨 */
+        public int AttackAbilityLevel = 1;
+        public int MaxHpLevel = 1;
+        public int CharSpeedLevel = 1;
+        public int CharCriticalPerLevel = 1;
+        public int CharCriticalDamageLevel = 1;
+
         [Header("-----Component-----")]
         public PlayerController playerCtrl;
+
+        /** 공격력 레벨 반환함수 */
+        //public int GetAttackAbilityLevel()
+        //{
+        //    return AttackAbilityLevel;
+        //}
+
+        ///** 최대체력증가 레벨 반환함수 */
+        //public int GetMaxHpLevel()
+        //{
+        //    return MaxHpLevel;
+        //}
+
+        ///** 크리티컬확률 증가 레벨 반환 함수 */
+        //public int GetCharCriticalPerLevel()
+        //{
+        //    return CharCriticalPerLevel;
+        //}
+
+        ///** 크리티컬데미지 증가 레벨 반환 함수 */
+        //public int GetCharCriticalDamageLevel()
+        //{
+        //    return CharCriticalDamageLevel;
+        //}
 
         public float GetPlayerBaseSpeed() 
         {
@@ -131,6 +167,9 @@ namespace My
             */
             if (exp == nextExp[Mathf.Min(level, nextExp.Length - 1)])
             {
+                /** 레벨 업 사운드 실행 */
+                SoundManagerRef.PlaySFX(SoundManager.SFX.LevelUp);
+
                 /** 레벨 증가 */
                 level++;
 
