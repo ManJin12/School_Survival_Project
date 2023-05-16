@@ -72,6 +72,14 @@ namespace My
         public LevelUp UiLevelUp;
         public AcherLevelUp AcherLevelUpRef;
 
+        [Header("-----AbilityRate-----")]
+        public float AttackAbilityUpRate;
+        public float MaxHpLevelUpRate;
+        public float CharSpeedLevelUpRate;
+        public float CharCriticalPerUpRate;
+        public float CharCriticalDamageUpRate;
+
+        [Header("-----AbilityLevel-----")]
         /** 능력치 레벨 */
         public int AttackAbilityLevel = 1;
         public int MaxHpLevel = 1;

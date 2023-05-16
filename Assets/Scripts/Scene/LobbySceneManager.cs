@@ -13,6 +13,8 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject MyCharacter;
     public GameObject DungeonSelectPanel;
     public GameObject AbilityCheckPanel;
+    public GameObject InGameMoneyPanel;
+    public GameObject EquipmentGachaPanel;
 
     public GameObject[] SelectCharacterPrefabs;
 
@@ -92,7 +94,7 @@ public class LobbySceneManager : MonoBehaviour
         // AttackText.text
 
         MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
-        CharSpeedText.text = GameManager.GMInstance.PlayerSpeed.ToString("F2") + "%";
+        CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
         CharCriticalPer.text = (100 * GameManager.GMInstance.CharacterCriticalPercent).ToString("F2") + "%";
         CharCriticalDamage.text = (100 * GameManager.GMInstance.CharacterCriticalDamage).ToString("F1") + "%";
 
@@ -315,7 +317,7 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 크리티컬 확률 계산 */
-        GameManager.GMInstance.CharacterCriticalPercent += 0.0035f;
+        GameManager.GMInstance.CharacterCriticalPercent += GameManager.GMInstance.CharCriticalPerUpRate;
 
         /** 크리티컬 증가확률 레벨 1+ */
         GameManager.GMInstance.CharCriticalPerLevel++;
@@ -333,7 +335,7 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 크리티컬 데미지 계산 */
-        GameManager.GMInstance.CharacterCriticalDamage += 0.002f;
+        GameManager.GMInstance.CharacterCriticalDamage += GameManager.GMInstance.CharCriticalDamageUpRate;
 
         /** 크리티컬 데미지 증가 레벨 1+ */
         GameManager.GMInstance.CharCriticalDamageLevel++;
@@ -350,8 +352,13 @@ public class LobbySceneManager : MonoBehaviour
     {
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
-        /** 최대체력 증가 계산 */
-        GameManager.GMInstance.MaxHealth += GameManager.GMInstance.MaxHealth * 0.1f;
+
+        /** 현재 최대체력의 10% 증가 계산 */
+        //GameManager.GMInstance.MaxHealth += GameManager.GMInstance.MaxHealth * 0.1f;
+
+        /** 최대체력의 2씩 증가 계산 */
+        GameManager.GMInstance.MaxHealth += GameManager.GMInstance.MaxHpLevelUpRate;
+
 
         /** 캐릭터 최대체력 증가레벨 1+ */
         GameManager.GMInstance.MaxHpLevel++;
@@ -372,7 +379,7 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 이동속도 증가 계산 */
-        GameManager.GMInstance.PlayerSpeed += GameManager.GMInstance.PlayerSpeed * 0.005f;
+        GameManager.GMInstance.PlayerSpeed += GameManager.GMInstance.CharSpeedLevelUpRate;
 
         /** 이동속도 증가 레벨 1+ */
         GameManager.GMInstance.CharSpeedLevel++;
@@ -381,7 +388,7 @@ public class LobbySceneManager : MonoBehaviour
         CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
 
         /** 능력치 창 이동속도 표시 초기화 */
-        CharSpeedText.text = GameManager.GMInstance.PlayerSpeed.ToString("F2") + "%";
+        CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
 
     }
 
@@ -406,4 +413,24 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
         AbilityCheckPanel.gameObject.SetActive(false);
     }
+
+    public void OnClickOpenInGameStore()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        InGameMoneyPanel.gameObject.SetActive(true);
+        EquipmentGachaPanel.gameObject.SetActive(false);
+    }
+
+    public void OnClickOpenEquipmentGacha()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        InGameMoneyPanel.gameObject.SetActive(false);
+        EquipmentGachaPanel.gameObject.SetActive(true);
+
+    }
 }
+
