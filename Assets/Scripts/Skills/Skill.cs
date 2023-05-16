@@ -181,6 +181,8 @@ public class Skill : MonoBehaviour
                     if (data.skillType == SkillData.SkillType.Skill_IceArrow)
                     {
                         GameManager.GMInstance.SkillManagerRef.IceArrow.SetActive(true);
+                        /** 아이스에로우의 기본 데미지를 GameManager에 전달 */
+                        GameManager.GMInstance.SetIceArrowBaseDamage(data.baseDamage);
                     }
 
                     /** 빈 게임 오브젝트 생성 */
@@ -189,6 +191,8 @@ public class Skill : MonoBehaviour
                     weapon = newWeapon.AddComponent<Weapon>();
                     /** weapon에 있는 Init함수를 data를 매개변수로 호출한다. */
                     weapon.Init(data);
+                    /** 전기구체의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetElectricBallBaseDamage(data.baseDamage);
 
                     /** 파이어볼 레벨이 0이라면 */
                     //if (FireBallObj.GetComponent<Skill>().level == 0)
@@ -251,6 +255,9 @@ public class Skill : MonoBehaviour
                     GameObject FireBallWeaponObj = new GameObject();
                     /** weapon은 생성된 newWeapon에 추가해준 Weapon Comoponent를 사용한다. */
                     FireBallWeapon = FireBallWeaponObj.AddComponent<Weapon>();
+                    /** 파이어볼의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetFireBallBaseDamage(data.baseDamage);
+
                     /** 기본공격 데미지 */
                     CurrentDamage = data.baseDamage;
                     nextCount = data.baseCount;
@@ -339,6 +346,10 @@ public class Skill : MonoBehaviour
                     GameManager.GMInstance.SkillManagerRef.MateoSkillCoolTime = data.counts[level];
                     /** SkillManager의 메테오출현 함수를 true로 바꿔준다. */
                     GameManager.GMInstance.SkillManagerRef.bIsMateo = true;
+
+                    /** 메테오의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetMateoBaseDamage(data.baseDamage);
+
                     /** 초기 메테오 데미지를 설정해 준다. */
                     /** TODO ## Skill.cs 메테오 초기 데미지 설정 */
                     GameManager.GMInstance.SkillManagerRef.MateoDamage = data.baseDamage;
@@ -370,6 +381,8 @@ public class Skill : MonoBehaviour
                     nextDamage = CurrentDamage * data.damages[level];
                     /** 현재레벨은 계산된 nextDamage */
                     CurrentDamage = nextDamage;
+
+                    GameManager.GMInstance.SkillManagerRef.MateoDamage = CurrentDamage;
                     Debug.Log("Mateo : " + CurrentDamage);
                 }
 
@@ -390,6 +403,10 @@ public class Skill : MonoBehaviour
                     GameManager.GMInstance.SkillManagerRef.IceAgeSkillTime = GameManager.GMInstance.SkillManagerRef.IceAgeSkillCoolTime;
                     /** 아이스 에이지 유지시간 설정 */
                     GameManager.GMInstance.SkillManagerRef.MaxIceAgeOnTime = data.counts[level];
+
+                    /** 아이스에이지의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetIceAgeBaseDamage(data.baseDamage);
+
                     /** 초기 아이스에이지 유지시간 설정 */
                     GameManager.GMInstance.SkillManagerRef.IceAgeOnTime = GameManager.GMInstance.SkillManagerRef.MaxIceAgeOnTime;
                     /** 아이스 에이지 활성화 시 데미지 */
@@ -445,6 +462,8 @@ public class Skill : MonoBehaviour
                     GameManager.GMInstance.SkillManagerRef.bIsLightning = true;
                     /** 낙뢰 스킬의 기본 데미지 */
                     GameManager.GMInstance.SkillManagerRef.LightningDamage = data.baseDamage;
+                    /** 냑뢰의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetLightningBaseDamage(data.baseDamage);
                     /** 현재 낙뢰데미지 */
                     CurrentDamage = GameManager.GMInstance.SkillManagerRef.LightningDamage;
                     /** 스킬 쿨타임 설정 */
@@ -499,6 +518,8 @@ public class Skill : MonoBehaviour
                     GameManager.GMInstance.SkillManagerRef.bIsTornado = true;
                     /** 토네이도 데미지는 baseDamage에 설정된 값 */
                     GameManager.GMInstance.SkillManagerRef.TornadoDamage = data.baseDamage;
+                    /** 토네이토의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetTornadoBaseDamage(data.baseDamage);
                     /** 스킬 쿨타임 설정 */
                     GameManager.GMInstance.SkillManagerRef.TornadoSkillCoolTime = data.counts[level];
                     /** 감소될 시간 값 초기화 */

@@ -95,13 +95,15 @@ public class LobbySceneManager : MonoBehaviour
 
         MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
         CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
-        CharCriticalPer.text = (100 * GameManager.GMInstance.CharacterCriticalPercent).ToString("F2") + "%";
-        CharCriticalDamage.text = (100 * GameManager.GMInstance.CharacterCriticalDamage).ToString("F1") + "%";
+        CharCriticalPer.text = (100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
+        CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
+        AttackText.text = (100 * GameManager.GMInstance.SkillDamageUpRate).ToString("F0") + "%";
 
         CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
         CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
         MaxHpLevelText.text = "Lv" + GameManager.GMInstance.MaxHpLevel + " 최대 체력 증가";
         CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
+        AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageLevel + " 스킬 데미지 증가";
     }
 
 
@@ -317,7 +319,7 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 크리티컬 확률 계산 */
-        GameManager.GMInstance.CharacterCriticalPercent += GameManager.GMInstance.CharCriticalPerUpRate;
+        GameManager.GMInstance.SetCriticalPercent(GameManager.GMInstance.GetCriticalPercent() + GameManager.GMInstance.CharCriticalPerUpRate);
 
         /** 크리티컬 증가확률 레벨 1+ */
         GameManager.GMInstance.CharCriticalPerLevel++;
@@ -325,7 +327,7 @@ public class LobbySceneManager : MonoBehaviour
         CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
 
         /** 능력치 창 크리티컬 확률 초기화 */
-        CharCriticalPer.text =(100 * GameManager.GMInstance.CharacterCriticalPercent).ToString("F2") + "%";
+        CharCriticalPer.text =(100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
     }
 
     /** 크리티컬 데미지 증가 */
@@ -335,7 +337,7 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 크리티컬 데미지 계산 */
-        GameManager.GMInstance.CharacterCriticalDamage += GameManager.GMInstance.CharCriticalDamageUpRate;
+        GameManager.GMInstance.SetCriticaDamage(GameManager.GMInstance.GetCriticalDamage() + GameManager.GMInstance.CharCriticalDamageUpRate);
 
         /** 크리티컬 데미지 증가 레벨 1+ */
         GameManager.GMInstance.CharCriticalDamageLevel++;
@@ -344,7 +346,7 @@ public class LobbySceneManager : MonoBehaviour
         CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
 
         /** 능력치 창 크리티컬 데미지 수치 초기화 */
-        CharCriticalDamage.text = (100 * GameManager.GMInstance.CharacterCriticalDamage).ToString("F1") + "%";
+        CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
     }
 
     /** 체력 증가 */
@@ -397,6 +399,18 @@ public class LobbySceneManager : MonoBehaviour
     {
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 스킬 데미지 증가 레벨 1+ */
+        GameManager.GMInstance.SkillDamageLevel++;
+
+        /** 스킬 데미지 증가 계산식 */
+        GameManager.GMInstance.SetSkillDamageUp(GameManager.GMInstance.GetSkillDamageUp() + GameManager.GMInstance.SkillDamageUpRate);
+
+        /** 능력치 창 스킬 데미지 표시 초기화 */
+        AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageLevel + " 스킬 데미지 증가";
+
+        /** 능력치 창 스킬 데미지 표시 초기화 */
+        AttackText.text = (100 * GameManager.GMInstance.GetSkillDamageUp()).ToString("F0") + "%";
     }
 
     public void OnClickAbilityCheckOpen()

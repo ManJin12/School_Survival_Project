@@ -19,7 +19,7 @@ MonoBehaviour:
     \uCD94\uAC00"
   Skill_Icon: {fileID: 1989559922, guid: 59930b2786677f145899654b3154ab7a, type: 3}
   baseDamage: 7
-  baseCount: 2
+  baseCount: 1
   damages:
   - 1.2
   - 1.2

@@ -31,8 +31,9 @@ namespace My
         public float PlayerSpeed;
         float BasePlayerSpeed;
         public float DashSpeed;
-        public float CharacterCriticalPercent;
-        public float CharacterCriticalDamage;
+        float CharacterCriticalPercent = 0.15f;
+        float CharacterCriticalDamage = 1.5f;
+        float SkillDamageUp = 0.1f;
 
         [Header("-----MonsterData-----")]
         /** 몬스터 스폰시간 */
@@ -73,7 +74,7 @@ namespace My
         public AcherLevelUp AcherLevelUpRef;
 
         [Header("-----AbilityRate-----")]
-        public float AttackAbilityUpRate;
+        public float SkillDamageUpRate;
         public float MaxHpLevelUpRate;
         public float CharSpeedLevelUpRate;
         public float CharCriticalPerUpRate;
@@ -81,11 +82,22 @@ namespace My
 
         [Header("-----AbilityLevel-----")]
         /** 능력치 레벨 */
-        public int AttackAbilityLevel = 1;
+        public int SkillDamageLevel = 1;
         public int MaxHpLevel = 1;
         public int CharSpeedLevel = 1;
         public int CharCriticalPerLevel = 1;
         public int CharCriticalDamageLevel = 1;
+
+
+        /** public 제거 가능 */
+        [Header("-----WizardSkillBaseDamage-----")]
+        public float FireBallBaseDamage;
+        public float ElectricBallBaseDamage;
+        public float MateoBaseDamage;
+        public float IceArrowBaseDamage;
+        public float IceAgeBaseDamage;
+        public float TornadoBaseDamage;
+        public float LightningBaseDamage;
 
         [Header("-----Component-----")]
         public PlayerController playerCtrl;
@@ -210,6 +222,124 @@ namespace My
             gameTime = _gametime;
             Health = _maxHp;
         }
+
+        /** 마법사 스킬 초기 데미지 설정 */
+        #region SetWizardSkillBaseDamage
+        public void SetFireBallBaseDamage(float basedamage)
+        {
+            FireBallBaseDamage = basedamage;
+        }
+
+        public void SetElectricBallBaseDamage(float basedamage)
+        {
+            ElectricBallBaseDamage = basedamage;
+        }
+
+        public void SetMateoBaseDamage(float basedamage)
+        {
+            MateoBaseDamage = basedamage;
+        }
+
+        public void SetIceArrowBaseDamage(float basedamage)
+        {
+            IceArrowBaseDamage = basedamage;
+        }
+
+        public void SetIceAgeBaseDamage(float basedamage)
+        {
+            IceAgeBaseDamage = basedamage;
+        }
+
+        public void SetTornadoBaseDamage(float basedamage)
+        {
+            TornadoBaseDamage = basedamage;
+        }
+
+        public void SetLightningBaseDamage(float basedamage)
+        {
+            LightningBaseDamage = basedamage;
+        }
+        #endregion
+
+        /** 마법사 스킬 초기 데미지 반환 */
+        #region GetWizardSkillBaseDamage
+
+        public float GetFireBallBaseDamage()
+        {
+            return FireBallBaseDamage;
+        }
+
+        public float GetElectricBallBaseDamage()
+        {
+            return ElectricBallBaseDamage;
+        }
+
+        public float GetMateoBaseDamage()
+        {
+            return MateoBaseDamage;
+        }
+
+        public float GetIceArrowBaseDamage()
+        {
+            return IceArrowBaseDamage;
+        }
+
+        public float GetIceAgeBaseDamage()
+        {
+            return IceAgeBaseDamage;
+        }
+
+        public float GetTornadoBaseDamage()
+        {
+            return TornadoBaseDamage;
+        }
+
+        public float GetLightningBaseDamage()
+        {
+            return LightningBaseDamage;
+        }
+
+        #endregion
+
+        /** 크리티컬 관련 반환 적용 함수 */
+        #region Critical
+
+        public void SetCriticalPercent(float percent)
+        {
+            CharacterCriticalPercent = percent;
+        }
+
+        public float GetCriticalPercent()
+        {
+            return CharacterCriticalPercent;
+        }
+
+        public void SetCriticaDamage(float damage)
+        {
+            CharacterCriticalDamage = damage;
+        }
+
+        public float GetCriticalDamage()
+        {
+            return CharacterCriticalDamage;
+        }
+
+
+        #endregion
+
+        /** 스킬 데미지 증가 반환 적용 함수 */
+        #region SkillDamage
+        public void SetSkillDamageUp(float rate)
+        {
+            SkillDamageUp = rate;
+        }
+
+        public float GetSkillDamageUp()
+        {
+            return SkillDamageUp;
+        }
+
+        #endregion
     }
 }
 

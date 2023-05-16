@@ -164,8 +164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_InputVec: {x: 0, y: 0}
   m_sprite: {fileID: 0}
-  FireballData: {fileID: 11400000, guid: 3429d0cdf91599240bebd670e237b895, type: 2}
-  weapon: {fileID: 0}
   scanner: {fileID: 0}
   DashBtn: {fileID: 0}
   bIsDash: 1
@@ -204,7 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enum_character: 0
   Characters: []
-  SelectSceneManager: {fileID: 0}
 --- !u!1 &144254075213490150
 GameObject:
   m_ObjectHideFlags: 0
@@ -835,6 +832,21 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1697525800048012423, guid: 0022dd5aec0d6224899f0aaeece00196,
         type: 3}
+      propertyPath: m_Size.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697525800048012423, guid: 0022dd5aec0d6224899f0aaeece00196,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697525800048012423, guid: 0022dd5aec0d6224899f0aaeece00196,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697525800048012423, guid: 0022dd5aec0d6224899f0aaeece00196,
+        type: 3}
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
@@ -845,13 +857,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.272
       objectReference: {fileID: 0}
     - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
         type: 3}
@@ -891,6 +918,11 @@ PrefabInstance:
     - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3146769459142501365, guid: 0022dd5aec0d6224899f0aaeece00196,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6024756292638065965, guid: 0022dd5aec0d6224899f0aaeece00196,
