@@ -147,10 +147,18 @@ public class PlaySceneManager : MonoBehaviour
         }
     }
 
-    public void OnClckReSkill()
+    public void OnClickReSkill()
     {
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
     }
+
+    public void OnClickTicketSkillRe()
+    {
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        GameManager.GMInstance.UiLevelUp.Next();
+    }
+
 
 
     /** 환경설정 클릭 */
