@@ -23,14 +23,22 @@ public class MonsterMove : MonoBehaviour
     public GameObject PlayerFind;
 
     /** TODO ## MonsterMove.cs 몬스터 체력 설정 재설정 필요 */
-    public float CurrentMonsterHp = 20f;
-    float MonsterMaxHp = 20f;
+    public float CurrentMonsterHp;
+    public float MonsterMaxHp;
+    float NextMonsterHp;
     float MonsterSpeed;
+    float BaseMonsterHp;
+    
 
     Animator anim;
     WaitForFixedUpdate wait;
     Collider2D coll;
     
+    public void MonsterHpUp ()
+    {
+       
+    }
+
     void Awake()
     {
         wait = new WaitForFixedUpdate();
@@ -55,14 +63,35 @@ public class MonsterMove : MonoBehaviour
         //    }
         //}
         #endregion // 안쓰는거 주석
-
         MonsterSpeed = GameManager.GMInstance.MonsterSpeed;
+
+        /** TODO ## MonsterMove.cs 보스몬스터 체력 고정 */
+        #region SaveMonsterHp
+        /** 몬스터 기본 체력 저장 */
+        if (gameObject.name != "Monster_D(Clone)")
+        {
+            /** 기본 몬스터 체력 저장 */
+            BaseMonsterHp = MonsterMaxHp;
+        }
+        #endregion
+
+        /** 현재 몬스터 체력은은 몬스터의 최대 체력 */
+        CurrentMonsterHp = MonsterMaxHp;
+
+        /** PlaySceneManager에 몬스터의 체력을 증가시키기 위해 초기 체력 초기화 */
+        GameManager.GMInstance.PlaySceneManagerRef.BaseMonsterHp = BaseMonsterHp;
 
         bIsLive = true;
         coll.enabled = true;
         rigid.simulated = true;
         sprite.sortingOrder = 2;
         anim.SetBool("Dead", false);
+
+        //if (GameManager.GMInstance.PlaySceneManagerRef.BaseMonsterHp == BaseMonsterHp)
+        //{
+        //    return;
+        //}
+        // GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp = BaseMonsterHp;
 
         /** TODO ## MonsterMove.cs 몬스터 타입 정하기 */
         #region MonsterType
@@ -91,7 +120,29 @@ public class MonsterMove : MonoBehaviour
         {
             return;
         }
+
+        MonsterMaxHp = GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp;
+
+        //if (GameManager.GMInstance.PlaySceneManagerRef.bIsMonsterHpUp == true)
+        //{
+        //    Debug.Log(MonsterMaxHp + (BaseMonsterHp * GameManager.GMInstance.PlaySceneManagerRef.MonsterHpUpRate));
+
+        //    GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp = MonsterMaxHp + BaseMonsterHp * GameManager.GMInstance.PlaySceneManagerRef.MonsterHpUpRate;
+
+        //    Debug.Log(GameManager.GMInstance.PlaySceneManagerRef.MonsterHpUpRate);
+        //    Debug.Log("MonsterMaxHp " + MonsterMaxHp);
+        //    Debug.Log("NextMonsterHp " + GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp);
+
+        //    if (MonsterMaxHp != GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp)
+        //    {
+        //        MonsterMaxHp = GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp;
+        //    }
+
+        //    GameManager.GMInstance.PlaySceneManagerRef.bIsMonsterHpUp = false;
+        //}
     }
+
+
 
     void FixedUpdate()
     {
@@ -122,7 +173,7 @@ public class MonsterMove : MonoBehaviour
         rigid.velocity = Vector2.zero;
 
         /** 몬스터 방향 전환 */
-        sprite.flipX = Target.position.x < rigid.position.x;
+        sprite.flipX = Target.position.x > rigid.position.x;
     }
 
     
@@ -136,7 +187,7 @@ public class MonsterMove : MonoBehaviour
         rigid.simulated = true;
         sprite.sortingOrder = 2;
         anim.SetBool("Dead", false);
-        CurrentMonsterHp = MonsterMaxHp;
+        CurrentMonsterHp = GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -162,7 +213,7 @@ public class MonsterMove : MonoBehaviour
             /** 파이어볼 일반 공격 데미지 계산식*/
             float FireBallNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetFireBallBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
 
-
+            
             /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
@@ -177,6 +228,9 @@ public class MonsterMove : MonoBehaviour
                 GetDamage(FireBallNormalDamage);
                 // Debug.Log("파이어볼 일반공격 데미지 : " + FireBallNormalDamage);
             }
+
+            // Debug.Log(CurrentMonsterHp);
+
 
             StartCoroutine(KnockBack());
 
@@ -204,7 +258,7 @@ public class MonsterMove : MonoBehaviour
                 // 몬스터 사망 시 킬수 증가 함수 호출
                 GameManager.GMInstance.GetExp();
                 // 몬스터 사망 시 경험치 함수 호출
-                // Dead();
+                Dead();
             }
         }
 
@@ -261,7 +315,7 @@ public class MonsterMove : MonoBehaviour
                 // 몬스터 사망 시 킬수 증가 함수 호출
                 GameManager.GMInstance.GetExp();
                 // 몬스터 사망 시 경험치 함수 호출
-                // Dead();
+                Dead();
             }
         }
 
@@ -323,7 +377,7 @@ public class MonsterMove : MonoBehaviour
                 // 몬스터 사망 시 킬수 증가 함수 호출
                 GameManager.GMInstance.GetExp();
                 // 몬스터 사망 시 경험치 함수 호출
-                // Dead();
+                Dead();
             }
         }
 
@@ -381,7 +435,7 @@ public class MonsterMove : MonoBehaviour
                 // 몬스터 사망 시 킬수 증가 함수 호출
                 GameManager.GMInstance.GetExp();
                 // 몬스터 사망 시 경험치 함수 호출
-                // Dead();
+                Dead();
             }
         }
 
@@ -439,7 +493,7 @@ public class MonsterMove : MonoBehaviour
                 // 몬스터 사망 시 킬수 증가 함수 호출
                 GameManager.GMInstance.GetExp();
                 // 몬스터 사망 시 경험치 함수 호출
-                // Dead();
+                Dead();
             }
         }
 
@@ -497,7 +551,7 @@ public class MonsterMove : MonoBehaviour
                 // 몬스터 사망 시 킬수 증가 함수 호출
                 GameManager.GMInstance.GetExp();
                 // 몬스터 사망 시 경험치 함수 호출
-                // Dead();
+                Dead();
             }
         }
 
@@ -521,13 +575,13 @@ public class MonsterMove : MonoBehaviour
             {
                 /** 아이스에이지 크리티컬 데미지 */
                 GetDamage(IceAgeCriticalDamage);
-                Debug.Log("아이스에이지 크리티컬 데미지 : " + IceAgeCriticalDamage);
+                // Debug.Log("아이스에이지 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
                 /** 아이스에이지 일반 데미지 */
                 GetDamage(IceAgeNormalDamage);
-                Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
+                // Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
 
@@ -555,7 +609,7 @@ public class MonsterMove : MonoBehaviour
                 // 몬스터 사망 시 킬수 증가 함수 호출
                 GameManager.GMInstance.GetExp();
                 // 몬스터 사망 시 경험치 함수 호출
-                // Dead();
+                Dead();
             }
         }
     }
@@ -602,11 +656,11 @@ public class MonsterMove : MonoBehaviour
         //}
     }
 
-    public void Init(GameManager Data)
-    {
-        MonsterMaxHp = Data.MonsterMaxHp;
-        MonsterSpeed = Data.MonsterCurrentSpeed;
-    }
+    //public void Init(GameManager Data)
+    //{
+    //    MonsterMaxHp = Data.MonsterMaxHp;
+    //    MonsterSpeed = Data.MonsterCurrentSpeed;
+    //}
 
     IEnumerator KnockBack()
     {
@@ -621,6 +675,15 @@ public class MonsterMove : MonoBehaviour
     {
         /** 게임 오브젝트 비활성화 */
         gameObject.SetActive(false);
+
+        /** 만약 이 오브젝트 이름이 Monster_D이라면 */
+        if (gameObject.name == "Monster_D(Clone)")
+        {
+            /** 보스 생성 x */
+            GameManager.GMInstance.SpawnerRef.SetIsBossSpawn(false);
+            Debug.Log(1);
+            GameManager.GMInstance.PlaySceneManagerRef.GameClear();
+        }
     }
 
     /** 데이미지를 받음 */

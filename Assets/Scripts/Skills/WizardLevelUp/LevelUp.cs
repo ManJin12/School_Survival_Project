@@ -47,7 +47,6 @@ public class LevelUp : MonoBehaviour
     {
         /** 인덱스로 입력받은 값의 스킬을 실행시킨다. */
         skills[index].OnClick();
-        Debug.Log("0");
     }
 
     IEnumerator ShowBtn()

@@ -202,7 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enum_character: 2
   Characters: []
-  SelectSceneManager: {fileID: 0}
 --- !u!1 &144254075213490150
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,9 +428,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpawnPoint: []
-  MonsterSpeed: 0
-  MonsterMaxHp: 0
-  MonsterCurrentSpeed: 0
+  BossMonsters:
+  - {fileID: 8915779844478252512, guid: 3e4f661fed118c44983b8e613b94ac38, type: 3}
+  WaveLevelUpTime: 180
+  BossSpawnTime: 540
 --- !u!1 &1732781895563312693
 GameObject:
   m_ObjectHideFlags: 0

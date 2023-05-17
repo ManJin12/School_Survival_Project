@@ -15,7 +15,7 @@ public class PoolManager : MonoBehaviour
 
     void Awake()
     {
-        /** Pools를 MonsterPrefabs에 저장된 크기만큼 리스트를 만들어준다. */
+        /** Pools를 Prefabs에 저장된 크기만큼 리스트를 만들어준다. */
         Pools = new List<GameObject>[MonsterPrefabs.Length];
 
         /** Pools의 크기만큼 반복 */

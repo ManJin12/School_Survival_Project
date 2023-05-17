@@ -46,6 +46,10 @@ public class Define
         MonsterTypeB,
         MonsterTypeC,
         MonsterTypeD,
+        Monster_Slime,
+        Monster_Mushroom,
+        Monster_Frog,
+        Boss_Moth,
     }
 
     public enum ESkillType

@@ -13,6 +13,15 @@ public class PlaySceneManager : MonoBehaviour
     public Image GameOverImage;
     // float fadeImage = 1;
     public bool bIsFirstStart;
+    float BasePlayerSpeed;
+
+    public float HpUpTime;
+    public float MonsterHpUpRate = 0.1f;
+    public bool bIsMonsterHpUp;
+    public float NextMonsterHp;
+    public float BaseMonsterHp;
+    int HpLevel;
+
     public GameObject GameClearPanel;
     public GameObject GameOverPanel;
     public GameObject ConfigPanel;
@@ -28,6 +37,8 @@ public class PlaySceneManager : MonoBehaviour
     public Image PlayScene_BGM_On_Check;
     public Image PlayScene_EffectSound_On_Check;
     public Image PlayScene_EffectSound_Off_Check;
+
+
 
     void Start()
     {
@@ -75,6 +86,9 @@ public class PlaySceneManager : MonoBehaviour
 
         GameManager.GMInstance.InfoInit();
 
+        /** 입장 시 플레이어 이동속도 저장 */
+        BasePlayerSpeed = GameManager.GMInstance.PlayerSpeed;
+
         /** 처음 시작하는지 확인하기 위한 변수 */
         bIsFirstStart = true;
     }
@@ -87,10 +101,57 @@ public class PlaySceneManager : MonoBehaviour
         }
 
         PlayTime += Time.deltaTime;
+        HpUpTime += Time.deltaTime;
         GameManager.GMInstance.PlayTime = PlayTime;
+
+        MonsterHpUp();
+
 
         GameClear();
     }
+
+
+    void MonsterHpUp()
+    {
+        if (NextMonsterHp == 0)
+        {
+            NextMonsterHp = BaseMonsterHp;
+        }
+
+        /** 20초마다 재생 */
+        if (HpUpTime / 20 >= 1)
+        {
+            bIsMonsterHpUp = true;
+
+            /** 시간 초기화 */
+            HpUpTime = 0.0f;
+
+            HpLevel++;
+            MonsterHpUpRate += 0.1f;
+
+            NextMonsterHp = BaseMonsterHp + BaseMonsterHp * MonsterHpUpRate;
+
+            Debug.Log("BaseMonsterHp * MonsterHpUpRate " + BaseMonsterHp * MonsterHpUpRate);
+            Debug.Log("NextMonsterHp " + NextMonsterHp);
+
+            /** 몬스터 체력 증가 */
+            // GameManager.GMInstance.MoveRef.MaxHp += GameManager.GMInstance.MoveRef.MaxHp * HpUpRate;
+
+            if (HpLevel == 9)
+            {
+                /** 다음 몬스터를 위해 초기화 */
+                MonsterHpUpRate = 0;
+                /** 다음 몬스터를 위해 초기화 */
+                HpLevel = 0;
+            }       
+        }
+    }
+
+    public void OnClckReSkill()
+    {
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+    }
+
 
     /** 환경설정 클릭 */
     public void OnClickConfig()
@@ -125,6 +186,9 @@ public class PlaySceneManager : MonoBehaviour
     {
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        /** 입장해서 증가하는 이동속도 반영 x */
+        GameManager.GMInstance.PlayerSpeed = BasePlayerSpeed;
 
         /** 시간흐름 정상화 */
         Time.timeScale = 1.0f;
@@ -177,10 +241,10 @@ public class PlaySceneManager : MonoBehaviour
     }
 
     /** 게임 클리어 함수 */
-    void GameClear()
+    public void GameClear()
     {
         /** 시간이 다 되었다면 */
-        if (GameManager.GMInstance.gameTime == GameManager.GMInstance.maxGameTime)
+        if (GameManager.GMInstance.gameTime == GameManager.GMInstance.maxGameTime || GameManager.GMInstance.SpawnerRef.GetbIsBossClear() == true) 
         {
             /** 게임 클리어 판넬 Active On */
             GameClearPanel.SetActive(true);
@@ -192,6 +256,9 @@ public class PlaySceneManager : MonoBehaviour
     /** 로비화면 이동 함수 */
     public void OnClickLobby()
     {
+        /** 입장해서 증가하는 이동속도 반영 x */
+        GameManager.GMInstance.PlayerSpeed = BasePlayerSpeed;
+
         /** 게임 시간을 원상복귀 */
         Time.timeScale = 1.0f;
         /** 로비 씬으로 전환되기 때문에 다음 입장을 위해 false로 해준다. */
@@ -214,6 +281,9 @@ public class PlaySceneManager : MonoBehaviour
 
         /** 로비 씬으로 전환되기 때문에 다음 입장을 위해 false로 해준다. */
         GameManager.GMInstance.bIsLive = false;
+
+        /** 입장해서 증가하는 이동속도 반영 x */
+        GameManager.GMInstance.PlayerSpeed = BasePlayerSpeed;
 
         /** 로비화면 이동 */
         SceneManager.LoadScene("PlayScene");

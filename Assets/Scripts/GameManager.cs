@@ -26,6 +26,7 @@ namespace My
         public static GameManager GMInstance;
         [Header("-----InGameData-----")]
         public float PlayTime;
+ 
 
         [Header("-----PlayerData-----")]
         public float PlayerSpeed;
@@ -35,7 +36,7 @@ namespace My
         float CharacterCriticalDamage = 1.5f;
         float SkillDamageUp = 0.1f;
 
-        [Header("-----MonsterData-----")]
+        [Header("-----Data-----")]
         /** 몬스터 스폰시간 */
         public float MonsterSpawnTime;
         /** 몬스터 이동속도 */
@@ -55,6 +56,7 @@ namespace My
         public Scanner ScannerRef;
         public CreatureScanner CreatureScannerRef;
         public SoundManager SoundManagerRef;
+        public Spawner SpawnerRef;
 
         [Header("-----PlaySceneObject-----")]
         GameObject SceneSelectManager;
@@ -136,6 +138,11 @@ namespace My
             level = 1;
             killcount = 0;
             exp = 0;
+        }
+
+        public void SetPlayerSpeedInit(float Basespeed)
+        {
+            PlayerSpeed = Basespeed;
         }
 
         void Awake()

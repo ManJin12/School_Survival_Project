@@ -163,6 +163,7 @@ MonoBehaviour:
   CurrentMonsterType: 0
   PlayerFind: {fileID: 0}
   CurrentMonsterHp: 20
+  MonsterMaxHp: 30
 --- !u!114 &8415867129035173064
 MonoBehaviour:
   m_ObjectHideFlags: 0

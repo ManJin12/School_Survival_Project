@@ -63,7 +63,7 @@ public class Reposition : MonoBehaviour
                 }
                 break;
 
-            case "Monster":
+            case "":
                 if (Coll.enabled)
                 {
                     /** 오브젝트의 방향에서 20만큼 떨어진 곳에 생성.  */

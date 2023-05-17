@@ -3,24 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using My;
+using static Define;
 
 public class Spawner : MonoBehaviour
 {
     public Transform[] SpawnPoint;
+    public GameObject[] BossMonsters;
+
 
     /** 게임 시작 몬스터 종류 제한*/
-    int SpawnLevel = 1;
+    int SpawnLevel = 0;
 
-    int WaveLevelUpTime = 10;
+    public int WaveLevelUpTime;
+    public float BossSpawnTime;
 
     float m_timer;
 
     float m_PlayTime;
+    bool bIsBossSpawn = false;
+    bool bIsBossClear;
 
     /** 몬스터 능력 Init변수 */
-    public float MonsterSpeed;
-    public float MonsterMaxHp;
-    public float MonsterCurrentSpeed;
+    //public float Speed;
+    //public float MaxHp;
+    //public float CurrentSpeed;
+
+    public void SetIsBossSpawn(bool bossspawn)
+    {
+        bIsBossSpawn = bossspawn;
+        bIsBossClear = true;
+    }
+
+    /** 보스 격파 했는지? */
+    public bool GetbIsBossClear()
+    {
+        return bIsBossClear;
+    }
 
     private void Awake()
     {
@@ -30,6 +48,8 @@ public class Spawner : MonoBehaviour
 
     void Start()
     {
+        GameManager.GMInstance.SpawnerRef = this;
+
         /** 만약 PlayScene이면 Spawner 컴포넌트를 활성화 시켜준다. */
         if (GameManager.GMInstance.CurrentScene == Define.ESceneType.PlayScene)
         {
@@ -64,24 +84,59 @@ public class Spawner : MonoBehaviour
             /** m_timer을 0으로 초기화 해주고 */
             m_timer = 0.0f;
             /** 몬스터 소환 함수 호출 */
-            Spawn(SpawnLevel);
+            Spawn();
         }
 
         /** 함수 호출 */
         WaveLevelUp();
+
+        if (m_PlayTime >= BossSpawnTime && bIsBossSpawn == false)
+        {
+            SpawnBoss();
+            bIsBossSpawn = true;
+            bIsBossClear = false;
+        }
     }
 
     /** TODO ## Spawner.cs 몬스터 생성 함수 */
-    void Spawn(int _spawnlevel)
+    void Spawn()
     {
-        /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
-        GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get(Random.Range(0, _spawnlevel));
+        /** 초원 지역 몬스터 스폰 */
+        if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.GrassLand)
+        {
+            /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
+            GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get(SpawnLevel);
 
-        // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
-        /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
-        Monster.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
+            // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
+            /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
+            Monster.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
 
-        Monster.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Monster.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+        }
+        /** 암석 지대 몬스터 스폰 */
+        else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.RockLand)
+        {
+            /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
+            GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get(SpawnLevel);
+
+            // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
+            /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
+            Monster.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
+
+            Monster.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+        }
+        /** 암석 지대 몬스터 스폰 */
+        else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.DeathLand)
+        {
+            /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
+            GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get(SpawnLevel);
+
+            // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
+            /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
+            Monster.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
+
+            Monster.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
+        }
     }
 
     void WaveLevelUp()
@@ -90,7 +145,7 @@ public class Spawner : MonoBehaviour
         if (m_PlayTime > WaveLevelUpTime)
         {
             /** 스폰단계가 저장되있는 인덱스보다 크면 리턴 */
-            if (SpawnLevel >= 4)
+            if (SpawnLevel >= 3)
             {
                 return;
             }
@@ -101,7 +156,23 @@ public class Spawner : MonoBehaviour
             다음 종류의 몬스터를 생성하기 위해서 시간을 추가한다.
             EX 10초마다 새로운 종류의 몬스터가 생성된다
             */
-            WaveLevelUpTime += 10;
+            WaveLevelUpTime += WaveLevelUpTime;
+        }
+    }
+
+    void SpawnBoss()
+    {
+        /** 초원 지역 몬스터 스폰 */
+        if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.GrassLand)
+        {
+            /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
+            GameObject Boss = Instantiate(BossMonsters[0]);
+
+            // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
+            /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
+            Boss.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
+
+            Boss.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
         }
     }
 }
