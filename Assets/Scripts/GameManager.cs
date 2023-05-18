@@ -101,8 +101,13 @@ namespace My
         public float TornadoBaseDamage;
         public float LightningBaseDamage;
 
+        [Header("-----Advertisements-----")]
+        public RewardedAdsButton RewardedAdsButtonRef;
+
         [Header("-----Component-----")]
         public PlayerController playerCtrl;
+        public GameClearAdsPanel GameClearAdsPanelRef;
+
 
         /** 공격력 레벨 반환함수 */
         //public int GetAttackAbilityLevel()
@@ -205,6 +210,9 @@ namespace My
 
                 /** 스킬 선택창 오픈 */
                 UiLevelUp.Show();
+
+                /** 광고 버튼 활성화 */
+                RewardedAdsButtonRef._showSkillReSelectAdButton.interactable = true;
             }
         }
 

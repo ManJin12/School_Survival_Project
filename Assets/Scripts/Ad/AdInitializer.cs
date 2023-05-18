@@ -15,6 +15,7 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
     [SerializeField] RewardedAdsButton rewardedGoldAdsButton;
     [SerializeField] RewardedAdsButton rewardedTicketAdsButton;
     [SerializeField] RewardedAdsButton SkillReSelectButton;
+    [SerializeField] RewardedAdsButton GetClearGoldButton;
 
     void Awake()
     {
@@ -36,6 +37,10 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
         }
     }
 
+    void Start()
+    {
+        OnInitializationComplete();
+    }
 
     public void OnInitializationComplete()
     {
@@ -48,6 +53,7 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
         else if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene)
         {
             SkillReSelectButton.LoadAd();
+            GetClearGoldButton.LoadAd();
         }
     }
 

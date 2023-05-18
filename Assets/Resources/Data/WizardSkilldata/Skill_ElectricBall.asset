@@ -18,7 +18,7 @@ MonoBehaviour:
   Skill_Desc: "\uB370\uBBF8\uC9C0\n{0}% \uC99D\uAC00\n\uD68C\uC804\uCCB4\n{1}\uAC1C
     \uCD94\uAC00"
   Skill_Icon: {fileID: 1989559922, guid: 59930b2786677f145899654b3154ab7a, type: 3}
-  baseDamage: 7
+  baseDamage: 20
   baseCount: 1
   damages:
   - 1.2

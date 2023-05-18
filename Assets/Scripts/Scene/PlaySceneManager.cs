@@ -22,7 +22,7 @@ public class PlaySceneManager : MonoBehaviour
     public float BaseMonsterHp;
     int HpLevel;
 
-    public GameObject GameClearPanel;
+    // public GameObject GameClearPanel;
     public GameObject GameOverPanel;
     public GameObject ConfigPanel;
     public LevelUp WizardLevelUp;
@@ -254,8 +254,8 @@ public class PlaySceneManager : MonoBehaviour
         /** 시간이 다 되었다면 */
         if (GameManager.GMInstance.gameTime == GameManager.GMInstance.maxGameTime || GameManager.GMInstance.SpawnerRef.GetbIsBossClear() == true) 
         {
-            /** 게임 클리어 판넬 Active On */
-            GameClearPanel.SetActive(true);
+            GameManager.GMInstance.GameClearAdsPanelRef.GameClearPanelrect.localScale = Vector3.one;
+
             /** 게임 시간 멈춤 */
             Time.timeScale = 0;
         }

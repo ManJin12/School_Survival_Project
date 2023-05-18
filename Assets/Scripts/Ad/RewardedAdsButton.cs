@@ -7,7 +7,7 @@ using My;
 
 public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-    [SerializeField] Button _showAdButton;
+    [SerializeField] public Button _showSkillReSelectAdButton;
     [SerializeField] string _androidAdUnitId = "Rewarded_Android";
     [SerializeField] string _iOSAdUnitId = "Rewarded_iOS";
     string _adUnitId = null; // This will remain null for unsupported platforms
@@ -22,8 +22,17 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
 #endif
 
         // Disable the button until the ad is ready to show:
-        _showAdButton.interactable = true;
+        _showSkillReSelectAdButton.interactable = true;
     }
+
+    void Start()
+    {
+        if (gameObject.name == "AdsSkillSelectBtn")
+        {
+            GameManager.GMInstance.RewardedAdsButtonRef = this;
+        }
+    }
+
 
     // Call this public method when you want to get an ad ready to show.
     public void LoadAd()
@@ -41,9 +50,9 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         if (adUnitId.Equals(_adUnitId))
         {
             // Configure the button to call the ShowAd() method when clicked:
-            _showAdButton.onClick.AddListener(ShowAd);
+            _showSkillReSelectAdButton.onClick.AddListener(ShowAd);
             // Enable the button for users to click:
-            _showAdButton.interactable = true;
+            _showSkillReSelectAdButton.interactable = true;
         }
     }
 
@@ -51,7 +60,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     public void ShowAd()
     {
         // Disable the button:
-        _showAdButton.interactable = true;
+        _showSkillReSelectAdButton.interactable = false;
         // Then show the ad:
         Advertisement.Show(_adUnitId, this);
     }
@@ -71,11 +80,14 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
             {
                 Debug.Log("You've gained 10 Tickets");
             }
-            else if (gameObject.name == "SkillReSelectBtn")
-            {
-                
+            else if (gameObject.name == "AdsSkillSelectBtn")
+            {    
                 GameManager.GMInstance.UiLevelUp.Next();
-            } 
+            }
+            else if (gameObject.name == "GetGoldAdsBtn")
+            {
+                Debug.Log("º¸»ó 2º£!!");
+            }
             // Grant a reward.
         }
     }
@@ -99,6 +111,6 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
     void OnDestroy()
     {
         // Clean up the button listeners:
-        _showAdButton.onClick.RemoveAllListeners();
+        _showSkillReSelectAdButton.onClick.RemoveAllListeners();
     }
 }
