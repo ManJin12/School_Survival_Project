@@ -15,6 +15,7 @@ public class LobbySceneManager : MonoBehaviour
     public GameObject AbilityCheckPanel;
     public GameObject InGameMoneyPanel;
     public GameObject EquipmentGachaPanel;
+    public GameObject TicketPanel;
 
     public GameObject[] SelectCharacterPrefabs;
 
@@ -448,9 +449,11 @@ public class LobbySceneManager : MonoBehaviour
     {
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+       
+        EquipmentGachaPanel.gameObject.SetActive(false);
+        TicketPanel.SetActive(false);
 
         InGameMoneyPanel.gameObject.SetActive(true);
-        EquipmentGachaPanel.gameObject.SetActive(false);
     }
 
     public void OnClickOpenEquipmentGacha()
@@ -459,8 +462,25 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         InGameMoneyPanel.gameObject.SetActive(false);
+        TicketPanel.SetActive(false);
+
         EquipmentGachaPanel.gameObject.SetActive(true);
+        
+
+    }
+
+    public void OnClickOpenTicket()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+
+        InGameMoneyPanel.gameObject.SetActive(false);
+        EquipmentGachaPanel.gameObject.SetActive(false);
+
+        TicketPanel.SetActive(true);
 
     }
 }
+
+
 

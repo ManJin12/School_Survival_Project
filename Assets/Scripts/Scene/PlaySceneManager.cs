@@ -12,7 +12,7 @@ public class PlaySceneManager : MonoBehaviour
     public Text SkillSelectPaneltext;
     public Image GameOverImage;
     // float fadeImage = 1;
-    public bool bIsFirstStart;
+    bool bIsFirstStart;
     float BasePlayerSpeed;
 
     public float HpUpTime;

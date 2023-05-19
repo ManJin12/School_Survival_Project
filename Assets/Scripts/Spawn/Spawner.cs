@@ -20,7 +20,7 @@ public class Spawner : MonoBehaviour
     float m_timer;
 
     float m_PlayTime;
-    bool bIsBossSpawn = false;
+    public bool bIsBossSpawn = false;
     bool bIsBossClear;
 
     /** 몬스터 능력 Init변수 */

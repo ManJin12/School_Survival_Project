@@ -8,8 +8,10 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 {
     /** Scrollbar타입 접근할 수 있는 변수 선언 */
     public Scrollbar scrollbar;
+    public Scrollbar InventoryScroll;
 
     public Transform ContentTr;
+
 
     public Slider TapSlider;
 
@@ -170,8 +172,8 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             /** Content 자식에 ScrollScript가 있고 현재 위치가 다음 목표위치와 같고 현재위치가 같지 않을때 */
             if (ContentTr.GetChild(i).GetComponent<ScrollScript>() && m_TargetPos == m_Pos[i] && m_CurPos != m_Pos[i])
             {
-                /** Content 자식의 GetChild(1)에서 Scrollbar의 value를 0으로 한다. */
-                ContentTr.GetChild(i).GetChild(1).GetComponent<Scrollbar>().value = 0;
+                /** Content 자식의 GetChild(1)에서 Scrollbar의 value를 1으로 한다. */
+                InventoryScroll.value = 1.0f;
             }
         }
     }

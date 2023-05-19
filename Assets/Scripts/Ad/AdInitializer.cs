@@ -7,15 +7,27 @@ using static Define;
 
 public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
 {
-    [SerializeField] string _androidGameId;
-    [SerializeField] string _iOSGameId;
-    [SerializeField] bool _testMode = true;
+    [SerializeField] 
+    string _androidGameId;
+
+    [SerializeField] 
+    string _iOSGameId;
+
+    [SerializeField] 
+    bool _testMode = true;
+
     private string _gameId;
 
-    [SerializeField] RewardedAdsButton rewardedGoldAdsButton;
-    [SerializeField] RewardedAdsButton rewardedTicketAdsButton;
-    [SerializeField] RewardedAdsButton SkillReSelectButton;
-    [SerializeField] RewardedAdsButton GetClearGoldButton;
+    [SerializeField] 
+    RewardedAdsButton rewardedGoldAdsButton;
+    [SerializeField]
+    RewardedAdsButton rewardedTicketAdsButton;
+    [SerializeField] 
+    RewardedAdsButton SkillReSelectButton;
+    [SerializeField]
+    RewardedAdsButton GetClearGoldButton;
+    [SerializeField]
+    RewardedAdsButton GetOverGoldButton;
 
     void Awake()
     {
@@ -54,6 +66,7 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
         {
             SkillReSelectButton.LoadAd();
             GetClearGoldButton.LoadAd();
+            GetOverGoldButton.LoadAd();
         }
     }
 

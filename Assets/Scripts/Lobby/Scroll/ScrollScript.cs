@@ -16,6 +16,7 @@ public class ScrollScript : ScrollRect
     {
         /** scrollmgr은 ScrollManager를 가져온다 */
         scrollmgr = GameManager.GMInstance.ScrollManagerRef;
+
         if (scrollmgr == null)
         {
             Debug.Log("ScrollScript : scrollmgr Fail");

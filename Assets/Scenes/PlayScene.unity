@@ -6360,6 +6360,7 @@ MonoBehaviour:
   rewardedTicketAdsButton: {fileID: 0}
   SkillReSelectButton: {fileID: 1410769805}
   GetClearGoldButton: {fileID: 1191599147}
+  GetOverGoldButton: {fileID: 488577314}
 --- !u!1 &174443114
 GameObject:
   m_ObjectHideFlags: 0
@@ -6643,9 +6644,9 @@ RectTransform:
   m_Children:
   - {fileID: 296630135}
   - {fileID: 1248739699}
+  - {fileID: 1382198748}
   - {fileID: 761692328}
   - {fileID: 750177891}
-  - {fileID: 1382198748}
   m_Father: {fileID: 1228951518}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17826,7 +17827,7 @@ GameObject:
   - component: {fileID: 488577315}
   - component: {fileID: 488577314}
   m_Layer: 5
-  m_Name: GetGoldAdsBtn
+  m_Name: GetOverGoldAdsBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18999,7 +19000,7 @@ RectTransform:
   m_Children:
   - {fileID: 1233455212}
   m_Father: {fileID: 195962119}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -19213,7 +19214,7 @@ RectTransform:
   m_Children:
   - {fileID: 1781392461}
   m_Father: {fileID: 195962119}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24159,7 +24160,7 @@ RectTransform:
   - {fileID: 149851110}
   - {fileID: 1062154843}
   m_Father: {fileID: 195962119}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

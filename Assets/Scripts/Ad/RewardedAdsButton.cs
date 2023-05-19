@@ -88,6 +88,10 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
             {
                 Debug.Log("보상 2베!!");
             }
+            else if (gameObject.name == "GetOverGoldAdsBtn")
+            {
+                Debug.Log("보상 2베!!");
+            }
             // Grant a reward.
         }
     }
