@@ -23,9 +23,10 @@ public class PlaySceneManager : MonoBehaviour
     int HpLevel;
 
     // public GameObject GameClearPanel;
-    public GameObject GameOverPanel;
+    // public GameObject GameOverPanel;
     public GameObject ConfigPanel;
     public LevelUp WizardLevelUp;
+
 
     [Header("---DungeonTile0---")]
     public GameObject GrassLandTile;
@@ -105,7 +106,6 @@ public class PlaySceneManager : MonoBehaviour
         GameManager.GMInstance.PlayTime = PlayTime;
 
         MonsterHpUp();
-
 
         GameClear();
     }
@@ -233,7 +233,7 @@ public class PlaySceneManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         /** GameOverPanel On */
-        GameOverPanel.SetActive(true);
+        GameManager.GMInstance.GameFailedAdsPanelRef.EndGamePanelrect.localScale = Vector3.one;
 
         StartCoroutine(GameOverTimeRoutine());
         
@@ -254,7 +254,7 @@ public class PlaySceneManager : MonoBehaviour
         /** 시간이 다 되었다면 */
         if (GameManager.GMInstance.gameTime == GameManager.GMInstance.maxGameTime || GameManager.GMInstance.SpawnerRef.GetbIsBossClear() == true) 
         {
-            GameManager.GMInstance.GameClearAdsPanelRef.GameClearPanelrect.localScale = Vector3.one;
+            GameManager.GMInstance.EndGameAdsPanelRef.EndGamePanelrect.localScale = Vector3.one;
 
             /** 게임 시간 멈춤 */
             Time.timeScale = 0;

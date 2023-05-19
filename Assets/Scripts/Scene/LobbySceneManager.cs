@@ -24,6 +24,10 @@ public class LobbySceneManager : MonoBehaviour
     public int Up_Damage;
     public int Up_Defense;
 
+    /** 전사 시작 방지용 버튼 */
+    public Button ModeSelectBtn;
+
+
     /** 캐릭터 능력치 창 Text변수 */
     [Header("---CharInfoText---")]
     public Text AttackText;
@@ -31,8 +35,6 @@ public class LobbySceneManager : MonoBehaviour
     public Text CharSpeedText;
     public Text CharCriticalPer;
     public Text CharCriticalDamage;
-
-
 
     /** 캐릭터 능력치 레벨 텍스트 */
     [Header("---CharAbilityLevelText---")]
@@ -48,10 +50,6 @@ public class LobbySceneManager : MonoBehaviour
     public Image EffectSound_On_Check;
     public Image EffectSound_Off_Check;
 
-    void Awake()
-    {
-        
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -87,6 +85,24 @@ public class LobbySceneManager : MonoBehaviour
         }
 
         CharInfoInit();
+    }
+
+    void Update()
+    {
+        /** TODO ## LobbySceneManager.cs 전사 미구현으로 인한 플레이 차단*/
+        /** 현재 캐릭터가 전사라면 */
+        if (GameManager.GMInstance.CurrentChar == ECharacterType.WorriorChar)
+        {
+            /** 시작버튼 비활성화 */
+            ModeSelectBtn.interactable = false;
+        }
+        /** 전사가 아니라면 */
+        else
+        {
+            /** 시작버튼 활성화 */
+            ModeSelectBtn.interactable = true;
+        }
+
     }
 
     public void CharInfoInit()

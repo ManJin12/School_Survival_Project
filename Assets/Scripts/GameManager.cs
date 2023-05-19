@@ -106,7 +106,8 @@ namespace My
 
         [Header("-----Component-----")]
         public PlayerController playerCtrl;
-        public GameClearAdsPanel GameClearAdsPanelRef;
+        public EndGameAdsPanel EndGameAdsPanelRef;
+        public EndGameAdsPanel GameFailedAdsPanelRef;
 
 
         /** 공격력 레벨 반환함수 */

@@ -75,7 +75,7 @@ public class SoundManager : MonoBehaviour
             BGMPlayers[i].loop = true;
             /** 배경음 플레이 */
             BGMPlayers[i].clip = BGMClips[0];
-            BGMPlayers[i].volume = 0.25f;
+            BGMPlayers[i].volume = 1.0f;
         }
 
         /** 효과음 플레이어 초기화 */
@@ -93,7 +93,7 @@ public class SoundManager : MonoBehaviour
             SFXPlayers[i] = SFXObject.AddComponent<AudioSource>();
             /** 초기 재생 off */
             SFXPlayers[i].playOnAwake = false;
-            SFXPlayers[i].volume = 0.5f;
+            SFXPlayers[i].volume = 1.0f;
         }
 
         PlayBGM(BGM.Title);
