@@ -42,14 +42,26 @@ public class Define
 
     public enum EMonsterType
     {
+        None,
+        Monster_Slime,
+        Monster_Mushroom,
+        Monster_Frog,
+        Monster_Scorpion = 7,
+        Monster_Rock,
+        Monster_Golem,
+        Monster_EyeBall,
+        Monster_Head,
+        Monster_Mummy,
         MonsterTypeA,
         MonsterTypeB,
         MonsterTypeC,
         MonsterTypeD,
-        Monster_Slime,
-        Monster_Mushroom,
-        Monster_Frog,
-        Boss_Moth,
+    }
+
+    public enum EBossType
+    {    
+        Boss_Grass,     
+        Boss_Moai,
     }
 
     public enum ESkillType

@@ -430,8 +430,11 @@ MonoBehaviour:
   SpawnPoint: []
   BossMonsters:
   - {fileID: 8915779844478252512, guid: 3e4f661fed118c44983b8e613b94ac38, type: 3}
+  - {fileID: 8915779844478252512, guid: 22ec058d3ba09ea4c81d0d4cc001b7ca, type: 3}
+  - {fileID: 8915779844478252512, guid: c816c1d1acd9fcd4b8767d9d21916f4f, type: 3}
   WaveLevelUpTime: 180
   BossSpawnTime: 540
+  bIsBossSpawn: 0
 --- !u!1 &1732781895563312693
 GameObject:
   m_ObjectHideFlags: 0

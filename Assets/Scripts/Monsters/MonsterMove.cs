@@ -677,13 +677,20 @@ public class MonsterMove : MonoBehaviour
         gameObject.SetActive(false);
 
         /** 만약 이 오브젝트 이름이 Monster_D이라면 */
-        if (gameObject.name == "Monster_D(Clone)")
+        if (gameObject.name == "Monster_D(Clone)" || gameObject.name == "Boss_Moai(Clone)" || gameObject.name == "Boss_Reaper(Clone)")
         {
             /** 보스 생성 x */
             GameManager.GMInstance.SpawnerRef.SetIsBossSpawn(false);
-            Debug.Log(1);
+            // Debug.Log(1);
+
+            StartCoroutine(WaitGameClear());
             GameManager.GMInstance.PlaySceneManagerRef.GameClear();
         }
+    }
+
+    IEnumerator WaitGameClear()
+    {
+        yield return 1.5f;
     }
 
     /** 데이미지를 받음 */

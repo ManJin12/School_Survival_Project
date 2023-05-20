@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using My;
+using System;
+
 
 public class TitleSceneManager : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class TitleSceneManager : MonoBehaviour
     {
         /** ÇöÀç ¾À ·Îºñ */
         GameManager.GMInstance.CurrentScene = Define.ESceneType.TitleScene;
+    }
+
+    void Start()
+    {
+       // Debug.Log(DateTime.Now.ToString());
     }
 
     public void OnClickGameStart()

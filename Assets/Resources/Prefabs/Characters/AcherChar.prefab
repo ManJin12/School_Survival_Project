@@ -430,8 +430,11 @@ MonoBehaviour:
   SpawnPoint: []
   BossMonsters:
   - {fileID: 8915779844478252512, guid: 3e4f661fed118c44983b8e613b94ac38, type: 3}
+  - {fileID: 8915779844478252512, guid: 22ec058d3ba09ea4c81d0d4cc001b7ca, type: 3}
+  - {fileID: 8915779844478252512, guid: c816c1d1acd9fcd4b8767d9d21916f4f, type: 3}
   WaveLevelUpTime: 180
   BossSpawnTime: 540
+  bIsBossSpawn: 0
 --- !u!1 &1732781895563312693
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,11 +510,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece51564afcb1274aa9e59a2859ffcd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Skills:
-  - {fileID: 267891613884382739, guid: db032024d2ba4c04c99a7b214295e376, type: 3}
-  - {fileID: 4025759961393191522}
-  - {fileID: 335701130982456756, guid: 6f35ccbeb00794040ac4b65146c8fd7e, type: 3}
-  - {fileID: 7912837360347733601, guid: 32745d8ba55472945b295d45d039b6b5, type: 3}
+  Skills: []
   MateoDamage: 0
   bIsMateo: 0
   MateoSkillTime: 0

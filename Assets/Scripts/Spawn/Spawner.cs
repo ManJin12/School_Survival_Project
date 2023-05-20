@@ -117,7 +117,7 @@ public class Spawner : MonoBehaviour
         else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.RockLand)
         {
             /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
-            GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get(SpawnLevel);
+            GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get((int)EMonsterType.Monster_Scorpion + SpawnLevel);
 
             // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
             /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
@@ -125,11 +125,11 @@ public class Spawner : MonoBehaviour
 
             Monster.transform.localScale = new Vector3(4.0f, 4.0f, 4.0f);
         }
-        /** 암석 지대 몬스터 스폰 */
+        /** 망자의 숲 몬스터 스폰 */
         else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.DeathLand)
         {
             /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
-            GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get(SpawnLevel);
+            GameObject Monster = GameManager.GMInstance.PoolManagerRef.Get((int)EMonsterType.Monster_EyeBall + SpawnLevel);
 
             // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
             /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
@@ -173,6 +173,30 @@ public class Spawner : MonoBehaviour
             Boss.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
 
             Boss.transform.localScale = new Vector3(2.0f, 2.0f, 2.0f);
+        }
+        /** 암석 지역 몬스터 스폰 */
+        else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.RockLand)
+        {
+            /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
+            GameObject Boss = Instantiate(BossMonsters[1]);
+
+            // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
+            /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
+            Boss.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
+
+            Boss.transform.localScale = new Vector3(15.0f, 15.0f, 15.0f);
+        }
+        /** 망자의 숲 몬스터 스폰 */
+        else if (GameManager.GMInstance.SelectDungeonMode == ESelectDungeon.DeathLand)
+        {
+            /** 게임 오브젝트인 몬스터를 PoolManager의 Get함수가 반환한 몬스터로 초기화 */
+            GameObject Boss = Instantiate(BossMonsters[2]);
+
+            // TODO ## Spawner.cs 수정 필요 스폰위치 랜덤에서 정해지는걸로
+            /** 생성되는 몬스터의 위치는 이 클래스의 자식들의 위치 중 한 곳으로 한다. */
+            Boss.transform.position = SpawnPoint[Random.Range(1, SpawnPoint.Length)].position;
+
+            Boss.transform.localScale = new Vector3(15.0f, 15.0f, 15.0f);
         }
     }
 }

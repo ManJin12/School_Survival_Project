@@ -158,8 +158,12 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             }
         }
 
+        /** 인벤토리 창 맨 위로 초기화 */
+        InventoryScroll.value = 1.0f;
+
         /** 스크롤 수직 이동 관련 함수 호출 */
-        VerticalScroll();
+        // VerticalScroll();
+
     }
 
 
@@ -184,6 +188,8 @@ public class ScrollManager : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         CurrentBtnIndex = n;
         /** m_TargetPos은 입력받은 n의 m_Pos[n] 위치가 된다. */
         m_TargetPos = m_Pos[n];
+        /** 인벤토리 창 맨 위로 초기화 */
+        InventoryScroll.value = 1.0f;
     }
 
     float SetPos()

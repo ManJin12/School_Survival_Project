@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using My;
 using static Define;
 
+
 public class LobbySceneManager : MonoBehaviour
 {
     public GameObject MenuPanel;
     public GameObject ConfigPanel;
     public GameObject MyCharacter;
+    
     public GameObject DungeonSelectPanel;
     public GameObject AbilityCheckPanel;
     public GameObject InGameMoneyPanel;
     public GameObject EquipmentGachaPanel;
     public GameObject TicketPanel;
+
+    public GameObject DayQuestPanel;
+    public GameObject WeekQuestPanel;
 
     public GameObject[] SelectCharacterPrefabs;
 
@@ -28,6 +34,9 @@ public class LobbySceneManager : MonoBehaviour
     /** 전사 시작 방지용 버튼 */
     public Button ModeSelectBtn;
 
+    [Header("---QuestTime---")]
+    public Text DayRemainTime;
+    public Text WeekRemainTime;
 
     /** 캐릭터 능력치 창 Text변수 */
     [Header("---CharInfoText---")]
@@ -85,6 +94,9 @@ public class LobbySceneManager : MonoBehaviour
             EffectSound_On_Check.gameObject.SetActive(false);
         }
 
+        /** 시작 시 주간 퀘스트 크기 안보이기 */
+        WeekQuestPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
+
         CharInfoInit();
     }
 
@@ -104,6 +116,31 @@ public class LobbySceneManager : MonoBehaviour
             ModeSelectBtn.interactable = true;
         }
 
+        /** 일일미션 남은 시간 계산 */
+        DayRemainTime.text = (23 - GetCurrentHour()).ToString() + ":" + (60 - GetCurrentMinute()).ToString() + ":" + (60 - GetCurrentSecond()).ToString();
+
+        /** 주간미션 남은 시간 계산 */
+        WeekRemainTime.text = (7 - GetCurrentDay()).ToString() + ":" + (23 - GetCurrentHour()).ToString() + ":" + (60 - GetCurrentMinute()).ToString();
+    }
+
+    int GetCurrentDay()
+    {
+        return (int)(DateTime.Now).DayOfWeek;
+    }
+
+    int GetCurrentSecond()
+    {
+        return (DateTime.Now).Second;
+    }
+
+    int GetCurrentMinute()
+    {
+        return (DateTime.Now).Minute;
+    }
+
+    int GetCurrentHour()
+    {
+        return (DateTime.Now).Hour;
     }
 
     public void CharInfoInit()
@@ -467,6 +504,18 @@ public class LobbySceneManager : MonoBehaviour
         EquipmentGachaPanel.gameObject.SetActive(true);
         
 
+    }
+
+    public void OnClickDayQuestPanel()
+    {
+        DayQuestPanel.GetComponent<RectTransform>().localScale = Vector3.one;
+        WeekQuestPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
+    }
+
+    public void OnClickWeekQuestPanel()
+    {
+        DayQuestPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
+        WeekQuestPanel.GetComponent<RectTransform>().localScale = Vector3.one;
     }
 
     public void OnClickOpenTicket()
