@@ -156,8 +156,18 @@ public class PlaySceneManager : MonoBehaviour
     {
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
-        /** 궁수 스킬 재설정 */
-        GameManager.GMInstance.AcherLevelUpRef.Next();
+        /** 만약 현재 마법사 캐릭터라면 */
+        if (GameManager.GMInstance.CurrentChar == ECharacterType.WizardChar)
+        {
+            /** 마법사 캐릭터 스킬 재설정 */
+            GameManager.GMInstance.UiLevelUp.Next();
+        }
+        /** 만약 현재 궁수 캐릭터라면 */
+        else if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar)
+        {
+            /** 궁수 스킬 재설정 */
+            GameManager.GMInstance.AcherLevelUpRef.Next();
+        }
     }
 
     /** 환경설정 클릭 */

@@ -82,7 +82,13 @@ public class SkillCollision : MonoBehaviour
                 gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
                 gameObject.GetComponent<SpriteRenderer>().flipY = true;
             }
+        }
 
+        /** 트랩 일 시 */
+        if (gameObject.name == "Trap(Clone)")
+        {
+            /** 5초 후 게임오브젝트 삭제 */
+            Destroy(gameObject, 5.0f);
         }
     }
 
@@ -188,6 +194,41 @@ public class SkillCollision : MonoBehaviour
             /** 스킬과 이펙트 사라짐 */
             Destroy(gameObject);
             Destroy(MateoEffect, 0.5f);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        /** 게임 오브젝트 이름이 Trap(Clone)일 때 */
+        if (gameObject.name == "Trap(Clone)")
+        {
+            /** 몬스터에 닿았다면 */
+            if (collision.CompareTag("Monster"))
+            {
+                /** SkillEffect 0번에 저장된 게임오브젝트 생성 */
+                GameObject TrapEffect = Instantiate(SkillEffect[0]);
+                /** 폭발 이펙트는 오브젝트의 위치 */
+                TrapEffect.transform.position = gameObject.transform.position;
+                TrapEffect.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+
+                Destroy(gameObject);
+                Destroy(TrapEffect, 0.5f);
+            }
+        }
+        /** 게임 오브젝트 이름이 Bomb(Clone)일 때 */
+        else if (gameObject.name == "BombArrow(Clone)")
+        {
+            /** 몬스터에 닿았다면 */
+            if (collision.CompareTag("Monster"))
+            {
+                /** SkillEffect 0번에 저장된 게임오브젝트 생성 */
+                GameObject BombEffect = Instantiate(SkillEffect[0]);
+                /** 폭발 이펙트는 오브젝트의 위치 */
+                BombEffect.transform.position = gameObject.transform.position;
+                BombEffect.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+
+                Destroy(BombEffect, 0.5f);
+            }
         }
     }
 

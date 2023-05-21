@@ -22,6 +22,11 @@ TagManager:
   - Arrow
   - Vortex
   - Huricane
+  - WindSpiritAttack
+  - Trap
+  - ArrowRain
+  - BombArrow
+  - BombArrowEffect
   layers:
   - Default
   - TransparentFX

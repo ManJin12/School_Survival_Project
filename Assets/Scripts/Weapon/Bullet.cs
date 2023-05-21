@@ -25,22 +25,36 @@ public class Bullet : MonoBehaviour
         if (gameObject.name == "IceArrow(Clone)")
         {
             /** 아이스 에로우 크기 조절 */
-            this.transform.localScale = new Vector2(0.06f, 0.06f);
+            this.transform.localScale = new Vector2(0.8f, 0.8f);
         }
     }
 
     public void Init(float damage, int per, Vector3 dir)
     {
-        /** m_Damage는 매개변수로 받은 _damage */
-        m_Damage = damage;
-        /** m_Per는 매개변수로 받은 _per */
-        m_Per = per; 
-
-        /** 관통이 -1(무한)보다 크면 */
-        if (per > -1)
+        if (gameObject.name != "BombArrow(Clone)")
         {
-            /** 불릿의 속도를 _dir로 한다. */
-            rigid.velocity = dir * 10.0f;
+            /** m_Damage는 매개변수로 받은 _damage */
+            m_Damage = damage;
+            /** m_Per는 매개변수로 받은 _per */
+            m_Per = per;
+            /** 관통이 -1(무한)보다 크면 */
+            if (per > -1)
+            {
+                /** 불릿의 속도를 _dir로 한다. */
+                rigid.velocity = dir * 10.0f;
+            }
+        }
+        else
+        {
+            /** m_Per는 매개변수로 받은 _per */
+            m_Per = per;
+            /** 관통이 -1(무한)보다 크면 */
+            if (per > -1)
+            {
+                /** 불릿의 속도를 _dir로 한다. */
+                rigid.velocity = dir * 10.0f;
+
+            }
         }
     }
 

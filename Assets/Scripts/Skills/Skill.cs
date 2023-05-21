@@ -122,7 +122,7 @@ public class Skill : MonoBehaviour
 
             /** 낙뢰 data를 보여줌 */
             case SkillData.SkillType.Skill_Lightning:
-                /** 라이트닝 스킬이 0일 때 */
+                /** 낙뢰 스킬이 0일 때 */
                 if (level == 0)
                 {
                     textDesc.text = "스킬\n활성화";

@@ -26,6 +26,25 @@ public class CreatureScanner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /** 게임 오브젝트 이름이 WindSpirit이라면 */
+        if (gameObject.name == "WindSpirit")
+        {
+            /** 캐릭터가 왼쪽을 보고 있다면? */
+            if (GameManager.GMInstance.Player.GetComponent<SpriteRenderer>().flipX == true)
+            {
+                /** 위치 조정 */
+                gameObject.transform.localPosition = new Vector3(0.422f, 0.363f, 0.0f);
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            /** 캐릭터가 오른쪽을 보고 있다면? */
+            else if (GameManager.GMInstance.Player.GetComponent<SpriteRenderer>().flipX == false)
+            {
+                /** 위치 조정 */
+                gameObject.transform.localPosition = new Vector3(-0.422f, 0.363f, 0.0f);
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            }
+        }
+
         /** 
         Targets는 CircleCastAll함수를 이용해서 현재 위치에서 ScanRange의 반지름만큼 캐스팅 방향은 없고,
         캐스팅 길이도 원형이여서 0으로 한 다음 TargetLayer를 검색한다.

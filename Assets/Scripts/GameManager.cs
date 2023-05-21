@@ -106,6 +106,10 @@ namespace My
         public float ArrowBaseDamage;
         public float VortexBaseDamage;
         public float HuricaneBaseDamage;
+        public float WindSpiritBaseDamage;
+        public float TrapBaseDamage;
+        public float ArrowRainBaseDamage;
+        public float BombArrowBaseDamage;
 
         [Header("-----Advertisements-----")]
         public RewardedAdsButton RewardedAdsButtonRef;
@@ -349,9 +353,33 @@ namespace My
         {
             HuricaneBaseDamage = basedamage;
         }
+
+        /** 바람정령 기본 데미지 저장 */
+        public void SetWindSpiritBaseDamage(float basedamage)
+        {
+            WindSpiritBaseDamage = basedamage;
+        }
+
+        /** 트랩 기본 데미지 저장 */
+        public void SetTrapBaseDamage(float basedamage)
+        {
+            TrapBaseDamage = basedamage;
+        }
+
+        /** 화살비 기본 데미지 저장 */
+        public void SetArrowRainBaseDamage(float basedamage)
+        {
+            ArrowRainBaseDamage = basedamage;
+        }
+
+        /** 폭탄화살 기본 데미지 저장 */
+        public void SetBombArrowBaseDamage(float basedamage)
+        {
+            BombArrowBaseDamage = basedamage;
+        }
         #endregion
 
-
+        
 
         /** 궁수 스킬 초기 데미지 반환 */
         #region
@@ -371,9 +399,33 @@ namespace My
         {
             return HuricaneBaseDamage;
         }
+
+        /** 바람정령 기본 데미지 반환 */
+        public float GetWindSpiritBaseDamage()
+        {
+            return WindSpiritBaseDamage;
+        }
+
+        /** 바람정령 기본 데미지 반환 */
+        public float GetTrapBaseDamage()
+        {
+            return TrapBaseDamage;
+        }
+
+        /** 화살비 기본 데미지 반환 */
+        public float GetArrowRainBaseDamage()
+        {
+            return ArrowRainBaseDamage;
+        }
+
+        /** 폭탄화살 기본 데미지 반환 */
+        public float GetBombArrowBaseDamage()
+        {
+            return BombArrowBaseDamage;
+        }
         #endregion
 
-        
+
 
         /** 크리티컬 관련 반환 적용 함수 */
         #region Critical

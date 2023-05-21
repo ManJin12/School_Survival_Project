@@ -513,7 +513,7 @@ MonoBehaviour:
   Skills:
   - {fileID: 267891613884382739, guid: db032024d2ba4c04c99a7b214295e376, type: 3}
   - {fileID: 4025759961393191522}
-  - {fileID: 335701130982456756, guid: 6f35ccbeb00794040ac4b65146c8fd7e, type: 3}
+  - {fileID: 1854559803833453743, guid: c537763c0b1f365429a1377448ce9d08, type: 3}
   - {fileID: 7912837360347733601, guid: 32745d8ba55472945b295d45d039b6b5, type: 3}
   MateoDamage: 0
   bIsMateo: 0
@@ -538,6 +538,20 @@ MonoBehaviour:
   TornadoSkillTime: 0
   TornadoSkillCoolTime: 0
   IceArrow: {fileID: 6521500426479032963}
+  VortexDamage: 0
+  bIsVortex: 0
+  bOnVortex: 0
+  AcherCharDir: 0
+  VortexSkillTime: 0
+  VortexSkillCoolTime: 0
+  Huricane: {fileID: 0}
+  HuricaneDamage: 0
+  bIsHuricaneSkill: 0
+  bIsHuricane: 0
+  HuricaneOnTime: 0
+  MaxHuricaneOnTime: 0
+  HuricaneSkillTime: 0
+  HuricaneSkillCoolTime: 3
 --- !u!1 &2242225708862712819
 GameObject:
   m_ObjectHideFlags: 0

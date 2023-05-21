@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc91485e60cb282468c2d7d2b669bb5d, type: 3}
+  m_Name: Skill_Trap
+  m_EditorClassIdentifier: 
+  skillType: 14
+  Skill_Id: 14
+  Skill_Name: "\uD2B8\uB7A9"
+  Skill_Desc: "\uB370\uBBF8\uC9C0\n{0}% \uC99D\uAC00"
+  Skill_Icon: {fileID: -1255832988, guid: d49f83acf877fa244a94c18f9b104e51, type: 3}
+  baseDamage: 20
+  baseCount: 1
+  damages:
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  counts: 0500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000
+  SkillSpeed: 0
+  projectile: {fileID: 0}

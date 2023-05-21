@@ -17,7 +17,7 @@ public class TitleSceneManager : MonoBehaviour
 
     void Start()
     {
-       // Debug.Log(DateTime.Now.ToString());
+
     }
 
     public void OnClickGameStart()

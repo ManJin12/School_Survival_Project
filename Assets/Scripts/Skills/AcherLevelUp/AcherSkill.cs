@@ -78,7 +78,7 @@ public class AcherSkill : MonoBehaviour
                 }
                 break;
 
-            /** 아이스 에이지를 data를 보여줌 */
+            /** 허리케인 data를 보여줌 */
             case SkillData.SkillType.Skill_Huricane:
                 if (level == 0)
                 {
@@ -88,12 +88,65 @@ public class AcherSkill : MonoBehaviour
                 {
                     textDesc.text = string.Format(data.Skill_Desc, data.damages[level]);
                 }
-                // textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100, data.counts[level]);
+                // textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100);
 
                 break;
 
-            /** 스킬 속도 증가나 이동 속도 증가를 선택했을때 */
-            case SkillData.SkillType.Skill_SkillSpeedUp:
+            /** 바람정령 data를 보여줌 */
+            case SkillData.SkillType.Skill_WindSpirit:
+                if (level == 0)
+                {
+                    textDesc.text = "스킬\n활성화";
+                }
+                else
+                {
+                    textDesc.text = string.Format(data.Skill_Desc, data.damages[level]);
+                }
+                // textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100);
+                break;
+
+            /** 트랩 data를 보여줌 */
+            case SkillData.SkillType.Skill_Trap:
+                if (level == 0)
+                {
+                    textDesc.text = "스킬\n활성화";
+                }
+                else
+                {
+                    textDesc.text = string.Format(data.Skill_Desc, data.damages[level]);
+                }
+                // textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100);
+                break;
+
+            /** 화살 비 data를 보여줌 */
+            case SkillData.SkillType.Skill_ArrowRain:
+                /** 화살 비 스킬이 0일 때 */
+                if (level == 0)
+                {
+                    textDesc.text = "스킬\n활성화";
+                }
+                else
+                {
+                    /** 화살 비 증가 값과 재사용 시간을 보여준다. */
+                    textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100, data.counts[level]);
+                }
+                break;
+
+            /** 폭탄화살 data를 보여줌 */
+            case SkillData.SkillType.Skill_BombArrow:
+                /** 화살 비 스킬이 0일 때 */
+                if (level == 0)
+                {
+                    textDesc.text = "스킬\n활성화";
+                }
+                else
+                {
+                    /** 화살 비 증가 값과 재사용 시간을 보여준다. */
+                    textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100, data.counts[level]);
+                }
+                break;
+
+            /** 이동 속도 증가를 선택했을때 */
             case SkillData.SkillType.Skill_CharSpeedUp:
                 /** 스킬 설명을 밑과 같이 적용함 */
                 textDesc.text = string.Format(data.Skill_Desc, data.damages[level] * 100);
@@ -104,6 +157,10 @@ public class AcherSkill : MonoBehaviour
                 break;
         }
     }
+
+
+
+
 
     public void OnClick()
     {
@@ -145,14 +202,14 @@ public class AcherSkill : MonoBehaviour
 
             /** 볼텍스를 클릭했을 때 */
             case SkillData.SkillType.Skill_Vortex:
-                /** 토네이도 스킬레벨이 0일 때 */
+                /** 볼텍스 스킬레벨이 0일 때 */
                 if (level == 0)
                 {
-                    /** 토네이도 스킬 활성화 */
+                    /** 볼텍스 스킬 활성화 */
                     GameManager.GMInstance.SkillManagerRef.bIsVortex = true;
-                    /** 토네이도 데미지는 baseDamage에 설정된 값 */
+                    /** 볼텍스 데미지는 baseDamage에 설정된 값 */
                     GameManager.GMInstance.SkillManagerRef.VortexDamage = data.baseDamage;
-                    /** 토네이토의 기본 데미지를 GameManager에 전달 */
+                    /** 볼텍스의 기본 데미지를 GameManager에 전달 */
                     GameManager.GMInstance.SetVortexBaseDamage(data.baseDamage);
                     /** 스킬 쿨타임 설정 */
                     GameManager.GMInstance.SkillManagerRef.VortexSkillCoolTime = data.counts[level];
@@ -170,7 +227,7 @@ public class AcherSkill : MonoBehaviour
                     nextDamage = CurrentDamage * data.damages[level];
                     /** 현재 데미지는 증가된 데미지로 초기화 */
                     CurrentDamage = nextDamage;
-                    /** 토네이도 데미지 값 초기화 */
+                    /** 볼텍스 데미지 값 초기화 */
                     GameManager.GMInstance.SkillManagerRef.VortexDamage = CurrentDamage;
                 }
                 /** 게임을 실행시킨다. */
@@ -205,13 +262,13 @@ public class AcherSkill : MonoBehaviour
                 }
                 else
                 {
-                    /** 아이스에이지 유지시간 */
+                    /** 허리케인 유지시간 */
                     GameManager.GMInstance.SkillManagerRef.MaxHuricaneOnTime = data.counts[level];
-                    /** 레벨업한 아이스에이지 데미지 */
+                    /** 레벨업한 허리케인 데미지 */
                     nextDamage = CurrentDamage * data.damages[level];
                     /** 현재 데미지값은 레벨업하여 증가된 데미지 */
                     CurrentDamage = nextDamage;
-                    /** 아이스에이지 데미지 적용 */
+                    /** 허리케인 데미지 적용 */
                     GameManager.GMInstance.SkillManagerRef.HuricaneDamage = CurrentDamage;
                 }
                 /** 게임을 실행시킨다. */
@@ -220,8 +277,149 @@ public class AcherSkill : MonoBehaviour
                 level++;
                 break;
 
-            /** 스킬 속도 증가나 이동 속도 증가를 선택했을때 */
-            case SkillData.SkillType.Skill_SkillSpeedUp:
+            /** 바람 정령 선택 시 */
+            case SkillData.SkillType.Skill_WindSpirit:
+                /** 만약 스킬레벨이 0이고 파이볼이 아닐때 */
+                if (level == 0)
+                {
+                    GameManager.GMInstance.SkillManagerRef.WindSpirit.SetActive(true);
+                    /** 빈 게임 오브젝트 생성 */
+                    GameObject newWeapon = new GameObject();
+                    /** weapon은 생성된 newWeapon에 추가해준 Weapon Comoponent를 사용한다. */
+                    weapon = newWeapon.AddComponent<Weapon>();
+                    /** weapon에 있는 Init함수를 data를 매개변수로 호출한다. */
+                    weapon.Init(data);
+                    /** 현재 데미지 저장 */
+                    CurrentDamage = data.baseDamage;
+                    /** 바람 정령의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetWindSpiritBaseDamage(data.baseDamage);
+                }
+                /** 스킬레벨이 0이 아니라면 */
+                else
+                {
+                    /** 다음 데미지는 현재 데미지에서 데미지 증가치만큼 곱한 값으로 적용된다. */
+                    nextDamage = CurrentDamage * data.damages[level];
+                    /** 현재 데미지는 값이 계산된 nextDamage로 변경 */
+                    CurrentDamage = nextDamage;
+                    Debug.Log(data.Skill_Name + " " + nextDamage);
+                    /** Weapon.cs의 Levelup함수에 nextDamage와 nextCount를 매개변수로 호출 */
+                    weapon.Levelup(nextDamage, nextCount);
+                }
+
+                /** 게임을 실행시킨다. */
+                GameManager.GMInstance.bIsLive = true;
+                /** 스킬레벨 증가 */
+                level++;
+                break;
+
+
+            /** 트랩 선택할 시 */
+            case SkillData.SkillType.Skill_Trap:
+                /** 스킬레벨이 0이라면 */
+                if (level == 0)
+                {
+                    /** 트랩의 스킬 타임 */
+                    GameManager.GMInstance.SkillManagerRef.TrapCoolTime = data.counts[level];
+                    /** SkillManager의 트랩 출현 함수를 true로 바꿔준다. */
+                    GameManager.GMInstance.SkillManagerRef.bIsTrap = true;
+                    /** 트랩의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetTrapBaseDamage(data.baseDamage);
+                    /** 초기 트랩 데미지를 설정해 준다. */
+                    /** TODO ## Skill.cs 메테오 초기 데미지 설정 */
+                    GameManager.GMInstance.SkillManagerRef.TrapDamage = data.baseDamage;
+                    /** 현재 데미지는 트랩 SkillManager의 트랩 데미지 */
+                    CurrentDamage = GameManager.GMInstance.SkillManagerRef.TrapDamage;
+                }
+                else
+                {
+                    /** 트랩의 스킬 타임 */
+                    GameManager.GMInstance.SkillManagerRef.TrapCoolTime = data.counts[level];
+                    /** 다음 레벨 데미지는 트랩 데미지에서 SkillData의 데미지 증가 배열에 있는 값을 곱한 값 */
+                    nextDamage = CurrentDamage * data.damages[level];
+                    /** 현재레벨은 계산된 nextDamage */
+                    CurrentDamage = nextDamage;
+                    GameManager.GMInstance.SkillManagerRef.TrapDamage = CurrentDamage;
+                    Debug.Log("Trap : " + CurrentDamage);
+                }
+                /** 게임을 실행시킨다. */
+                GameManager.GMInstance.bIsLive = true;
+                /** 스킬레벨 증가 */
+                level++;
+                break;
+
+            /** 화살 비를 선택했을 때 */
+            case SkillData.SkillType.Skill_ArrowRain:
+                /** 화살비 스킬레벨이 0일 떄 */
+                if (level == 0)
+                {
+                    /** 화살 비 스킬 활성화 */
+                    GameManager.GMInstance.SkillManagerRef.bIsArrowRain = true;
+                    /** 화살 비 스킬의 기본 데미지 */
+                    GameManager.GMInstance.SkillManagerRef.ArrowRainDamage = data.baseDamage;
+                    /** 화살비의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetArrowRainBaseDamage(data.baseDamage);
+                    /** 현재 화살 비 데미지 */
+                    CurrentDamage = GameManager.GMInstance.SkillManagerRef.ArrowRainDamage;
+                    /** 스킬 쿨타임 설정 */
+                    GameManager.GMInstance.SkillManagerRef.ArrowRainSkillCoolTime = data.counts[level];
+                    /** 스킬 시간 감소 적용될 변수 초기화 */
+                    GameManager.GMInstance.SkillManagerRef.ArrowRainSkillTime = GameManager.GMInstance.SkillManagerRef.ArrowRainSkillCoolTime;
+                }
+                /** 화살 비 스킬레벨이 0이 아닐 때 */
+                else
+                {
+                    /** 스킬 쿨타임 설정 */
+                    GameManager.GMInstance.SkillManagerRef.ArrowRainSkillCoolTime = data.counts[level];
+
+                    /** 레벨업하여 증가된 데미지 */
+                    nextDamage = CurrentDamage * data.damages[level];
+                    /** 레벨업하여 증가된 현재 데미지 */
+                    CurrentDamage = nextDamage;
+                    /** 화살 비의 데미지 값으로 준다 */
+                    GameManager.GMInstance.SkillManagerRef.ArrowRainDamage = CurrentDamage;
+                }
+
+                /** 게임을 실행시킨다. */
+                GameManager.GMInstance.bIsLive = true;
+                /** 스킬레벨 증가 */
+                level++;
+                break;
+
+            /** 폭탄화살 클릭 시 */
+            case SkillData.SkillType.Skill_BombArrow:
+                if (level == 0)
+                {
+                    /** 빈 게임 오브젝트 생성 */
+                    GameObject newWeapon = new GameObject();
+                    /** weapon은 생성된 newWeapon에 추가해준 Weapon Comoponent를 사용한다. */
+                    weapon = newWeapon.AddComponent<Weapon>();
+                    /** weapon에 있는 Init함수를 data를 매개변수로 호출한다. */
+                    weapon.Init(data);
+
+                    GameManager.GMInstance.SkillManagerRef.BombArrowDamage = data.baseDamage;
+                    /** 현재 데미지 저장 */
+                    CurrentDamage = data.baseDamage;
+                    /** 바람 정령의 기본 데미지를 GameManager에 전달 */
+                    GameManager.GMInstance.SetBombArrowBaseDamage(data.baseDamage);
+                }
+                else
+                {
+                    /** 다음 데미지는 현재 데미지에서 데미지 증가치만큼 곱한 값으로 적용된다. */
+                    nextDamage = CurrentDamage * data.damages[level];
+                    /** 현재 데미지는 값이 계산된 nextDamage로 변경 */
+                    CurrentDamage = nextDamage;
+                    // Debug.Log(data.Skill_Name + " " + nextDamage);
+                    /** Weapon.cs의 Levelup함수에 nextDamage와 nextCount를 매개변수로 호출 */
+
+                    GameManager.GMInstance.SkillManagerRef.BombArrowDamage = CurrentDamage;
+                }
+                /** 게임을 실행시킨다. */
+                GameManager.GMInstance.bIsLive = true;
+                /** 스킬 레벨 증가 */
+                level++;
+                break;
+
+            /** 이동 속도 증가를 선택했을때 */
             case SkillData.SkillType.Skill_CharSpeedUp:
                 /** 스킬레벨이 0이라면 */
                 if (level == 0)
@@ -243,9 +441,9 @@ public class AcherSkill : MonoBehaviour
                 }
                 /** 게임을 실행시킨다. */
                 GameManager.GMInstance.bIsLive = true;
-
                 level++;
                 break;
+
             default:
                 break;
 

@@ -76,6 +76,7 @@ public class Weapon : MonoBehaviour
 
             case 1:
             case 10:
+            case 16:
                 /** Timer는 틱당 증가 */
                 Timer += Time.deltaTime;
 
@@ -88,9 +89,10 @@ public class Weapon : MonoBehaviour
                     /** 발사 함수 호출 */
                     Fire();
                 }
-
                 break;
+            
             case 9:
+            case 13:
                 /** Timer는 틱당 증가 */
                 Timer += Time.deltaTime;
 
@@ -299,6 +301,47 @@ public class Weapon : MonoBehaviour
 
             /** bullet의 scale은 1.2로 만든다 */
             bullet.transform.localScale = new Vector2(0.7f, 0.7f);
+            /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
+            bullet.position = transform.position;
+            bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);
+
+            bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
+        }
+        /** 태그가 WindSpiritAttack라면 */
+        else if (bullet.CompareTag("WindSpiritAttack"))
+        {
+            /** 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.ArrowShoot);
+
+            /** 바람 정령과 가까운 몬스터의 위치 */
+            TargetPos = GameManager.GMInstance.CreatureScannerRef.CreatureNearestTarget.position;
+            /** 바람 정령이 가까운 적을 보는 방향 */
+            TargetDir = TargetPos - GameManager.GMInstance.SkillManagerRef.WindSpirit.transform.position;
+            /** TargetDir을 정규화 해준다(0, 1)*/
+            TargetDir = TargetDir.normalized;
+
+            /** bullet의 scale은 1.2로 만든다 */
+            bullet.transform.localScale = new Vector2(0.2f, 0.2f);
+            /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
+            bullet.position = GameManager.GMInstance.SkillManagerRef.WindSpirit.transform.position;
+            bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);
+
+            bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
+        }
+        /** 태그가 BombArrow라면 */
+        else if (bullet.CompareTag("BombArrow"))
+        {
+            /** 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.ArrowShoot);
+            /** 가까운 몬스터의 위치 */
+            TargetPos = PlayerCtrl.scanner.NearestTarget.position;
+            /** 플레이어가 가까운 적을 보는 방향 */
+            TargetDir = TargetPos - transform.position;
+            /** TargetDir을 정규화 해준다(0, 1)*/
+            TargetDir = TargetDir.normalized;
+
+            /** bullet의 scale은 1.2로 만든다 */
+            bullet.transform.localScale = new Vector2(1.2f, 1.2f);
             /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
             bullet.position = transform.position;
             bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);

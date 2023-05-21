@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc91485e60cb282468c2d7d2b669bb5d, type: 3}
+  m_Name: Skill_ArrowRain
+  m_EditorClassIdentifier: 
+  skillType: 15
+  Skill_Id: 15
+  Skill_Name: "\uD654\uC0B4 \uBE44"
+  Skill_Desc: "\uB370\uBBF8\uC9C0\n{0}% \uC99D\uAC00\n"
+  Skill_Icon: {fileID: -479353320, guid: 109a182b4d3af5c4abb4ed93429a077f, type: 3}
+  baseDamage: 30
+  baseCount: 0
+  damages:
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  - 1.1
+  counts: 0500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000
+  SkillSpeed: 0
+  projectile: {fileID: 0}

@@ -615,8 +615,10 @@ public class MonsterMove : MonoBehaviour
             }
         }
 
+        /** TODO ## MonsterMove.cs 궁수 스킬에 피격 시 */
         /**---------------------AcherSkill--------------------------*/
 
+        /** 화살 공격에 맞았다면 */
         if (collision.gameObject.CompareTag("Arrow"))
         {
             /** 피격 효과음 재생 */
@@ -625,25 +627,24 @@ public class MonsterMove : MonoBehaviour
             float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
             // Debug.Log(Crtical);
 
-            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
-            /** 파이어볼 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            /** 화살 공격 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
             float ArrowCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowBaseDamage()) + collision.GetComponent<Bullet>().m_Damage);
-            /** 파이어볼 일반 공격 데미지 계산식*/
+            /** 화살 공격 일반 공격 데미지 계산식*/
             float ArrowNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
 
 
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
-                /** 아이스에이지 크리티컬 데미지 */
+                /** 화살 공격 크리티컬 데미지 */
                 GetDamage(ArrowCriticalDamage);
-                // Debug.Log("아이스에이지 크리티컬 데미지 : " + IceAgeCriticalDamage);
+                // Debug.Log("화살 공격 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
-                /** 아이스에이지 일반 데미지 */
+                /** 화살 공격 일반 데미지 */
                 GetDamage(ArrowNormalDamage);
-                // Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
+                // Debug.Log("화살 공격 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
 
@@ -684,25 +685,311 @@ public class MonsterMove : MonoBehaviour
             float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
             // Debug.Log(Crtical);
 
-            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
-            /** 파이어볼 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            /** 볼텍스에 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
             float VortexCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetVortexBaseDamage()) + GameManager.GMInstance.SkillManagerRef.VortexDamage);
-            /** 파이어볼 일반 공격 데미지 계산식*/
+            /** 볼텍스에 일반 공격 데미지 계산식*/
             float VortexNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetVortexBaseDamage()) + GameManager.GMInstance.SkillManagerRef.VortexDamage;
 
 
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
-                /** 아이스에이지 크리티컬 데미지 */
+                /** 볼텍스 크리티컬 데미지 */
                 GetDamage(VortexCriticalDamage);
-                // Debug.Log("아이스에이지 크리티컬 데미지 : " + IceAgeCriticalDamage);
+                // Debug.Log("볼텍스 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
-                /** 아이스에이지 일반 데미지 */
+                /** 볼텍스 일반 데미지 */
                 GetDamage(VortexNormalDamage);
-                // Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
+                // Debug.Log("볼텍스 일반공격 데미지 : " + IceAgeNormalDamage);
+            }
+
+
+            if (CurrentMonsterHp > 0)
+            {
+
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
+            }
+        } // if (collision.gameObject.CompareTag("Vortex"))
+
+        /** 허리케인에 맞았다면 */
+        if (collision.gameObject.CompareTag("Huricane"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
+            /** 파이어볼 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            float HuricaneCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetHuricaneBaseDamage()) + GameManager.GMInstance.SkillManagerRef.HuricaneDamage);
+            /** 파이어볼 일반 공격 데미지 계산식*/
+            float HuricaneNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetHuricaneBaseDamage()) + GameManager.GMInstance.SkillManagerRef.HuricaneDamage;
+
+
+            /** 크리티커 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
+            {
+                /** 허리케인 크리티컬 데미지 */
+                GetDamage(HuricaneCriticalDamage);
+                // Debug.Log("허리케인 크리티컬 데미지 : " + IceAgeCriticalDamage);
+            }
+            else
+            {
+                /** 허리케인 일반 데미지 */
+                GetDamage(HuricaneNormalDamage);
+                // Debug.Log("허리케인 일반공격 데미지 : " + IceAgeNormalDamage);
+            }
+
+            if (CurrentMonsterHp > 0)
+            {
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
+            }
+        } //if (collision.gameObject.CompareTag("Huricane")) 
+
+        /** 바람정령 공격에 맞았다면 */
+        if (collision.gameObject.CompareTag("WindSpiritAttack"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** 바람정령 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            float WindSpiritCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetWindSpiritBaseDamage()) + collision.GetComponent<Bullet>().m_Damage);
+            /** 바람정령 일반 공격 데미지 계산식*/
+            float WindSpiritNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetWindSpiritBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
+
+            /** 크리티커 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
+            {
+                /** 바람정령 크리티컬 데미지 */
+                GetDamage(WindSpiritCriticalDamage);
+                // Debug.Log("바람정령 크리티컬 데미지 : " + IceAgeCriticalDamage);
+            }
+            else
+            {
+                /** 바람정령 일반 데미지 */
+                GetDamage(WindSpiritCriticalDamage);
+                // Debug.Log("바람정령 일반공격 데미지 : " + IceAgeNormalDamage);
+            }
+
+
+            if (CurrentMonsterHp > 0)
+            {
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
+            }
+        } // if (collision.gameObject.CompareTag("WindSpiritAttack"))
+
+
+        /** 트랩폭발 공격에 맞았다면 */
+        if (collision.gameObject.CompareTag("Trap"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** 트랩폭발에 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            float TrapCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetTrapBaseDamage()) + GameManager.GMInstance.SkillManagerRef.TrapDamage);
+            /** 트랩폭발에 일반 공격 데미지 계산식*/
+            float TrapNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetTrapBaseDamage()) + GameManager.GMInstance.SkillManagerRef.TrapDamage;
+
+
+            /** 크리티컬 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
+            {
+                /** 트랩폭발 크리티컬 데미지 */
+                GetDamage(TrapCriticalDamage);
+                // Debug.Log("트랩폭발 크리티컬 데미지 : " + IceAgeCriticalDamage);
+            }
+            else
+            {
+                /** 트랩폭발 일반 데미지 */
+                GetDamage(TrapNormalDamage);
+                // Debug.Log("트랩폭발 일반공격 데미지 : " + IceAgeNormalDamage);
+            }
+
+            if (CurrentMonsterHp > 0)
+            {
+
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
+            }
+        } // if (collision.gameObject.CompareTag("Trap"))
+
+
+        /** 화살 비 공격에 맞았다면 */
+        if (collision.gameObject.CompareTag("ArrowRain"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** 화살 비 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            float TrapCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowRainBaseDamage()) + GameManager.GMInstance.SkillManagerRef.ArrowRainDamage);
+            /** 화살 비 일반 공격 데미지 계산식*/
+            float TrapNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowRainBaseDamage()) + GameManager.GMInstance.SkillManagerRef.ArrowRainDamage;
+
+
+            /** 크리티컬 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
+            {
+                /** 화살 비 크리티컬 데미지 */
+                GetDamage(TrapCriticalDamage);
+                // Debug.Log("화살 비 크리티컬 데미지 : " + IceAgeCriticalDamage);
+            }
+            else
+            {
+                /** 화살 비 일반 데미지 */
+                GetDamage(TrapNormalDamage);
+                // Debug.Log("화살 비 일반공격 데미지 : " + IceAgeNormalDamage);
+            }
+
+            if (CurrentMonsterHp > 0)
+            {
+
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
+            }
+        } // if (collision.gameObject.CompareTag("ArrowRain"))
+
+        /** 폭발화살에 맞았다면 */
+        if (collision.gameObject.CompareTag("BombArrowEffect"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** 화살 공격 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            float BombArrowCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetBombArrowBaseDamage()) + GameManager.GMInstance.SkillManagerRef.BombArrowDamage);
+            /** 화살 공격 일반 공격 데미지 계산식*/
+            float BombArrowNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetBombArrowBaseDamage()) + GameManager.GMInstance.SkillManagerRef.BombArrowDamage;
+
+
+            /** 크리티컬 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
+            {
+                /** 폭발화살 크리티컬 데미지 */
+                GetDamage(BombArrowCriticalDamage);
+                Debug.Log("폭발화살 크리티컬 데미지 : " + BombArrowCriticalDamage);
+            }
+            else
+            {
+                /** 폭발화살 일반 데미지 */
+                GetDamage(BombArrowNormalDamage);
+                Debug.Log("폭발화살 일반공격 데미지 : " + BombArrowNormalDamage);
             }
 
 
@@ -733,6 +1020,8 @@ public class MonsterMove : MonoBehaviour
                 Dead();
             }
         }
+
+
     }
 
     /** TODO ## MonsterMove.cs 아이스 에이지에 닿았을 때 데미지 */

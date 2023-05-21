@@ -95,6 +95,32 @@ public class SkillManager : MonoBehaviour
     /** 초기화해주기 위한 스킬 시간 */
     public float HuricaneSkillCoolTime = 3;
 
+    [Header("---WindSpirit---")]
+    public GameObject WindSpirit;
+
+    [Header("---Trap---")]
+    public GameObject Trap;
+    public float TrapDamage;
+    public bool bIsTrap;
+    public float TrapSkillTime;
+    public float TrapCoolTime;
+
+    /** 낙뢰 스킬 관련 */
+    [Header("---ArrowRain---")]
+    /** 낙뢰 데미지 */
+    public float ArrowRainDamage;
+    /** 낙뢰 활성화 여부 */
+    public bool bIsArrowRain;
+    /** 감소되는 낙뢰 스킬 재사용 시간 */
+    public float ArrowRainSkillTime;
+    /** 낙뢰를 재발동 시키기 위한 시간  */
+    public float ArrowRainSkillCoolTime;
+
+    /** 낙뢰 스킬 관련 */
+    [Header("---BombArrow---")]
+    /** 낙뢰 데미지 */
+    public float BombArrowDamage;
+
     private void Awake()
     {
         Player = GameManager.GMInstance.Player;
@@ -218,23 +244,26 @@ public class SkillManager : MonoBehaviour
         /**--------------------------------------------------------------------------------------------*/
 
         /** 만약 현재 캐릭터가 궁수라면 */
-        if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar && bIsVortex)
+        if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar)
         {
-            /** 생성중이 아닐 때  */
-            if (bOnVortex == false)
+            if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsVortex)
             {
-                /** 스킬 쿨타임 감소 */
-                VortexSkillTime -= Time.deltaTime;
-            }
+                /** 생성중이 아닐 때  */
+                if (bOnVortex == false)
+                {
+                    /** 스킬 쿨타임 감소 */
+                    VortexSkillTime -= Time.deltaTime;
+                }
 
-            /** 스킬 발동하는 시간 */
-            if (VortexSkillTime <= 0)
-            {
-                /** 재발동을 위한 초기화 */
-                VortexSkillTime = VortexSkillCoolTime;
-                /** 토네이도 함수 호출 */
-                MakeVortex();
-            }
+                /** 스킬 발동하는 시간 */
+                if (VortexSkillTime <= 0)
+                {
+                    /** 재발동을 위한 초기화 */
+                    VortexSkillTime = VortexSkillCoolTime;
+                    /** 토네이도 함수 호출 */
+                    MakeVortex();
+                }
+            } // if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar && bIsVortex)
 
             /** 플레이 씬이고 허리케인이 적용되있을 때 */
             if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsHuricane)
@@ -268,9 +297,43 @@ public class SkillManager : MonoBehaviour
                         EnabledHuricane();
                     }
                 }
-            }
-        } // if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar)
 
+            } // if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsHuricane)
+
+            /** 플레이 씬일때만 Trap이 true일 때 */
+            if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsTrap)
+            {
+                /** 스킬 쿨타임 감소 */
+                TrapSkillTime -= Time.deltaTime;
+
+                /** 스킬쿨타임이 0보다 작거나 같으면 */
+                if (TrapSkillTime <= 0)
+                {
+                    /** 다시 쿨타임 최대치로 바꿈 */
+                    TrapSkillTime = TrapCoolTime;
+                    // Debug.Log(MateoSkillTime);
+                    /** Trap 생성 로직 */
+                    MakeTrap();
+                }
+            } //  if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar)
+
+            /**플레이 씬이고 화살 비가 적용 되있을때 */
+            if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsArrowRain)
+            {
+                /** 화살 비 스킬 쿨타임 */
+                ArrowRainSkillTime -= Time.deltaTime;
+
+                /** 스킬 시간이 다 됬으면 */
+                if (ArrowRainSkillTime <= 0)
+                {
+                    /** 다시 스킬시간 초기화 */
+                    ArrowRainSkillTime = ArrowRainSkillCoolTime;
+                    /** 낙뢰 생성 */
+                    MakeArrowRain();
+                }
+            } // iif (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsArrowRain)
+
+        }
     }
 
     /** 메테오 생성 함수 정의 */
@@ -280,6 +343,17 @@ public class SkillManager : MonoBehaviour
         GameObject Mateo = Instantiate(Skills[0]);
         /** 생성된 메테오의 위치 */
         Mateo.transform.position = new Vector3(Random.Range(transform.position.x - 2.5f, transform.position.x + 2.5f), transform.position.y, 0);
+    }
+
+    void MakeTrap()
+    {
+        /** 트랩 생성 */
+        GameObject Trap = Instantiate(Skills[2]);
+
+        Vector3 PlayerPos = GameManager.GMInstance.Player.transform.position;
+
+        /** 생성된 트랩의 위치 */
+        Trap.transform.position = PlayerPos;
     }
 
     void MakeLighining()
@@ -293,7 +367,6 @@ public class SkillManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Lightning);
 
-
         /** 스킬 배열 2번에 저장된 오브젝트를 생성 */
         GameObject Lightning = Instantiate(Skills[2]);
         /** 생성될 위치는 가장 가까운 적의 위치에 생성되게한다. */
@@ -301,6 +374,25 @@ public class SkillManager : MonoBehaviour
 
         Destroy(Lightning, 0.5f);
     }
+
+    void MakeArrowRain()
+    {
+        /** 가까운적이 없다면 */
+        if (!GameManager.GMInstance.ScannerRef.NearestTarget)
+        {
+            return;
+        }
+
+        /** 효과음 재생 */
+        // GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Lightning);
+
+        /** 스킬 배열 3번에 저장된 오브젝트를 생성 */
+        GameObject ArrowRain = Instantiate(Skills[3]);
+        /** 생성될 위치는 가장 가까운 적의 위치에 생성되게한다. */
+        ArrowRain.transform.position = GameManager.GMInstance.ScannerRef.NearestTarget.position;
+        Destroy(ArrowRain, 1.0f);
+    }
+
 
     /** 토네이도 활성화 함수 */
     void MakeTorando()
@@ -367,6 +459,9 @@ public class SkillManager : MonoBehaviour
     /** 허리케인 활성화 함수 */
     public void EnabledHuricane()
     {
+        /** 효과음 생성 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Tornado);
+
         /** 허리케인 엑티브 활성화 */
         Huricane.SetActive(true);
         /** 스킬 실행중 */
