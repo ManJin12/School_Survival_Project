@@ -10,6 +10,7 @@ public class SkillManager : MonoBehaviour
     public GameObject[] Skills;
     GameObject Player;
 
+    /**------------------------------Wizard--------------------------------*/
     /** 메테오 스킬 관련 */
     [Header("---Mateo---")]
     public float MateoDamage;
@@ -32,7 +33,7 @@ public class SkillManager : MonoBehaviour
     /** 적용되는 스킬 시간 */
     public float IceAgeSkillTime;
     /** 초기화해주기 위한 스킬 시간 */
-    public float IceAgeSkillCoolTime = 10;
+    public float IceAgeSkillCoolTime = 3;
 
     /** 낙뢰 스킬 관련 */
     [Header("---Lightning---")]
@@ -62,6 +63,37 @@ public class SkillManager : MonoBehaviour
 
     [Header("---IceArrow---")]
     public GameObject IceArrow;
+
+    /**------------------------------Acher--------------------------------*/
+    [Header("---Vortex---")]
+    /** 토네이도 데미지 */
+    public float VortexDamage;
+    /** 토네이도 활성화 여부 */
+    public bool bIsVortex;
+    /** 토네이도 생성 여부 */
+    public bool bOnVortex;
+    public float AcherCharDir;
+    /** 감소되는 토네이도 스킬 재사용 시간 */
+    public float VortexSkillTime;
+    /** 낙뢰를 재발동 시키기 위한 시간 */
+    public float VortexSkillCoolTime;
+    GameObject Vortex;
+
+    [Header("---Huricane---")]
+    public GameObject Huricane;
+    public float HuricaneDamage;
+    /** 아이스에이지 스킬 적용중인지 */
+    public bool bIsHuricaneSkill;
+    /** 아이스에이지 스킬 선택됬을때 */
+    public bool bIsHuricane;
+    /** 줄어드는 시간 */
+    public float HuricaneOnTime;
+    /** 스킬 유지 시간 */
+    public float MaxHuricaneOnTime;
+    /** 적용되는 스킬 시간 */
+    public float HuricaneSkillTime;
+    /** 초기화해주기 위한 스킬 시간 */
+    public float HuricaneSkillCoolTime = 3;
 
     private void Awake()
     {
@@ -160,7 +192,7 @@ public class SkillManager : MonoBehaviour
             } // if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsIceAge)
 
 
-            /**  */
+            /** 토네이도 활성화가 되었다면? */
             if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsTornado)
             {
                 /** 생성중이 아닐 때  */
@@ -182,6 +214,62 @@ public class SkillManager : MonoBehaviour
             } // if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsTornado)
 
         } // if (GameManager.GMInstance.CurrentChar == ECharacterType.WizardChar)
+
+        /**--------------------------------------------------------------------------------------------*/
+
+        /** 만약 현재 캐릭터가 궁수라면 */
+        if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar && bIsVortex)
+        {
+            /** 생성중이 아닐 때  */
+            if (bOnVortex == false)
+            {
+                /** 스킬 쿨타임 감소 */
+                VortexSkillTime -= Time.deltaTime;
+            }
+
+            /** 스킬 발동하는 시간 */
+            if (VortexSkillTime <= 0)
+            {
+                /** 재발동을 위한 초기화 */
+                VortexSkillTime = VortexSkillCoolTime;
+                /** 토네이도 함수 호출 */
+                MakeVortex();
+            }
+
+            /** 플레이 씬이고 허리케인이 적용되있을 때 */
+            if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene && bIsHuricane)
+            {
+                /** 스킬이 적용중이면 */
+                if (bIsHuricaneSkill == true)
+                {
+                    /** 유지시간을 감소시킨다. */
+                    HuricaneOnTime -= Time.deltaTime;
+
+                    /** 유지시간이 종료되면 */
+                    if (HuricaneOnTime <= 0.0f)
+                    {
+                        /** 비활성화 함수 호출 */
+                        DisabledHuricane();
+                    }
+                }
+                /** 스킬 적용중이 아니면 */
+                else if (bIsHuricaneSkill == false)
+                {
+                    /** 스킬 쿨타임 감소 */
+                    HuricaneSkillTime -= Time.deltaTime;
+
+                    /** 스킬 쿨타임 시간이 0이되면 */
+                    if (HuricaneSkillTime <= 0)
+                    {
+                        /** 스킬 쿨타임 초기화 */
+                        HuricaneSkillTime = HuricaneSkillCoolTime;
+
+                        /** 허리케인이 활성화 함수 호출 */
+                        EnabledHuricane();
+                    }
+                }
+            }
+        } // if (GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar)
 
     }
 
@@ -243,6 +331,61 @@ public class SkillManager : MonoBehaviour
         /** 토네이도 오브젝트 삭제 */
         Destroy(Tornado);
 
+    }
+
+    /** 볼텍스 활성화 함수 */
+    void MakeVortex()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Tornado);
+
+        /** 볼텍스 생성 */
+        Vortex = Instantiate(Skills[0]);
+
+        Vortex.transform.position = GameManager.GMInstance.playerCtrl.transform.position;
+        Vortex.transform.localScale = new Vector2(2.0f, 2.0f);
+
+        /** 볼텍스 생성 중 */
+        bOnTornado = true;
+
+        /** 코루틴 호출 */
+        StartCoroutine(VortexDisabled());
+    }
+
+    /** 볼텍스 오브젝트 삭제 코루틴 */
+    IEnumerator VortexDisabled()
+    {
+        yield return new WaitForSeconds(2.0f);
+
+        /** 볼텍스 생성 x */
+        bOnVortex = false;
+        /** 볼텍스 오브젝트 삭제 */
+        Destroy(Vortex);
+
+    }
+
+    /** 허리케인 활성화 함수 */
+    public void EnabledHuricane()
+    {
+        /** 허리케인 엑티브 활성화 */
+        Huricane.SetActive(true);
+        /** 스킬 실행중 */
+        bIsHuricaneSkill = true;
+    }
+
+    /** 허리케인 비활성화 함수 */
+    void DisabledHuricane()
+    {
+        /** 만약 스킬 유지시간이 0이 됬다면 */
+        if (HuricaneOnTime <= 0)
+        {
+            /** 허리케인 비활성화 */
+            Huricane.SetActive(false);
+            /** 스킬 비활성화 */
+            bIsHuricaneSkill = false;
+            /** 유지시간 초기화 */
+            HuricaneOnTime = MaxHuricaneOnTime;
+        }
     }
 
     /** 아이스에이지 활성화 함수 */

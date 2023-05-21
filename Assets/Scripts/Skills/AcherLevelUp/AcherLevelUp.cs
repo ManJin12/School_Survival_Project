@@ -7,7 +7,7 @@ using static Define;
 public class AcherLevelUp : MonoBehaviour
 {
     RectTransform rect;
-    public Skill[] skills;
+    public AcherSkill[] skills;
     List<int> skillIndex;
 
     void Start()
@@ -21,22 +21,32 @@ public class AcherLevelUp : MonoBehaviour
 
         GameManager.GMInstance.AcherLevelUpRef = this;
         rect = GetComponent<RectTransform>();
-        skills = GetComponentsInChildren<Skill>(true);
+        skills = GetComponentsInChildren<AcherSkill>(true);
+
+        /** 화살 발사 선택 함수 호출 */
+        BaseAttack(0);
 
         /** TODO ## LevelUp.cs 기본공격 */
         rect.localScale = Vector3.zero;
 
         /** TODO ## LevelUp.cs 인게임 시작할 시 스킬 선택 X */
-        /** 0.2초있다가 next함수 실행 */
-        // StartCoroutine(ShowBtn());
-       
+            /** 0.2초있다가 next함수 실행 */
+            // StartCoroutine(ShowBtn());
+
+
+        /** 오브젝트 이름이 WizardLevelUp이고 현재 캐릭터 타입이 마법사가 아닐 때*/
+        //else if (gameObject.name == "WizardLevelUp" && GameManager.GMInstance.CurrentChar != ECharacterType.AcherChar)
+        //{
+        //    /** 현재 캐릭터가 마법사가 아닐 시 OFF */
+        //    gameObject.SetActive(false);
+        //}
     }
 
     public void BaseAttack(int index)
     {
         /** 인덱스로 입력받은 값의 스킬을 실행시킨다. */
         skills[index].OnClick();
-        Debug.Log("0");
+        // Debug.Log("0");
     }
 
     IEnumerator ShowBtn()
@@ -69,7 +79,7 @@ public class AcherLevelUp : MonoBehaviour
     public void Next()
     {
         // 1. 모든 아이템 비활성화
-        foreach (Skill skill in skills)
+        foreach (AcherSkill skill in skills)
         {
             skill.gameObject.SetActive(false);
         }
@@ -96,7 +106,7 @@ public class AcherLevelUp : MonoBehaviour
         for (int index = 0; index < random.Length; index++)
         {
             /** ranSkill은 랜덤으로 뽑힌 스킬버튼 */
-            Skill ranSkill = skills[random[index]];
+            AcherSkill ranSkill = skills[random[index]];
 
             /** 만약 랜덤으로 뽑은 스킬의 레벨이 최대레벨이라면? */
             if (ranSkill.level == ranSkill.data.damages.Length)

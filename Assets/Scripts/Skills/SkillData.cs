@@ -19,6 +19,11 @@ public class SkillData : ScriptableObject
         Skill_Lightning,
         Skill_Tornado,
         Skill_IceArrow,
+
+        /** ±Ã¼ö ½ºÅ³ */
+        Skill_Arrow,
+        Skill_Vortex,
+        Skill_Huricane,
     }
 
     [Header("# Main Info")]

@@ -3388,6 +3388,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1d74880bed4586644a16a79a2d9dc8af, type: 3}
   - {fileID: 8300000, guid: f1cb5d83282f2904a85f73111d068616, type: 3}
   - {fileID: 8300000, guid: c91fcf414acc0344cb03b13996f1bf3b, type: 3}
+  - {fileID: 8300000, guid: f11db4559b3ffff45b62e9327fc5535d, type: 3}
   SFXChannels: 50
   SFXPlayers: []
   bIsSFXOn: 0

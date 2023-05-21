@@ -49,6 +49,7 @@ public class SoundManager : MonoBehaviour
         IceArrow,
         Lightning,
         Tornado,
+        ArrowShoot,
     }
 
     void Awake()

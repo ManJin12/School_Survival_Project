@@ -93,13 +93,19 @@ namespace My
 
         /** public 제거 가능 */
         [Header("-----WizardSkillBaseDamage-----")]
-        public float FireBallBaseDamage;
-        public float ElectricBallBaseDamage;
-        public float MateoBaseDamage;
-        public float IceArrowBaseDamage;
-        public float IceAgeBaseDamage;
-        public float TornadoBaseDamage;
-        public float LightningBaseDamage;
+        float FireBallBaseDamage;
+        float ElectricBallBaseDamage;
+        float MateoBaseDamage;
+        float IceArrowBaseDamage;
+        float IceAgeBaseDamage;
+        float TornadoBaseDamage;
+        float LightningBaseDamage;
+
+        /** public 제거 가능 */
+        [Header("-----AcherSkillBaseDamage-----")]
+        public float ArrowBaseDamage;
+        public float VortexBaseDamage;
+        public float HuricaneBaseDamage;
 
         [Header("-----Advertisements-----")]
         public RewardedAdsButton RewardedAdsButtonRef;
@@ -209,8 +215,15 @@ namespace My
                 /** 경험치 량 초기화 */
                 exp = 0;
 
-                /** 스킬 선택창 오픈 */
-                UiLevelUp.Show();
+                if (CurrentChar == ECharacterType.WizardChar)
+                {
+                    /** 스킬 선택창 오픈 */
+                    UiLevelUp.Show();
+                }
+                else if (CurrentChar == ECharacterType.AcherChar)
+                {
+                    AcherLevelUpRef.Show();
+                }
 
                 /** 광고 버튼 활성화 */
                 RewardedAdsButtonRef._showSkillReSelectAdButton.interactable = true;
@@ -316,6 +329,51 @@ namespace My
         }
 
         #endregion
+
+        /** 궁수 스킬 초기 데미지 설정 */
+        #region
+        /** 초기 볼텍스 데미지 저장 */
+        public void SetArrowBaseDamage(float basedamage)
+        {
+            ArrowBaseDamage = basedamage;
+        }
+
+        /** 볼텍스 기본 데미지 저장 */
+        public void SetVortexBaseDamage(float basedamage)
+        {
+            VortexBaseDamage = basedamage;
+        }
+
+        /** 허리케인 기본 데미지 저장 */
+        public void SetHuricaneBaseDamage(float basedamage)
+        {
+            HuricaneBaseDamage = basedamage;
+        }
+        #endregion
+
+
+
+        /** 궁수 스킬 초기 데미지 반환 */
+        #region
+        /** 화살 기본 데미지 반환 */
+        public float GetArrowBaseDamage()
+        {
+            return ArrowBaseDamage;
+        }
+        /** 볼텍스 기본 데미지 반환 */
+        public float GetVortexBaseDamage()
+        {
+            return VortexBaseDamage;
+        }
+
+        /** 허리케인 기본 데미지 반환 */
+        public float GetHuricaneBaseDamage()
+        {
+            return HuricaneBaseDamage;
+        }
+        #endregion
+
+        
 
         /** 크리티컬 관련 반환 적용 함수 */
         #region Critical

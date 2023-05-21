@@ -31,11 +31,12 @@ public class Weapon : MonoBehaviour
     public int Index = 0;
 
 
-    PlayerController PlayerCtrl;
+    public PlayerController PlayerCtrl;
 
     float Timer;
 
     public Vector3 TargetPos;
+    public Vector3 TargetDir;
 
     private void Awake()
     {
@@ -74,6 +75,7 @@ public class Weapon : MonoBehaviour
                 break;
 
             case 1:
+            case 10:
                 /** Timer는 틱당 증가 */
                 Timer += Time.deltaTime;
 
@@ -238,6 +240,7 @@ public class Weapon : MonoBehaviour
 
         /** bullet의 transform은 GameManager.GMInstance.PoolManagerRef.Get(prefabId).transform */
         Transform bullet = GameManager.GMInstance.PoolManagerRef.Get(prefabId).transform;
+        Debug.Log(bullet.name);
 
         /**  bullet 오브젝트 태그가 Bullet(파이어볼)이라면 */
         if (bullet.CompareTag("Bullet"))
@@ -248,12 +251,12 @@ public class Weapon : MonoBehaviour
             /** 가까운 몬스터의 위치 */
             TargetPos = PlayerCtrl.scanner.NearestTarget.position;
             /** 플레이어가 가까운 적을 보는 방향 */
-            Vector3 TargetDir = TargetPos - transform.position;
+            TargetDir = TargetPos - transform.position;
             /** TargetDir을 정규화 해준다(0, 1)*/
             TargetDir = TargetDir.normalized;
 
             /** bullet의 scale은 1.2로 만든다 */
-            bullet.transform.localScale = new Vector2(0.6f, 0.6f);
+            bullet.transform.localScale = new Vector2(0.8f, 0.8f);
             /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
             bullet.position = transform.position;
             bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);
@@ -269,15 +272,36 @@ public class Weapon : MonoBehaviour
             /** 소환수와 가까운 몬스터의 위치 */
             TargetPos = GameManager.GMInstance.CreatureScannerRef.CreatureNearestTarget.position;
             /** 플레이어가 가까운 적을 보는 방향 */
-            Vector3 TargetDir = TargetPos - GameManager.GMInstance.SkillManagerRef.IceArrow.transform.position;
+            TargetDir = TargetPos - GameManager.GMInstance.SkillManagerRef.IceArrow.transform.position;
             /** TargetDir을 정규화 해준다(0, 1)*/
             TargetDir = TargetDir.normalized;
 
             /** bullet의 scale은 1.2로 만든다 */
-            bullet.transform.localScale = new Vector2(0.04f, 0.04f);
+            // bullet.transform.localScale = new Vector2(0.06f, 0.06f);
             /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
             bullet.position = GameManager.GMInstance.CreatureScannerRef.gameObject.transform.position;
             bullet.rotation = Quaternion.FromToRotation(Vector3.left, TargetDir);
+
+            bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
+        }
+        /** 태그가 Arrow라면 */
+        else if (bullet.CompareTag("Arrow"))
+        {
+            /** 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.ArrowShoot);
+
+            /** 가까운 몬스터의 위치 */
+            TargetPos = PlayerCtrl.scanner.NearestTarget.position;
+            /** 플레이어가 가까운 적을 보는 방향 */
+            TargetDir = TargetPos - transform.position;
+            /** TargetDir을 정규화 해준다(0, 1)*/
+            TargetDir = TargetDir.normalized;
+
+            /** bullet의 scale은 1.2로 만든다 */
+            bullet.transform.localScale = new Vector2(0.7f, 0.7f);
+            /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
+            bullet.position = transform.position;
+            bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);
 
             bullet.GetComponent<Bullet>().Init(damage, per, TargetDir);
         }

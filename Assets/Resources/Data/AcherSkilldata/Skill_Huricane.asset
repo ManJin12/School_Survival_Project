@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc91485e60cb282468c2d7d2b669bb5d, type: 3}
+  m_Name: Skill_Huricane
+  m_EditorClassIdentifier: 
+  skillType: 12
+  Skill_Id: 12
+  Skill_Name: "\uD5C8\uB9AC\uCF00"
+  Skill_Desc: "\uB370\uBBF8\uC9C0\n{0}% \uC99D\uAC00"
+  Skill_Icon: {fileID: 488475509, guid: d4adf2bd3e9fd114aa72031a15d2ee63, type: 3}
+  baseDamage: 30
+  baseCount: 3
+  damages:
+  - 1.3
+  - 1.3
+  - 1.3
+  - 1.3
+  - 1.3
+  - 1.3
+  - 1.3
+  - 1.3
+  - 1.3
+  - 1.3
+  counts: 03000000030000000300000003000000030000000300000003000000030000000300000003000000
+  SkillSpeed: 1
+  projectile: {fileID: 6409695774621852417, guid: a53dbd6dc09111e409238cc7c91b089e,
+    type: 3}

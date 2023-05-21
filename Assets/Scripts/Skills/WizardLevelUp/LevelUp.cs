@@ -35,12 +35,12 @@ public class LevelUp : MonoBehaviour
             /** 0.2초있다가 next함수 실행 */
             // StartCoroutine(ShowBtn());
         }
-        /** 오브젝트 이름이 WizardLevelUp이고 현재 캐릭터 타입이 마법사가 아닐 때*/
-        else if (gameObject.name == "WizardLevelUp" && GameManager.GMInstance.CurrentChar != ECharacterType.WizardChar)
-        {
-            /** 현재 캐릭터가 마법사가 아닐 시 OFF */
-            gameObject.SetActive(false);
-        }
+        ///** 오브젝트 이름이 WizardLevelUp이고 현재 캐릭터 타입이 마법사가 아닐 때*/
+        //else if (gameObject.name == "WizardLevelUp" && GameManager.GMInstance.CurrentChar != ECharacterType.WizardChar)
+        //{
+        //    /** 현재 캐릭터가 마법사가 아닐 시 OFF */
+        //    gameObject.SetActive(false);
+        //}
     }
 
     public void BaseAttack(int index)

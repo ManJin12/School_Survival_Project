@@ -19,6 +19,9 @@ TagManager:
   - Tornado
   - IceArrow
   - ElectricBall
+  - Arrow
+  - Vortex
+  - Huricane
   layers:
   - Default
   - TransparentFX

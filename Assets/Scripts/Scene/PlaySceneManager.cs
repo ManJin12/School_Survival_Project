@@ -156,10 +156,9 @@ public class PlaySceneManager : MonoBehaviour
     {
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
-        GameManager.GMInstance.UiLevelUp.Next();
+        /** 궁수 스킬 재설정 */
+        GameManager.GMInstance.AcherLevelUpRef.Next();
     }
-
-
 
     /** 환경설정 클릭 */
     public void OnClickConfig()

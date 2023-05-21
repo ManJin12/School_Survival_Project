@@ -198,6 +198,8 @@ public class MonsterMove : MonoBehaviour
             return;
         }
 
+        /**---------------------WizardSkill--------------------------*/
+
         /** TODO ## MonsterMove.cs 태그가 Bullet이면 */
         if (collision.CompareTag("Bullet"))
         {
@@ -581,6 +583,125 @@ public class MonsterMove : MonoBehaviour
             {
                 /** 아이스에이지 일반 데미지 */
                 GetDamage(IceAgeNormalDamage);
+                // Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
+            }
+
+
+            if (CurrentMonsterHp > 0)
+            {
+
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
+            }
+        }
+
+        /**---------------------AcherSkill--------------------------*/
+
+        if (collision.gameObject.CompareTag("Arrow"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
+            /** 파이어볼 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            float ArrowCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowBaseDamage()) + collision.GetComponent<Bullet>().m_Damage);
+            /** 파이어볼 일반 공격 데미지 계산식*/
+            float ArrowNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
+
+
+            /** 크리티커 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
+            {
+                /** 아이스에이지 크리티컬 데미지 */
+                GetDamage(ArrowCriticalDamage);
+                // Debug.Log("아이스에이지 크리티컬 데미지 : " + IceAgeCriticalDamage);
+            }
+            else
+            {
+                /** 아이스에이지 일반 데미지 */
+                GetDamage(ArrowNormalDamage);
+                // Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
+            }
+
+
+            if (CurrentMonsterHp > 0)
+            {
+
+                //피격 부분에 애니메이터를 호출하여 상태 변경
+                anim.SetTrigger("Hit");
+            }
+            /** 몬스터가 죽으면 */
+            else
+            {
+                // 몬스터가 죽었으므로 비활성화
+                bIsLive = false;
+                /** 콜라이더 비활성화 */
+                coll.enabled = false;
+                /** RigidBody2D 비활성화 */
+                rigid.simulated = false;
+                /** sprite 레이어 1 */
+                sprite.sortingOrder = 1;
+                // 죽는 애니메이션
+                anim.SetBool("Dead", true);
+                /** 함수 호출 */
+                GameManager.GMInstance.killcount++;
+                // 몬스터 사망 시 킬수 증가 함수 호출
+                GameManager.GMInstance.GetExp();
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
+            }
+        }
+
+        /** 볼텍스에 맞았다면 */
+        if (collision.gameObject.CompareTag("Vortex"))
+        {
+            /** 피격 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
+
+            float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
+            // Debug.Log(Crtical);
+
+            /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
+            /** 파이어볼 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
+            float VortexCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetVortexBaseDamage()) + GameManager.GMInstance.SkillManagerRef.VortexDamage);
+            /** 파이어볼 일반 공격 데미지 계산식*/
+            float VortexNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetVortexBaseDamage()) + GameManager.GMInstance.SkillManagerRef.VortexDamage;
+
+
+            /** 크리티커 확률 적용 되었다면 */
+            if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
+            {
+                /** 아이스에이지 크리티컬 데미지 */
+                GetDamage(VortexCriticalDamage);
+                // Debug.Log("아이스에이지 크리티컬 데미지 : " + IceAgeCriticalDamage);
+            }
+            else
+            {
+                /** 아이스에이지 일반 데미지 */
+                GetDamage(VortexNormalDamage);
                 // Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 

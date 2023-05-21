@@ -18,7 +18,10 @@ public class SkillCollision : MonoBehaviour
     /** rigid */
     Rigidbody2D rigid;
     bool CharacterDir;
-    
+
+    /** 볼텍스 방향 랜덤 */
+    int RandomDir;
+
 
     private void Awake()
     {
@@ -50,12 +53,37 @@ public class SkillCollision : MonoBehaviour
             gameObject.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         }
 
+        /** 이름이 토네이도라면 */
         if (gameObject.name == "Tornado(Clone)")
         {
             CharacterDir = GameManager.GMInstance.playerCtrl.m_sprite.flipX;
         }
 
-        
+        /** 이름이 Vortex라면 */
+        if (gameObject.name == "Vortex(Clone)")
+        {
+            CharacterDir = GameManager.GMInstance.playerCtrl.m_sprite.flipX;
+            /** 볼텍스 방향 랜덤 */
+            RandomDir = Random.Range(0, 3);
+            Debug.Log(RandomDir);
+
+            if (RandomDir == 0)
+            {
+                gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 90));
+            }
+            else if (RandomDir == 1)
+            {
+                gameObject.GetComponent<SpriteRenderer>().flipY = true;
+                gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            }
+            else if (RandomDir == 2)
+            {
+                
+                gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+                gameObject.GetComponent<SpriteRenderer>().flipY = true;
+            }
+
+        }
     }
 
     void Update()
@@ -79,6 +107,53 @@ public class SkillCollision : MonoBehaviour
             else if (CharacterDir == true)
             {
                 gameObject.transform.Translate(Vector2.right * -1.0f * Time.deltaTime * 5);
+            }
+        }
+
+        /** 만약 게임오브젝트 이름이 Vortex면 */
+        if (gameObject.name == "Vortex(Clone)")
+        {
+            /** 캐릭터가 우측 이동하고 있을 때 */
+            if (CharacterDir == false)
+            {
+                if (RandomDir == 0)
+                {
+                    /** 오른쪽으로 발사 */
+                    gameObject.transform.Translate(Vector2.down * Time.deltaTime * 5);
+                }
+                else if (RandomDir == 1)
+                {
+                    /** 위로 발사 */
+                    gameObject.transform.Translate(Vector2.up * Time.deltaTime * 5);
+                }
+                else if (RandomDir == 2)
+                {
+                    /** 아래로 발사 */
+                    gameObject.transform.Translate(Vector2.up * Time.deltaTime * 5);
+                }
+
+            }
+            /** 캐릭터가 좌측 이동하고 있을 떄 */
+            else if (CharacterDir == true)
+            {
+                if (RandomDir == 0)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().flipY = true;
+                    /** 오른쪽으로 왼쪽으로 발사 */
+                    gameObject.transform.Translate(Vector2.down * -1.0f * Time.deltaTime * 5);
+                }
+                else if (RandomDir == 1)
+                {
+                    
+                    /** 위로 발사 */
+                    gameObject.transform.Translate(Vector2.up * Time.deltaTime * 5);
+                }
+                else if (RandomDir == 2)
+                {
+                    /** 아래로 발사 */
+                    gameObject.transform.Translate(Vector2.up * Time.deltaTime * 5);
+                }
+
             }
         }
 
