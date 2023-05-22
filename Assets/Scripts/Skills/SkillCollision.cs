@@ -59,13 +59,14 @@ public class SkillCollision : MonoBehaviour
             CharacterDir = GameManager.GMInstance.playerCtrl.m_sprite.flipX;
         }
 
+        /** TODO ## SkillCollision.cs 볼텍스 방향 조정 */
         /** 이름이 Vortex라면 */
         if (gameObject.name == "Vortex(Clone)")
         {
             CharacterDir = GameManager.GMInstance.playerCtrl.m_sprite.flipX;
             /** 볼텍스 방향 랜덤 */
             RandomDir = Random.Range(0, 3);
-            Debug.Log(RandomDir);
+            // Debug.Log(RandomDir);
 
             if (RandomDir == 0)
             {
@@ -186,6 +187,9 @@ public class SkillCollision : MonoBehaviour
         {
             /** SkillEffect 0번에 저장된 게임오브젝트 생성 */
             GameObject MateoEffect = Instantiate(SkillEffect[0]);
+            /** 효과음 재생 */
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.MateoEffect);
+
             /** 위치는 오브젝트의 위치 */
             MateoEffect.transform.position = gameObject.transform.position;
             /** 메테오 이펙트 크기 조절 */
@@ -207,6 +211,10 @@ public class SkillCollision : MonoBehaviour
             {
                 /** SkillEffect 0번에 저장된 게임오브젝트 생성 */
                 GameObject TrapEffect = Instantiate(SkillEffect[0]);
+
+                /** 효과음 재생 */
+                GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.TrapEffect);
+
                 /** 폭발 이펙트는 오브젝트의 위치 */
                 TrapEffect.transform.position = gameObject.transform.position;
                 TrapEffect.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
@@ -223,6 +231,10 @@ public class SkillCollision : MonoBehaviour
             {
                 /** SkillEffect 0번에 저장된 게임오브젝트 생성 */
                 GameObject BombEffect = Instantiate(SkillEffect[0]);
+
+                /** 효과음 재생 */
+                GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.BombArrowEffect);
+
                 /** 폭발 이펙트는 오브젝트의 위치 */
                 BombEffect.transform.position = gameObject.transform.position;
                 BombEffect.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);

@@ -242,7 +242,7 @@ public class Weapon : MonoBehaviour
 
         /** bullet의 transform은 GameManager.GMInstance.PoolManagerRef.Get(prefabId).transform */
         Transform bullet = GameManager.GMInstance.PoolManagerRef.Get(prefabId).transform;
-        Debug.Log(bullet.name);
+        // Debug.Log(bullet.name);
 
         /**  bullet 오브젝트 태그가 Bullet(파이어볼)이라면 */
         if (bullet.CompareTag("Bullet"))
@@ -311,7 +311,7 @@ public class Weapon : MonoBehaviour
         else if (bullet.CompareTag("WindSpiritAttack"))
         {
             /** 효과음 재생 */
-            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.ArrowShoot);
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.WindSpiritAttack);
 
             /** 바람 정령과 가까운 몬스터의 위치 */
             TargetPos = GameManager.GMInstance.CreatureScannerRef.CreatureNearestTarget.position;
@@ -332,7 +332,7 @@ public class Weapon : MonoBehaviour
         else if (bullet.CompareTag("BombArrow"))
         {
             /** 효과음 재생 */
-            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.ArrowShoot);
+            GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.BombArrow);
             /** 가까운 몬스터의 위치 */
             TargetPos = PlayerCtrl.scanner.NearestTarget.position;
             /** 플레이어가 가까운 적을 보는 방향 */
@@ -341,7 +341,7 @@ public class Weapon : MonoBehaviour
             TargetDir = TargetDir.normalized;
 
             /** bullet의 scale은 1.2로 만든다 */
-            bullet.transform.localScale = new Vector2(1.2f, 1.2f);
+            bullet.transform.localScale = new Vector2(1.0f, 1.0f);
             /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
             bullet.position = transform.position;
             bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);

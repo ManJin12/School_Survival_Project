@@ -4,6 +4,7 @@ using static Define;
 //IEnumerator : 코루틴만의 반환형 인터페이스 = 가져오기 위해 밑에 5,6번 줄 추가
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class MonsterMove : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class MonsterMove : MonoBehaviour
     public Rigidbody2D Target;
 
     /** 몬스터 생존여부 */
-    bool bIsLive = true;
+    public bool bIsLive = true;
 
     /** 이 클래스를 가진 오브젝트의 Rigid에 접근을 위한 선언 */
     Rigidbody2D rigid;
@@ -19,6 +20,9 @@ public class MonsterMove : MonoBehaviour
     SpriteRenderer sprite;
 
     public EMonsterType CurrentMonsterType;
+
+    public Transform DamageTextPos;
+    public GameObject Text_Damage;
 
     public GameObject PlayerFind;
 
@@ -67,6 +71,8 @@ public class MonsterMove : MonoBehaviour
 
         /** TODO ## MonsterMove.cs 보스몬스터 체력 고정 */
         #region SaveMonsterHp
+
+        /** TODO ## MonsterMove.cs 보스몬스터가 아닐 시 일반 몬스터 체력저장 */
         /** 몬스터 기본 체력 저장 */
         if (gameObject.name != "Monster_D(Clone)")
         {
@@ -86,6 +92,7 @@ public class MonsterMove : MonoBehaviour
         rigid.simulated = true;
         sprite.sortingOrder = 2;
         anim.SetBool("Dead", false);
+        sprite.color = new Color(255, 133, 255, 136);   
 
         //if (GameManager.GMInstance.PlaySceneManagerRef.BaseMonsterHp == BaseMonsterHp)
         //{
@@ -94,24 +101,24 @@ public class MonsterMove : MonoBehaviour
         // GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp = BaseMonsterHp;
 
         /** TODO ## MonsterMove.cs 몬스터 타입 정하기 */
-        #region MonsterType
-        if (gameObject.name == "Monster_A(Clone)")
-        {
-            CurrentMonsterType = EMonsterType.MonsterTypeA;
-        }
-        else if (gameObject.name == "Monster_B(Clone)")
-        {
-            CurrentMonsterType = EMonsterType.MonsterTypeB;
-        }
-        else if (gameObject.name == "Monster_C(Clone)")
-        {
-            CurrentMonsterType = EMonsterType.MonsterTypeC;
-        }
-        else if (gameObject.name == "Monster_D(Clone)")
-        {
-            CurrentMonsterType = EMonsterType.MonsterTypeD;
-        }
-        #endregion
+        //#region MonsterType
+        //if (gameObject.name == "Monster_A(Clone)")
+        //{
+        //    CurrentMonsterType = EMonsterType.MonsterTypeA;
+        //}
+        //else if (gameObject.name == "Monster_B(Clone)")
+        //{
+        //    CurrentMonsterType = EMonsterType.MonsterTypeB;
+        //}
+        //else if (gameObject.name == "Monster_C(Clone)")
+        //{
+        //    CurrentMonsterType = EMonsterType.MonsterTypeC;
+        //}
+        //else if (gameObject.name == "Monster_D(Clone)")
+        //{
+        //    CurrentMonsterType = EMonsterType.MonsterTypeD;
+        //}
+        //#endregion
     }
 
     void Update()
@@ -203,6 +210,11 @@ public class MonsterMove : MonoBehaviour
         /** TODO ## MonsterMove.cs 태그가 Bullet이면 */
         if (collision.CompareTag("Bullet"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -215,30 +227,44 @@ public class MonsterMove : MonoBehaviour
             /** 파이어볼 일반 공격 데미지 계산식*/
             float FireBallNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetFireBallBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
 
-            
+            Vector3 NowPos = transform.position;
+
             /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 크리티컬 데미지 피해 */
                 GetDamage(FireBallCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(FireBallCriticalDamage, NowPos, Color.red);
+
+                /** 데미지 텍스로 변환 후 DamageText의 damage 초기화 */
+                // Damage_Text.GetComponent<DamageText>().SetDamageText(FireBallCriticalDamage);
+
                 // Debug.Log("파이어볼 크리티컬 데미지 : " + FireBallCriticalDamage);
             }
             else
             {
                 /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
                 GetDamage(FireBallNormalDamage);
+
+                /** 크리티컬 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(FireBallNormalDamage, NowPos, Color.white);
+
+
+                /** 데미지 텍스로 변환 후 DamageText의 damage 초기화 */
+                // Damage_Text.GetComponent<DamageText>().SetDamageText(FireBallNormalDamage);
+
                 // Debug.Log("파이어볼 일반공격 데미지 : " + FireBallNormalDamage);
             }
 
             // Debug.Log(CurrentMonsterHp);
 
-
-            StartCoroutine(KnockBack());
-
             /** health 0보다 크면 몬스터가 살아있다면 */
             if (CurrentMonsterHp > 0)
             {
+                // StartCoroutine(OnDaamge());
                 //피격 부분에 애니메이터를 호출하여 상태 변경
                 anim.SetTrigger("Hit");
             }
@@ -267,6 +293,10 @@ public class MonsterMove : MonoBehaviour
         /** TODO ## MonsterMove.cs 태그가 IceArrow이면 */
         if (collision.CompareTag("IceArrow"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
             // Debug.Log(Crtical);
 
@@ -275,23 +305,32 @@ public class MonsterMove : MonoBehaviour
             /** 아이스에로우 일반 공격 데미지 계산식*/
             float IceArrowNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetIceArrowBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
 
+            Vector3 NowPos = transform.position;
+
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 GetDamage(IceArrowCriticalDamage);
+
+                /** 크리티컬 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(IceArrowCriticalDamage, NowPos, Color.red);
                 // Debug.Log("아이스에로우 크리티컬 데미지 : " + IceArrowCriticalDamage);
             }
             else
             {
                 /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
                 GetDamage(IceArrowNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(IceArrowNormalDamage, NowPos, Color.white);
+
                 // Debug.Log("아이스에로우 일반공격 데미지 : " + IceArrowNormalDamage);
             }
 
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
-            StartCoroutine(KnockBack());
+            // StartCoroutine(KnockBack());
 
             /** health 0보다 크면 몬스터가 살아있다면 */
             if (CurrentMonsterHp > 0)
@@ -324,6 +363,10 @@ public class MonsterMove : MonoBehaviour
         /** TODO ## MonsterMove.cs 태그가 ElectricBall이면 */
         if (collision.CompareTag("ElectricBall"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -335,25 +378,32 @@ public class MonsterMove : MonoBehaviour
             /** 전기구체 일반 공격 데미지 계산식*/
             float ElectricBallNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetElectricBallBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
 
+            Vector3 NowPos = transform.position;
+
             /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
-                
                 GetDamage(ElectricBallCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(ElectricBallCriticalDamage, NowPos, Color.red);
+
                 // Debug.Log("뇌구 크리티컬 데미지 : " + ElectricBallCriticalDamage);
             }
             else
             {
                 /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
                 GetDamage(ElectricBallNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(ElectricBallNormalDamage, NowPos, Color.white);
+
                 // Debug.Log("뇌구 일반공격 데미지 : " + ElectricBallNormalDamage);
                 // Debug.Log(GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetElectricBallBaseDamage());
             }
 
-            StartCoroutine(KnockBack());
-
-
+            // StartCoroutine(KnockBack());
 
             /** health 0보다 크면 몬스터가 살아있다면 */
             if (CurrentMonsterHp > 0)
@@ -386,6 +436,10 @@ public class MonsterMove : MonoBehaviour
         /** TODO ## MonsterMove.cs 몬스터가 스킬에 닿았다면 */
         if (collision.CompareTag("Mateo"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -397,18 +451,26 @@ public class MonsterMove : MonoBehaviour
             /** 메테오 일반 공격 데미지 계산식*/
             float MateoNormalDamage = GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetMateoBaseDamage() + GameManager.GMInstance.SkillManagerRef.MateoDamage;
 
+            Vector3 NowPos = transform.position;
+
             /** TODO ## MonsterMove.cs 크리티컬 적용 공식 */
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
-            {
-                
+            {               
                 GetDamage(MateoCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(MateoCriticalDamage, NowPos, Color.red);
                 // Debug.Log("메테오 크리티컬 데미지 : " + MateoCriticalDamage);
             }
             else
             {
                 /** 몬스터의 체력은 Bullet 태그를 가진 오브젝트에 닿으면 m_Damage만큼 빼준다. */
                 GetDamage(MateoNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(MateoNormalDamage, NowPos, Color.white);
+
                 // Debug.Log("메테오 일반공격 데미지 : " + MateoNormalDamage);
 
             }
@@ -444,6 +506,10 @@ public class MonsterMove : MonoBehaviour
         /** 라이트닝에 닿았다면 */
         if (collision.gameObject.CompareTag("Lightning"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -455,18 +521,26 @@ public class MonsterMove : MonoBehaviour
             /** 낙뢰 일반 공격 데미지 계산식*/
             float LightningNormalDamage = GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetLightningBaseDamage() + GameManager.GMInstance.SkillManagerRef.LightningDamage;
 
-            
+            Vector3 NowPos = transform.position;
+
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 낙뢰 크리티컬 데미지 */
                 GetDamage(LightningCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(LightningCriticalDamage, NowPos, Color.red);
                 // Debug.Log("낙뢰 크리티컬 데미지 : " + LightningCriticalDamage);
             }
             else
             {
                 /** 낙뢰 일반 데미지 */
                 GetDamage(LightningNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(LightningNormalDamage, NowPos, Color.white);
+
                 // Debug.Log("낙뢰 일반공격 데미지 : " + LightningNormalDamage);
 
             }
@@ -501,9 +575,12 @@ public class MonsterMove : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Tornado"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
-
 
             float Crtical = 100.0f * Random.Range(0.0f, 1.0f);
             // Debug.Log(Crtical);
@@ -513,18 +590,25 @@ public class MonsterMove : MonoBehaviour
             /** 토네이도 일반 공격 데미지 계산식*/
             float TornadoNormalDamage = GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetTornadoBaseDamage() + GameManager.GMInstance.SkillManagerRef.TornadoDamage;
 
-            
+            Vector3 NowPos = transform.position;
+
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 토네이도 크리티컬 데미지 */
                 GetDamage(TornadoCriticalDamage);
+
+                /** 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(TornadoCriticalDamage, NowPos, Color.red);
                 // Debug.Log("토네이도 크리티컬 데미지 : " + TornadoCriticalDamage);
             }
             else
             {
-                /** 토네이도 일반 데미지 */
+                /** 크리티컬 토네이도 일반 데미지 */
                 GetDamage(TornadoNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(TornadoNormalDamage, NowPos, Color.white);
                 // Debug.Log("토네이도 일반공격 데미지 : " + TornadoNormalDamage);
             }
 
@@ -560,6 +644,10 @@ public class MonsterMove : MonoBehaviour
         /** 아이스에이지에 닿았다면 */
         if (collision.gameObject.CompareTag("IceAge"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -571,18 +659,25 @@ public class MonsterMove : MonoBehaviour
             /** 아이스에이지 일반 공격 데미지 계산식*/
             float IceAgeNormalDamage = GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetIceAgeBaseDamage() + GameManager.GMInstance.SkillManagerRef.IceAgeDamage;
 
+            Vector3 NowPos = transform.position;
 
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 아이스에이지 크리티컬 데미지 */
                 GetDamage(IceAgeCriticalDamage);
+
+                /** 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(IceAgeCriticalDamage, NowPos, Color.red);
                 // Debug.Log("아이스에이지 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
-                /** 아이스에이지 일반 데미지 */
+                /** 크리티컬 아이스에이지 일반 데미지 */
                 GetDamage(IceAgeNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(IceAgeNormalDamage, NowPos, Color.white);
                 // Debug.Log("아이스에이지 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
@@ -621,6 +716,10 @@ public class MonsterMove : MonoBehaviour
         /** 화살 공격에 맞았다면 */
         if (collision.gameObject.CompareTag("Arrow"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -632,18 +731,25 @@ public class MonsterMove : MonoBehaviour
             /** 화살 공격 일반 공격 데미지 계산식*/
             float ArrowNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
 
+            Vector3 NowPos = transform.position;
 
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 화살 공격 크리티컬 데미지 */
                 GetDamage(ArrowCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(ArrowCriticalDamage, NowPos, Color.red);
                 // Debug.Log("화살 공격 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
                 /** 화살 공격 일반 데미지 */
                 GetDamage(ArrowNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(ArrowNormalDamage, NowPos, Color.white);
                 // Debug.Log("화살 공격 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
@@ -679,6 +785,10 @@ public class MonsterMove : MonoBehaviour
         /** 볼텍스에 맞았다면 */
         if (collision.gameObject.CompareTag("Vortex"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -690,18 +800,25 @@ public class MonsterMove : MonoBehaviour
             /** 볼텍스에 일반 공격 데미지 계산식*/
             float VortexNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetVortexBaseDamage()) + GameManager.GMInstance.SkillManagerRef.VortexDamage;
 
+            Vector3 NowPos = transform.position;
 
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 볼텍스 크리티컬 데미지 */
                 GetDamage(VortexCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(VortexCriticalDamage, NowPos, Color.red);
                 // Debug.Log("볼텍스 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
                 /** 볼텍스 일반 데미지 */
                 GetDamage(VortexNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(VortexNormalDamage, NowPos, Color.white);
                 // Debug.Log("볼텍스 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
@@ -737,6 +854,10 @@ public class MonsterMove : MonoBehaviour
         /** 허리케인에 맞았다면 */
         if (collision.gameObject.CompareTag("Huricane"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -749,18 +870,26 @@ public class MonsterMove : MonoBehaviour
             /** 파이어볼 일반 공격 데미지 계산식*/
             float HuricaneNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetHuricaneBaseDamage()) + GameManager.GMInstance.SkillManagerRef.HuricaneDamage;
 
+            Vector3 NowPos = transform.position;
 
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 허리케인 크리티컬 데미지 */
                 GetDamage(HuricaneCriticalDamage);
+
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(HuricaneCriticalDamage, NowPos, Color.red);
                 // Debug.Log("허리케인 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
                 /** 허리케인 일반 데미지 */
                 GetDamage(HuricaneNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(HuricaneNormalDamage, NowPos, Color.white);
                 // Debug.Log("허리케인 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
@@ -794,6 +923,10 @@ public class MonsterMove : MonoBehaviour
         /** 바람정령 공격에 맞았다면 */
         if (collision.gameObject.CompareTag("WindSpiritAttack"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -805,17 +938,25 @@ public class MonsterMove : MonoBehaviour
             /** 바람정령 일반 공격 데미지 계산식*/
             float WindSpiritNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetWindSpiritBaseDamage()) + collision.GetComponent<Bullet>().m_Damage;
 
+            Vector3 NowPos = transform.position;
+
             /** 크리티커 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 바람정령 크리티컬 데미지 */
                 GetDamage(WindSpiritCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(WindSpiritCriticalDamage, NowPos, Color.red);
                 // Debug.Log("바람정령 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
                 /** 바람정령 일반 데미지 */
                 GetDamage(WindSpiritCriticalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(WindSpiritCriticalDamage, NowPos, Color.white);
                 // Debug.Log("바람정령 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
@@ -851,6 +992,10 @@ public class MonsterMove : MonoBehaviour
         /** 트랩폭발 공격에 맞았다면 */
         if (collision.gameObject.CompareTag("Trap"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -862,18 +1007,26 @@ public class MonsterMove : MonoBehaviour
             /** 트랩폭발에 일반 공격 데미지 계산식*/
             float TrapNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetTrapBaseDamage()) + GameManager.GMInstance.SkillManagerRef.TrapDamage;
 
+            Vector3 NowPos = transform.position;
 
             /** 크리티컬 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
-                /** 트랩폭발 크리티컬 데미지 */
+                /** 트랩 폭발 크리티컬 데미지 */
                 GetDamage(TrapCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(TrapCriticalDamage, NowPos, Color.red);
+
                 // Debug.Log("트랩폭발 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
                 /** 트랩폭발 일반 데미지 */
                 GetDamage(TrapNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(TrapNormalDamage, NowPos, Color.white);
                 // Debug.Log("트랩폭발 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
@@ -909,6 +1062,10 @@ public class MonsterMove : MonoBehaviour
         /** 화살 비 공격에 맞았다면 */
         if (collision.gameObject.CompareTag("ArrowRain"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -916,22 +1073,30 @@ public class MonsterMove : MonoBehaviour
             // Debug.Log(Crtical);
 
             /** 화살 비 크리티컬 데미지 계산식 (크리티컬 데미지 * (능력치 증가로 인한 데미지 증가 + 기존 데미지) */
-            float TrapCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowRainBaseDamage()) + GameManager.GMInstance.SkillManagerRef.ArrowRainDamage);
+            float ArrowRainCriticalDamage = GameManager.GMInstance.GetCriticalDamage() * ((GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowRainBaseDamage()) + GameManager.GMInstance.SkillManagerRef.ArrowRainDamage);
             /** 화살 비 일반 공격 데미지 계산식*/
-            float TrapNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowRainBaseDamage()) + GameManager.GMInstance.SkillManagerRef.ArrowRainDamage;
+            float ArrowRainNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetArrowRainBaseDamage()) + GameManager.GMInstance.SkillManagerRef.ArrowRainDamage;
 
+            Vector3 NowPos = transform.position;
 
             /** 크리티컬 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 화살 비 크리티컬 데미지 */
-                GetDamage(TrapCriticalDamage);
+                GetDamage(ArrowRainCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(ArrowRainCriticalDamage, NowPos, Color.red);
+
                 // Debug.Log("화살 비 크리티컬 데미지 : " + IceAgeCriticalDamage);
             }
             else
             {
                 /** 화살 비 일반 데미지 */
-                GetDamage(TrapNormalDamage);
+                GetDamage(ArrowRainNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(ArrowRainNormalDamage, NowPos, Color.white);
                 // Debug.Log("화살 비 일반공격 데미지 : " + IceAgeNormalDamage);
             }
 
@@ -966,6 +1131,10 @@ public class MonsterMove : MonoBehaviour
         /** 폭발화살에 맞았다면 */
         if (collision.gameObject.CompareTag("BombArrowEffect"))
         {
+            /** 피격 효과 */
+            sprite.color = Color.red;
+            Invoke("OnDamage", 0.2f);
+
             /** 피격 효과음 재생 */
             GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Hit);
 
@@ -977,19 +1146,26 @@ public class MonsterMove : MonoBehaviour
             /** 화살 공격 일반 공격 데미지 계산식*/
             float BombArrowNormalDamage = (GameManager.GMInstance.GetSkillDamageUp() * GameManager.GMInstance.GetBombArrowBaseDamage()) + GameManager.GMInstance.SkillManagerRef.BombArrowDamage;
 
+            Vector3 NowPos = transform.position;
 
             /** 크리티컬 확률 적용 되었다면 */
             if (Crtical <= 100.0f * GameManager.GMInstance.GetCriticalPercent())
             {
                 /** 폭발화살 크리티컬 데미지 */
                 GetDamage(BombArrowCriticalDamage);
-                Debug.Log("폭발화살 크리티컬 데미지 : " + BombArrowCriticalDamage);
+
+                /** 크리티컬 데미지 텍스트 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(BombArrowCriticalDamage, NowPos, Color.red);
+                // Debug.Log("폭발화살 크리티컬 데미지 : " + BombArrowCriticalDamage);
             }
             else
             {
                 /** 폭발화살 일반 데미지 */
                 GetDamage(BombArrowNormalDamage);
-                Debug.Log("폭발화살 일반공격 데미지 : " + BombArrowNormalDamage);
+
+                /** 데미지 출력 */
+                GameManager.GMInstance.PlaySceneManagerRef.DamageTxt(BombArrowNormalDamage, NowPos, Color.white);
+                // Debug.Log("폭발화살 일반공격 데미지 : " + BombArrowNormalDamage);
             }
 
 
@@ -1077,7 +1253,13 @@ public class MonsterMove : MonoBehaviour
         yield return wait; // 다음 하나의 물리 프레임 딜레이
         Vector3 playerpos = GameManager.GMInstance.Player.transform.position;
         Vector3 dirVec = transform.position - playerpos;
-        rigid.AddForce(dirVec.normalized * 1.5f, ForceMode2D.Impulse);
+        rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
+        Debug.Log("Coroutain");
+    }
+
+    void OnDamage()
+    {       
+        sprite.color = Color.white;
     }
 
     /** 죽는 함수 */
@@ -1085,6 +1267,7 @@ public class MonsterMove : MonoBehaviour
     {
         /** 게임 오브젝트 비활성화 */
         gameObject.SetActive(false);
+        sprite.color = Color.white;
 
         /** 만약 이 오브젝트 이름이 Monster_D이라면 */
         if (gameObject.name == "Monster_D(Clone)" || gameObject.name == "Boss_Moai(Clone)" || gameObject.name == "Boss_Reaper(Clone)")
@@ -1097,6 +1280,13 @@ public class MonsterMove : MonoBehaviour
             GameManager.GMInstance.PlaySceneManagerRef.GameClear();
         }
     }
+
+    public void OnDamageText(float damage)
+    {
+        GameObject DmgTxt = Instantiate(Text_Damage, DamageTextPos.transform.position, Quaternion.identity);
+        DmgTxt.GetComponent<Text>().text = damage.ToString("N2");
+    }
+
 
     IEnumerator WaitGameClear()
     {

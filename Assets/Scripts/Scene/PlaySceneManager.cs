@@ -27,8 +27,18 @@ public class PlaySceneManager : MonoBehaviour
     public GameObject ConfigPanel;
     public LevelUp WizardLevelUp;
 
+    [Header("---Damage---")]
+    public Transform Damage_Canvas;
+    public GameObject m_DamageRoot;
+    GameObject a_DmgClone;
+    DamageText DmgTxt;
+    Vector3 StartCacPos;
 
-    [Header("---DungeonTile0---")]
+    [Header("---Volum---")]
+    public Slider BGMVolum;
+    public Slider SFXVolum;
+
+    [Header("---DungeonTile---")]
     public GameObject GrassLandTile;
     public GameObject RockLandTile;
     public GameObject DeathLandTile;
@@ -73,6 +83,18 @@ public class PlaySceneManager : MonoBehaviour
             RockLandTile.SetActive(false);
             DeathLandTile.SetActive(true);
         }
+
+        /** 초기 배경음 볼륨 값 초기화 */
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            BGMVolum.value = GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume;
+        }
+        /** 초기 효과음 볼륨 값 초기화 */
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
+        {
+            SFXVolum.value = GameManager.GMInstance.SoundManagerRef.SFXPlayers[i].volume;
+        }
+
 
         /** 스킬 선택 텍스트UI 함수 호출 */
         TextInit();
@@ -375,5 +397,39 @@ public class PlaySceneManager : MonoBehaviour
 
         PlayScene_BGM_On_Check.gameObject.SetActive(false);
         PlayScene_BGM_Off_Check.gameObject.SetActive(true);
+    }
+
+    /** TODO ## PlaySceneManager.cs 배경음 볼륨 조절 */
+    public void SetBGMVolum(float volum)
+    {
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume = volum;
+        }
+    }
+
+    /** TODO ## PlaySceneManager.cs 효과음 볼륨 조절 */
+    public void SetSFXVolum(float volum)
+    {
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
+        {
+            GameManager.GMInstance.SoundManagerRef.SFXPlayers[i].volume = volum;
+        }
+    }
+
+    /** TODO ## PlaySceneManager 데미지 Test */
+    public void DamageTxt(float a_Value, Vector3 a_Pos, Color a_Color)
+    {
+        if (m_DamageRoot == null || Damage_Canvas == null)
+            return;
+
+        a_DmgClone = (GameObject)Instantiate(m_DamageRoot);
+        a_DmgClone.transform.SetParent(Damage_Canvas);
+        DmgTxt = a_DmgClone.GetComponent<DamageText>();
+
+        if (DmgTxt != null)
+            DmgTxt.initDamge(a_Value, a_Color);
+        StartCacPos = new Vector3(a_Pos.x, a_Pos.y, 0.0f);
+        a_DmgClone.transform.position = StartCacPos;
     }
 }

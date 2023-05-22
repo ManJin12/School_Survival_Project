@@ -125,7 +125,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1000
+  m_Mass: 20
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -552,6 +552,17 @@ MonoBehaviour:
   MaxHuricaneOnTime: 0
   HuricaneSkillTime: 0
   HuricaneSkillCoolTime: 3
+  WindSpirit: {fileID: 0}
+  Trap: {fileID: 0}
+  TrapDamage: 0
+  bIsTrap: 0
+  TrapSkillTime: 0
+  TrapCoolTime: 0
+  ArrowRainDamage: 0
+  bIsArrowRain: 0
+  ArrowRainSkillTime: 0
+  ArrowRainSkillCoolTime: 0
+  BombArrowDamage: 0
 --- !u!1 &2242225708862712819
 GameObject:
   m_ObjectHideFlags: 0

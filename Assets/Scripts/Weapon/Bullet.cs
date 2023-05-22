@@ -25,7 +25,7 @@ public class Bullet : MonoBehaviour
         if (gameObject.name == "IceArrow(Clone)")
         {
             /** 아이스 에로우 크기 조절 */
-            this.transform.localScale = new Vector2(0.8f, 0.8f);
+            this.transform.localScale = new Vector2(0.6f, 0.6f);
         }
     }
 

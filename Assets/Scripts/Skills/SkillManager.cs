@@ -341,6 +341,8 @@ public class SkillManager : MonoBehaviour
     {
         /** 메테오 생성 */
         GameObject Mateo = Instantiate(Skills[0]);
+        /** 효과음 생성 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Mateo);
         /** 생성된 메테오의 위치 */
         Mateo.transform.position = new Vector3(Random.Range(transform.position.x - 2.5f, transform.position.x + 2.5f), transform.position.y, 0);
     }
@@ -349,6 +351,9 @@ public class SkillManager : MonoBehaviour
     {
         /** 트랩 생성 */
         GameObject Trap = Instantiate(Skills[2]);
+
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Trap);
 
         Vector3 PlayerPos = GameManager.GMInstance.Player.transform.position;
 
@@ -384,7 +389,7 @@ public class SkillManager : MonoBehaviour
         }
 
         /** 효과음 재생 */
-        // GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Lightning);
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.ArrowRain);
 
         /** 스킬 배열 3번에 저장된 오브젝트를 생성 */
         GameObject ArrowRain = Instantiate(Skills[3]);
@@ -429,7 +434,7 @@ public class SkillManager : MonoBehaviour
     void MakeVortex()
     {
         /** 효과음 재생 */
-        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Tornado);
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Vortex);
 
         /** 볼텍스 생성 */
         Vortex = Instantiate(Skills[0]);
@@ -460,7 +465,7 @@ public class SkillManager : MonoBehaviour
     public void EnabledHuricane()
     {
         /** 효과음 생성 */
-        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Tornado);
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Huricane);
 
         /** 허리케인 엑티브 활성화 */
         Huricane.SetActive(true);
@@ -488,6 +493,9 @@ public class SkillManager : MonoBehaviour
     {
         /** 아이스에이지 엑티브 활성화 */
         IceAge.SetActive(true);
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.IceAge);
+
         /** 스킬 실행중 */
         bIsIceAgeSkill = true;
     }

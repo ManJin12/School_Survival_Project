@@ -477,6 +477,7 @@ MonoBehaviour:
   bIsArrowRain: 0
   ArrowRainSkillTime: 0
   ArrowRainSkillCoolTime: 0
+  BombArrowDamage: 0
 --- !u!1 &2242225708862712819
 GameObject:
   m_ObjectHideFlags: 0
@@ -683,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 7969746380777035692, guid: dfdad0cff5250d74198f2a973677e4ba,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7969746380777035693, guid: dfdad0cff5250d74198f2a973677e4ba,
         type: 3}

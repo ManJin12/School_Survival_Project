@@ -45,12 +45,28 @@ public class SoundManager : MonoBehaviour
         Range = 7,
         Select,
         Win,
+
+        /** 마법사 스킬 관련 */
         FireBall,
         IceArrow,
         Lightning,
-        Tornado,
+        Tornado,     
+        Mateo,
+        MateoEffect,
+        IceAge,
+
+        /** 궁수스킬 관련 */
         ArrowShoot,
+        Huricane,
+        Vortex,
+        WindSpiritAttack,
+        ArrowRain,
+        Trap,
+        TrapEffect,
+        BombArrow,
+        BombArrowEffect,
     }
+
 
     void Awake()
     {
@@ -76,7 +92,7 @@ public class SoundManager : MonoBehaviour
             BGMPlayers[i].loop = true;
             /** 배경음 플레이 */
             BGMPlayers[i].clip = BGMClips[0];
-            BGMPlayers[i].volume = 1.0f;
+            BGMPlayers[i].volume = 0.5f;
         }
 
         /** 효과음 플레이어 초기화 */
@@ -94,7 +110,7 @@ public class SoundManager : MonoBehaviour
             SFXPlayers[i] = SFXObject.AddComponent<AudioSource>();
             /** 초기 재생 off */
             SFXPlayers[i].playOnAwake = false;
-            SFXPlayers[i].volume = 1.0f;
+            SFXPlayers[i].volume = 0.5f;
         }
 
         PlayBGM(BGM.Title);

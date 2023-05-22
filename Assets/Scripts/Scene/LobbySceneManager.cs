@@ -31,6 +31,10 @@ public class LobbySceneManager : MonoBehaviour
     public int Up_Damage;
     public int Up_Defense;
 
+    [Header("---Volum---")]
+    public Slider BGMVolum;
+    public Slider SFXVolum;
+
     /** 전사 시작 방지용 버튼 */
     public Button ModeSelectBtn;
 
@@ -92,6 +96,17 @@ public class LobbySceneManager : MonoBehaviour
             EffectSound_Off_Check.gameObject.SetActive(true);
             /** 효과음 on 체크박스 활성화 */
             EffectSound_On_Check.gameObject.SetActive(false);
+        }
+
+        /** 초기 배경음 볼륨 값 초기화 */
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            BGMVolum.value = GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume;
+        }
+        /** 초기 효과음 볼륨 값 초기화 */
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
+        {
+            SFXVolum.value = GameManager.GMInstance.SoundManagerRef.SFXPlayers[i].volume;
         }
 
         /** 시작 시 주간 퀘스트 크기 안보이기 */
@@ -321,6 +336,24 @@ public class LobbySceneManager : MonoBehaviour
 
         BGM_On_Check.gameObject.SetActive(false);
         BGM_Off_Check.gameObject.SetActive(true);
+    }
+
+    /** TODO ## LobbySceneManager.cs 배경음 볼륨 조절 */
+    public void SetBGMVolum(float volum)
+    {
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.BGMPlayers.Length; i++)
+        {
+            GameManager.GMInstance.SoundManagerRef.BGMPlayers[i].volume = volum;
+        }
+    }
+
+    /** TODO ## LobbySceneManager.cs 효과음 볼륨 조절 */
+    public void SetSFXVolum(float volum)
+    {
+        for (int i = 0; i < GameManager.GMInstance.SoundManagerRef.SFXPlayers.Length; i++)
+        {
+            GameManager.GMInstance.SoundManagerRef.SFXPlayers[i].volume = volum;
+        }
     }
 
     public void OnClickCloseSelectDungeonPanel()
