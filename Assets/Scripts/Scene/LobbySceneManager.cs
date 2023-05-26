@@ -429,8 +429,10 @@ public class LobbySceneManager : MonoBehaviour
         /** 크리티컬 데미지 증가 레벨 1+ */
         GameManager.GMInstance.CharCriticalDamageLevel++;
 
+        
+
         /** 크리티컬 데미지 레벨 증가 텍스트 초기화 */
-        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
+        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지" + System.Environment.NewLine + "증가";
 
         /** 능력치 창 크리티컬 데미지 수치 초기화 */
         CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
