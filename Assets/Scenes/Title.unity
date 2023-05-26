@@ -313,6 +313,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149536480}
   m_CullTransparentMesh: 1
+--- !u!1 &171571582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 171571583}
+  - component: {fileID: 171571584}
+  m_Layer: 0
+  m_Name: UpGradeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &171571583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171571582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1071316009}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &171571584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 171571582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4459ac1ac92ef9a4cbfc371152bdf997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &276530148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,6 +1703,9 @@ MonoBehaviour:
   SkillTicket: 0
   PlayerSpeed: 1
   DashSpeed: 5
+  CharacterCriticalPercent: 0.15
+  CharacterCriticalDamage: 1.5
+  SkillDamageUp: 0.1
   MonsterSpawnTime: 0.25
   MonsterSpeed: 0.5
   MonsterMaxHp: 0
@@ -1674,6 +1721,8 @@ MonoBehaviour:
   CreatureScannerRef: {fileID: 0}
   SoundManagerRef: {fileID: 0}
   SpawnerRef: {fileID: 0}
+  UpGradeManagerRef: {fileID: 0}
+  CoinManagerRef: {fileID: 0}
   CurrentChar: 0
   CurrentScene: 0
   SelectDungeonMode: 0
@@ -1701,6 +1750,22 @@ MonoBehaviour:
   playerCtrl: {fileID: 0}
   EndGameAdsPanelRef: {fileID: 0}
   GameFailedAdsPanelRef: {fileID: 0}
+  UpPriceRate: 25
+  SkillDamageUpSum: 0
+  SkillDamageUpPrice: 0
+  SkillDamageUpLevel: 0
+  MaxHpUpSum: 0
+  MaxHpUpPrice: 0
+  MaxHpUpLevel: 0
+  SpeedUpSum: 0
+  SpeedUpPrice: 0
+  SpeedUpLevel: 0
+  CriticalUpSum: 0
+  CriticalUpPrice: 0
+  CriticalUpLevel: 0
+  CriticalDamageUpSum: 0
+  CriticalDamageUpPrice: 0
+  CriticalDamageUpLevel: 0
 --- !u!4 &1071316009
 Transform:
   m_ObjectHideFlags: 0
@@ -1715,6 +1780,7 @@ Transform:
   m_Children:
   - {fileID: 2138475949}
   - {fileID: 1732083679}
+  - {fileID: 171571583}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

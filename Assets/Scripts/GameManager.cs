@@ -34,9 +34,9 @@ namespace My
         public float PlayerSpeed;
         float BasePlayerSpeed;
         public float DashSpeed;
-        float CharacterCriticalPercent = 0.15f;
-        float CharacterCriticalDamage = 1.5f;
-        float SkillDamageUp = 0.1f;
+        public float CharacterCriticalPercent = 0.15f;
+        public float CharacterCriticalDamage = 1.5f;
+        public float SkillDamageUp = 0.1f;
 
         [Header("-----Data-----")]
         /** 몬스터 스폰시간 */
@@ -59,6 +59,8 @@ namespace My
         public CreatureScanner CreatureScannerRef;
         public SoundManager SoundManagerRef;
         public Spawner SpawnerRef;
+        public UpGradeManager UpGradeManagerRef;
+        public CoinManager CoinManagerRef;
 
         [Header("-----PlaySceneObject-----")]
         GameObject SceneSelectManager;
@@ -92,7 +94,6 @@ namespace My
         public int CharCriticalPerLevel = 1;
         public int CharCriticalDamageLevel = 1;
 
-
         /** public 제거 가능 */
         [Header("-----WizardSkillBaseDamage-----")]
         float FireBallBaseDamage;
@@ -121,6 +122,28 @@ namespace My
         public EndGameAdsPanel EndGameAdsPanelRef;
         public EndGameAdsPanel GameFailedAdsPanelRef;
 
+        [Header("-----UpGradeData-----")]
+        public int UpPriceRate;
+        /** 스킬 데미지 증가 관련 */
+        public float SkillDamageUpSum;
+        public int SkillDamageUpPrice;
+        public int SkillDamageUpLevel;
+        /** 최대체력 증가 관련 */
+        public float MaxHpUpSum;
+        public int MaxHpUpPrice;
+        public int MaxHpUpLevel;
+        /** 이동속도 증가 관련 */
+        public float SpeedUpSum;
+        public int SpeedUpPrice;
+        public int SpeedUpLevel;
+        /** 크리티컬 확률 증가 관련 */
+        public float CriticalUpSum;
+        public int CriticalUpPrice;
+        public int CriticalUpLevel;
+        /** 크리티컬 데미지 증가 관련 */
+        public float CriticalDamageUpSum;
+        public int CriticalDamageUpPrice;
+        public int CriticalDamageUpLevel;
 
         /** 공격력 레벨 반환함수 */
         //public int GetAttackAbilityLevel()
@@ -172,7 +195,12 @@ namespace My
             BasePlayerSpeed = PlayerSpeed;
 
             /** 화면이 바껴도 클래스 유지 */
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject);    
+        }
+
+        void Start()
+        {
+            InitData();
         }
 
         void Update()
@@ -381,8 +409,6 @@ namespace My
         }
         #endregion
 
-        
-
         /** 궁수 스킬 초기 데미지 반환 */
         #region
         /** 화살 기본 데미지 반환 */
@@ -464,10 +490,19 @@ namespace My
 
         public float GetSkillDamageUp()
         {
-            return SkillDamageUp;
+            return SkillDamageUpSum;
         }
 
         #endregion
+
+        void InitData()
+        {
+            /** 데이터 상의 값만큼 증가시켜줌 */
+            MaxHealth += MaxHpUpSum;
+            PlayerSpeed += SpeedUpSum;
+            CharacterCriticalPercent += CriticalUpSum;
+            CharacterCriticalDamage += CriticalDamageUpSum;
+        }
     }
 }
 

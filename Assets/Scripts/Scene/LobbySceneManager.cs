@@ -7,12 +7,6 @@ using UnityEngine.UI;
 using My;
 using static Define;
 
-public struct AbilityData
-{
-
-
-}
-
 public class LobbySceneManager : MonoBehaviour
 {
     public GameObject MenuPanel;
@@ -39,6 +33,13 @@ public class LobbySceneManager : MonoBehaviour
     [Header("---EconomyText---")]
     public Text MagicStonText;
     public Text DiamondText;
+
+    [Header("---Button---")]
+    public Button SkillDamageBtn;
+    public Button MaxHpUpBtn;
+    public Button SpeedUpBtn;
+    public Button CriticalUpBtn;
+    public Button CriticalDamageUpBtn;
 
     [Header("---Volum---")]
     public Slider BGMVolum;
@@ -121,8 +122,8 @@ public class LobbySceneManager : MonoBehaviour
         /** 시작 시 주간 퀘스트 크기 안보이기 */
         WeekQuestPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
 
-        InitEconomy();
-        CharInfoInit();
+        InitText();
+        // CharInfoInit();
     }
 
     void Update()
@@ -415,16 +416,39 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
+        /** 마정석 보유량보다 업그레이드 가격이 높다면? */
+        if (GameManager.GMInstance.MagicStone - GameManager.GMInstance.CriticalUpPrice < 0)
+        {
+            return;
+        }
+
+
+        // -------------------새로 추가-----------------------
+        GameManager.GMInstance.MagicStone -= GameManager.GMInstance.CriticalUpPrice;
+        /** 스킬데미지 증가의 가격을 UpPriceRate만큼 높임 */
+        GameManager.GMInstance.CriticalUpPrice += GameManager.GMInstance.UpPriceRate;
+        /** 마정석 텍스트 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        // -------------------새로 추가-----------------------
+
         /** 크리티컬 확률 계산 */
-        GameManager.GMInstance.SetCriticalPercent(GameManager.GMInstance.GetCriticalPercent() + GameManager.GMInstance.CharCriticalPerUpRate);
+        // GameManager.GMInstance.SetCriticalPercent(GameManager.GMInstance.GetCriticalPercent() + GameManager.GMInstance.CharCriticalPerUpRate);
+        GameManager.GMInstance.CriticalUpSum += GameManager.GMInstance.CharCriticalPerUpRate;
+        GameManager.GMInstance.CharacterCriticalPercent += GameManager.GMInstance.CharCriticalPerUpRate;
 
         /** 크리티컬 증가확률 레벨 1+ */
-        GameManager.GMInstance.CharCriticalPerLevel++;
+        // GameManager.GMInstance.CharCriticalPerLevel++;
+        GameManager.GMInstance.CriticalUpLevel++;
 
-        CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
+        /** 크리티컬 레벨 증가 텍스트 초기화 */
+        // CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
+        CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CriticalUpLevel + " 크리티컬 확률 증가";
 
         /** 능력치 창 크리티컬 확률 초기화 */
-        CharCriticalPer.text =(100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
+        CharCriticalPer.text = (100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+        GameManager.GMInstance.UpGradeManagerRef.JsonSave();
     }
 
     /** 크리티컬 데미지 증가 */
@@ -433,19 +457,38 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
+        /** 마정석 보유량보다 업그레이드 가격이 높다면? */
+        if (GameManager.GMInstance.MagicStone - GameManager.GMInstance.CriticalDamageUpPrice < 0)
+        {
+            return;
+        }
+
+        // -------------------새로 추가-----------------------
+        GameManager.GMInstance.MagicStone -= GameManager.GMInstance.CriticalDamageUpPrice;
+        /** 스킬데미지 증가의 가격을 UpPriceRate만큼 높임 */
+        GameManager.GMInstance.CriticalDamageUpPrice += GameManager.GMInstance.UpPriceRate;
+        /** 마정석 텍스트 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        // -------------------새로 추가-----------------------
+
         /** 크리티컬 데미지 계산 */
-        GameManager.GMInstance.SetCriticaDamage(GameManager.GMInstance.GetCriticalDamage() + GameManager.GMInstance.CharCriticalDamageUpRate);
+        // GameManager.GMInstance.SetCriticaDamage(GameManager.GMInstance.GetCriticalDamage() + GameManager.GMInstance.CharCriticalDamageUpRate);
+        GameManager.GMInstance.CriticalDamageUpSum += GameManager.GMInstance.CharCriticalDamageUpRate;
+        GameManager.GMInstance.CharacterCriticalDamage += GameManager.GMInstance.CharCriticalDamageUpRate;
 
         /** 크리티컬 데미지 증가 레벨 1+ */
-        GameManager.GMInstance.CharCriticalDamageLevel++;
-
-        
+        // GameManager.GMInstance.CharCriticalDamageLevel++;
+        GameManager.GMInstance.CriticalDamageUpLevel++;
 
         /** 크리티컬 데미지 레벨 증가 텍스트 초기화 */
-        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지" + System.Environment.NewLine + "증가";
+        // CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
+        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CriticalDamageUpLevel + " 크리티컬 데미지 증가";
 
         /** 능력치 창 크리티컬 데미지 수치 초기화 */
         CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+        GameManager.GMInstance.UpGradeManagerRef.JsonSave();
     }
 
     /** 체력 증가 */
@@ -454,12 +497,28 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
+        /** 마정석 보유량보다 업그레이드 가격이 높다면? */
+        if (GameManager.GMInstance.MagicStone - GameManager.GMInstance.MaxHpUpPrice < 0)
+        {
+            return;
+        }
+
+        // -------------------새로 추가-----------------------
+        GameManager.GMInstance.MagicStone -= GameManager.GMInstance.MaxHpUpPrice;
+        /** 스킬데미지 증가의 가격을 UpPriceRate만큼 높임 */
+        GameManager.GMInstance.MaxHpUpPrice += GameManager.GMInstance.UpPriceRate;
+        /** 마정석 텍스트 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        // -------------------새로 추가-----------------------
+
+
         /** 현재 최대체력의 10% 증가 계산 */
         //GameManager.GMInstance.MaxHealth += GameManager.GMInstance.MaxHealth * 0.1f;
 
         /** 최대체력의 2씩 증가 계산 */
+        // GameManager.GMInstance.MaxHealth += GameManager.GMInstance.MaxHpLevelUpRate;
+        GameManager.GMInstance.MaxHpUpSum += GameManager.GMInstance.MaxHpLevelUpRate;
         GameManager.GMInstance.MaxHealth += GameManager.GMInstance.MaxHpLevelUpRate;
-
 
         /** 캐릭터 최대체력 증가레벨 1+ */
         GameManager.GMInstance.MaxHpLevel++;
@@ -470,6 +529,8 @@ public class LobbySceneManager : MonoBehaviour
         /** 능력치 창 이동속도 표시 초기화 */
         MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
 
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+        GameManager.GMInstance.UpGradeManagerRef.JsonSave();
     }
 
 
@@ -479,18 +540,38 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
+        /** 마정석 보유량보다 업그레이드 가격이 높다면? */
+        if (GameManager.GMInstance.MagicStone - GameManager.GMInstance.SpeedUpPrice < 0)
+        {
+            return;
+        }
+
+        // -------------------새로 추가-----------------------
+        GameManager.GMInstance.MagicStone -= GameManager.GMInstance.SpeedUpPrice;
+        /** 스킬데미지 증가의 가격을 UpPriceRate만큼 높임 */
+        GameManager.GMInstance.SpeedUpPrice += GameManager.GMInstance.UpPriceRate;
+        /** 마정석 텍스트 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        // -------------------새로 추가-----------------------
+
         /** 이동속도 증가 계산 */
+        // GameManager.GMInstance.PlayerSpeed += GameManager.GMInstance.CharSpeedLevelUpRate;
+        GameManager.GMInstance.SpeedUpSum += GameManager.GMInstance.CharSpeedLevelUpRate;
         GameManager.GMInstance.PlayerSpeed += GameManager.GMInstance.CharSpeedLevelUpRate;
 
         /** 이동속도 증가 레벨 1+ */
-        GameManager.GMInstance.CharSpeedLevel++;
+        // GameManager.GMInstance.CharSpeedLevel++;
+        GameManager.GMInstance.SpeedUpLevel++;
 
         /** 이동속도 레벨 텍스트 초기화 */
-        CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
+        // CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
+        CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.SpeedUpLevel + " 이동 속도 증가";
 
         /** 능력치 창 이동속도 표시 초기화 */
         CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
 
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+        GameManager.GMInstance.UpGradeManagerRef.JsonSave();
     }
 
     /** 데미지 증가 */
@@ -499,17 +580,38 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
+        /** 마정석 보유량보다 업그레이드 가격이 높다면? */
+        if (GameManager.GMInstance.MagicStone - GameManager.GMInstance.SkillDamageUpPrice <= 0)
+        {
+            return;
+        }
+
+        // -------------------새로 추가-----------------------
+        GameManager.GMInstance.MagicStone -= GameManager.GMInstance.SkillDamageUpPrice;
+        /** 스킬데미지 증가의 가격을 UpPriceRate만큼 높임 */
+        GameManager.GMInstance.SkillDamageUpPrice += GameManager.GMInstance.UpPriceRate;
+        /** 마정석 텍스트 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        // -------------------새로 추가-----------------------
+
         /** 스킬 데미지 증가 레벨 1+ */
-        GameManager.GMInstance.SkillDamageLevel++;
+        //GameManager.GMInstance.SkillDamageLevel++;
+        GameManager.GMInstance.SkillDamageUpLevel++;
 
         /** 스킬 데미지 증가 계산식 */
-        GameManager.GMInstance.SetSkillDamageUp(GameManager.GMInstance.GetSkillDamageUp() + GameManager.GMInstance.SkillDamageUpRate);
+        // GameManager.GMInstance.SetSkillDamageUp(GameManager.GMInstance.GetSkillDamageUp() + GameManager.GMInstance.SkillDamageUpRate);
+        GameManager.GMInstance.SkillDamageUpSum += GameManager.GMInstance.SkillDamageUpRate;
 
         /** 능력치 창 스킬 데미지 표시 초기화 */
-        AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageLevel + " 스킬 데미지 증가";
+        // AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageLevel + " 스킬 데미지 증가";
+        AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageUpLevel + " 스킬 데미지 증가";
 
         /** 능력치 창 스킬 데미지 표시 초기화 */
-        AttackText.text = (100 * GameManager.GMInstance.GetSkillDamageUp()).ToString("F0") + "%";
+        // AttackText.text = (100 * GameManager.GMInstance.GetSkillDamageUp()).ToString("F0") + "%";
+        AttackText.text = (100 * GameManager.GMInstance.SkillDamageUpSum).ToString("F0") + "%";
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+        GameManager.GMInstance.UpGradeManagerRef.JsonSave();
     }
 
     public void OnClickAbilityCheckOpen()
@@ -551,13 +653,32 @@ public class LobbySceneManager : MonoBehaviour
 
     }
 
-    void InitEconomy()
+    void InitText()
     {
         /** 마정석 텍스트 수량 초기화 */
         MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
-
         /** 다이아 텍스트 수량 초기화 */
         DiamondText.text = GameManager.GMInstance.Diamond.ToString();
+
+        /** ---- 스킬 데미지 관련 Text ---- */
+        AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageUpLevel + " 스킬 데미지 증가";
+        AttackText.text = (100 * GameManager.GMInstance.SkillDamageUpSum).ToString("F0") + "%";
+
+        /** ---- 최대 체력 관련 Text ---- */
+        MaxHpLevelText.text = "Lv" + GameManager.GMInstance.MaxHpLevel + " 최대 체력 증가";
+        MaxHPText.text = (GameManager.GMInstance.MaxHealth + GameManager.GMInstance.MaxHpUpSum).ToString("F0") + " HP";
+
+        /** ---- 이동 속도 관련 Text ---- */
+        CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.SpeedUpLevel + " 이동 속도 증가";
+        CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
+
+        /** ---- 크리티컬 확률 관련 Text ---- */
+        CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CriticalUpLevel + " 크리티컬 확률 증가";
+        CharCriticalPer.text = (100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
+
+        /** ---- 크리티컬 데미지 관련 Text ---- */
+        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CriticalDamageUpLevel + " 크리티컬 데미지 증가";
+        CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
     }
 
     public void OnClickDayQuestPanel()
@@ -581,7 +702,6 @@ public class LobbySceneManager : MonoBehaviour
         EquipmentGachaPanel.gameObject.SetActive(false);
 
         TicketPanel.SetActive(true);
-
     }
 }
 
