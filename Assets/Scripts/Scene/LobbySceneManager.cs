@@ -7,6 +7,11 @@ using UnityEngine.UI;
 using My;
 using static Define;
 
+public struct AbilityData
+{
+
+
+}
 
 public class LobbySceneManager : MonoBehaviour
 {
@@ -30,6 +35,10 @@ public class LobbySceneManager : MonoBehaviour
     public int Up_Hp;
     public int Up_Damage;
     public int Up_Defense;
+
+    [Header("---EconomyText---")]
+    public Text MagicStonText;
+    public Text DiamondText;
 
     [Header("---Volum---")]
     public Slider BGMVolum;
@@ -112,6 +121,7 @@ public class LobbySceneManager : MonoBehaviour
         /** 시작 시 주간 퀘스트 크기 안보이기 */
         WeekQuestPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
 
+        InitEconomy();
         CharInfoInit();
     }
 
@@ -539,6 +549,15 @@ public class LobbySceneManager : MonoBehaviour
         EquipmentGachaPanel.gameObject.SetActive(true);
         
 
+    }
+
+    void InitEconomy()
+    {
+        /** 마정석 텍스트 수량 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+
+        /** 다이아 텍스트 수량 초기화 */
+        DiamondText.text = GameManager.GMInstance.Diamond.ToString();
     }
 
     public void OnClickDayQuestPanel()

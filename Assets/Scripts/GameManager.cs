@@ -15,7 +15,7 @@ namespace My
 
         [Header("# Player Info")]
         public float Health;
-        public float MaxHealth = 100;
+        public float MaxHealth;
         public int level;
         public int killcount;
         public int exp;
@@ -26,7 +26,9 @@ namespace My
         public static GameManager GMInstance;
         [Header("-----InGameData-----")]
         public float PlayTime;
- 
+        public int MagicStone;
+        public int Diamond;
+        public int SkillTicket;
 
         [Header("-----PlayerData-----")]
         public float PlayerSpeed;

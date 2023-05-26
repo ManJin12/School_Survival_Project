@@ -21,14 +21,13 @@ public class MonsterMove : MonoBehaviour
 
     public EMonsterType CurrentMonsterType;
 
-    public Transform DamageTextPos;
-    public GameObject Text_Damage;
-
     public GameObject PlayerFind;
+    public GameObject Potion;
 
     /** TODO ## MonsterMove.cs 몬스터 체력 설정 재설정 필요 */
     public float CurrentMonsterHp;
     public float MonsterMaxHp;
+    public int PotionDropPercent;
     float NextMonsterHp;
     float MonsterSpeed;
     float BaseMonsterHp;
@@ -74,7 +73,7 @@ public class MonsterMove : MonoBehaviour
 
         /** TODO ## MonsterMove.cs 보스몬스터가 아닐 시 일반 몬스터 체력저장 */
         /** 몬스터 기본 체력 저장 */
-        if (gameObject.name != "Monster_D(Clone)")
+        if (gameObject.name != "Monster_D(Clone)" || gameObject.name != "Boss_Moai(Clone)" || gameObject.name != "Boss_Reaper")
         {
             /** 기본 몬스터 체력 저장 */
             BaseMonsterHp = MonsterMaxHp;
@@ -98,27 +97,7 @@ public class MonsterMove : MonoBehaviour
         //{
         //    return;
         //}
-        // GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp = BaseMonsterHp;
-
-        /** TODO ## MonsterMove.cs 몬스터 타입 정하기 */
-        //#region MonsterType
-        //if (gameObject.name == "Monster_A(Clone)")
-        //{
-        //    CurrentMonsterType = EMonsterType.MonsterTypeA;
-        //}
-        //else if (gameObject.name == "Monster_B(Clone)")
-        //{
-        //    CurrentMonsterType = EMonsterType.MonsterTypeB;
-        //}
-        //else if (gameObject.name == "Monster_C(Clone)")
-        //{
-        //    CurrentMonsterType = EMonsterType.MonsterTypeC;
-        //}
-        //else if (gameObject.name == "Monster_D(Clone)")
-        //{
-        //    CurrentMonsterType = EMonsterType.MonsterTypeD;
-        //}
-        //#endregion
+        
     }
 
     void Update()
@@ -129,27 +108,7 @@ public class MonsterMove : MonoBehaviour
         }
 
         MonsterMaxHp = GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp;
-
-        //if (GameManager.GMInstance.PlaySceneManagerRef.bIsMonsterHpUp == true)
-        //{
-        //    Debug.Log(MonsterMaxHp + (BaseMonsterHp * GameManager.GMInstance.PlaySceneManagerRef.MonsterHpUpRate));
-
-        //    GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp = MonsterMaxHp + BaseMonsterHp * GameManager.GMInstance.PlaySceneManagerRef.MonsterHpUpRate;
-
-        //    Debug.Log(GameManager.GMInstance.PlaySceneManagerRef.MonsterHpUpRate);
-        //    Debug.Log("MonsterMaxHp " + MonsterMaxHp);
-        //    Debug.Log("NextMonsterHp " + GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp);
-
-        //    if (MonsterMaxHp != GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp)
-        //    {
-        //        MonsterMaxHp = GameManager.GMInstance.PlaySceneManagerRef.NextMonsterHp;
-        //    }
-
-        //    GameManager.GMInstance.PlaySceneManagerRef.bIsMonsterHpUp = false;
-        //}
     }
-
-
 
     void FixedUpdate()
     {
@@ -1178,6 +1137,8 @@ public class MonsterMove : MonoBehaviour
             /** 몬스터가 죽으면 */
             else
             {
+                // 몬스터 사망 시 경험치 함수 호출
+                Dead();
                 // 몬스터가 죽었으므로 비활성화
                 bIsLive = false;
                 /** 콜라이더 비활성화 */
@@ -1191,9 +1152,7 @@ public class MonsterMove : MonoBehaviour
                 /** 함수 호출 */
                 GameManager.GMInstance.killcount++;
                 // 몬스터 사망 시 킬수 증가 함수 호출
-                GameManager.GMInstance.GetExp();
-                // 몬스터 사망 시 경험치 함수 호출
-                Dead();
+                GameManager.GMInstance.GetExp();        
             }
         }
 
@@ -1265,6 +1224,9 @@ public class MonsterMove : MonoBehaviour
     /** 죽는 함수 */
     void Dead()
     {
+        /** 포션 생성함수 */
+        MakePotion();
+
         /** 게임 오브젝트 비활성화 */
         gameObject.SetActive(false);
         sprite.color = Color.white;
@@ -1281,16 +1243,25 @@ public class MonsterMove : MonoBehaviour
         }
     }
 
-    public void OnDamageText(float damage)
-    {
-        GameObject DmgTxt = Instantiate(Text_Damage, DamageTextPos.transform.position, Quaternion.identity);
-        DmgTxt.GetComponent<Text>().text = damage.ToString("N2");
-    }
-
-
     IEnumerator WaitGameClear()
     {
         yield return 1.5f;
+    }
+
+    void MakePotion()
+    {
+        /** 랜덤값 생성 */
+        int PotionMakePercent = Random.Range(1, 101);
+
+        /** 랜덤 함수가 드랍율보다 적으면 */
+        if (PotionMakePercent <= PotionDropPercent)
+        {
+            /** 포션 오브젝트 생성 */
+            GameObject PotionObj = Instantiate(Potion);
+
+            /** 포션의 위치는 몬스터가 죽은 위치로 한다. */
+            PotionObj.transform.position = this.transform.position;
+        }
     }
 
     /** 데이미지를 받음 */

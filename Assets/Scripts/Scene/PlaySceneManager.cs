@@ -49,8 +49,6 @@ public class PlaySceneManager : MonoBehaviour
     public Image PlayScene_EffectSound_On_Check;
     public Image PlayScene_EffectSound_Off_Check;
 
-
-
     void Start()
     {
         /** 만약 선택된 모드가 초원지대라면 */

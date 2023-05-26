@@ -193,12 +193,11 @@ MonoBehaviour:
   Target: {fileID: 0}
   bIsLive: 1
   CurrentMonsterType: 12
-  DamageTextPos: {fileID: 5185659711380735022}
-  Text_Damage: {fileID: 5300224248854672120, guid: 0e117a527ab14a2418e06e058b9eda72,
-    type: 3}
   PlayerFind: {fileID: 0}
+  Potion: {fileID: 3999883156569643222, guid: 9c61402c38e7eaa4ba3eb98743482120, type: 3}
   CurrentMonsterHp: 0
   MonsterMaxHp: 870
+  PotionDropPercent: 1
 --- !u!114 &8915779844478252519
 MonoBehaviour:
   m_ObjectHideFlags: 0
