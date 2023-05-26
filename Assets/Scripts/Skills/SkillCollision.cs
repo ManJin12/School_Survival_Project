@@ -237,8 +237,8 @@ public class SkillCollision : MonoBehaviour
 
                 /** 폭발 이펙트는 오브젝트의 위치 */
                 BombEffect.transform.position = gameObject.transform.position;
-                BombEffect.transform.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-
+                BombEffect.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+            
                 Destroy(BombEffect, 0.5f);
             }
         }

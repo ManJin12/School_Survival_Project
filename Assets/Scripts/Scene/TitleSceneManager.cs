@@ -9,6 +9,9 @@ using System;
 
 public class TitleSceneManager : MonoBehaviour
 {
+    public Text StartText;
+    WaitForSeconds wait;
+
     private void Awake()
     {
         /** ÇöÀç ¾À ·Îºñ */
@@ -17,7 +20,26 @@ public class TitleSceneManager : MonoBehaviour
 
     void Start()
     {
+        //wait = new WaitForSeconds(1.0f);
 
+        //StartCoroutine(BlinkText());
+    }
+
+    /** ÅØ½ºÆ® ±ôºýÀÓ ÇÔ¼ö ³Ê¹« µüµüÇÔ */
+    IEnumerator BlinkText()
+    {
+        while (true)
+        {
+            StartText.text = "Touch To Start";
+            yield return wait;
+            StartText.text = "";
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private void Update()
+    {
+        
     }
 
     public void OnClickGameStart()

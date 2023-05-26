@@ -1,0 +1,591 @@
+fileFormatVersion: 2
+guid: f041d2facd50ac6448e91f8b0cc28133
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BombArrowDot_4
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 3
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5fa13bddd4bbdf46acaa82416f51379
+      internalID: -1210055168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_0
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 3
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 447beed25e82d7f42999c27f7b3a8302
+      internalID: -1052153804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_1
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 3
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e782c9d1c6a1d74a8c775b6f1a9a36f
+      internalID: 2093389821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_2
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 3
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 195fbad7c0edcc642bc6cf049f3ea4f0
+      internalID: 85630362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_3
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d6518396bade4643b378861b1fbb73b
+      internalID: 1897137907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_5
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bbde5e49b4f81d4f9926c605b7f28ec
+      internalID: -78199134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_6
+      rect:
+        serializedVersion: 2
+        x: 604
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de0ae0fc9939bf845bdea15a4798f733
+      internalID: 460060885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_7
+      rect:
+        serializedVersion: 2
+        x: 703
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 155e20dcad834384fa2e1c94e91fd92a
+      internalID: 1945226426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_8
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dcf2bc73d298514582496e8196d22eb
+      internalID: 1785799275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_9
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33d3349f70523cf439e9ccda1812671f
+      internalID: -1983849626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_10
+      rect:
+        serializedVersion: 2
+        x: 1002
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac91d92bfad6d44da84f241a04ffcee
+      internalID: -1378499429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_11
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c320d06143c8c8544871bf26d5a898a2
+      internalID: 1780065009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_12
+      rect:
+        serializedVersion: 2
+        x: 1203
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22c74e7e08b80c4ba346a34f263431e
+      internalID: 778996065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_13
+      rect:
+        serializedVersion: 2
+        x: 1304
+        y: 5
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ab9bd8614486f940bb36607de81e319
+      internalID: 265014356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_14
+      rect:
+        serializedVersion: 2
+        x: 1396
+        y: 4
+        width: 88
+        height: 85
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c77cb17d75d28b942babb3a70098dccd
+      internalID: 408005385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_15
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 4
+        width: 88
+        height: 85
+      alignment: 9
+      pivot: {x: 0.50990295, y: 0.3838141}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1a3dad8d24450143b03c12a584dc275
+      internalID: 2006974917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_16
+      rect:
+        serializedVersion: 2
+        x: 1598
+        y: 3
+        width: 88
+        height: 85
+      alignment: 9
+      pivot: {x: 0.50990295, y: 0.3838141}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ef88c629db19814faffbdd5f5ff5a55
+      internalID: -1982723570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_17
+      rect:
+        serializedVersion: 2
+        x: 1700
+        y: 3
+        width: 88
+        height: 85
+      alignment: 9
+      pivot: {x: 0.50990295, y: 0.3838141}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 408242f0e0f412a4782650731c7b7af7
+      internalID: 78159536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BombArrowDot_18
+      rect:
+        serializedVersion: 2
+        x: 1798
+        y: 2
+        width: 88
+        height: 85
+      alignment: 9
+      pivot: {x: 0.50990295, y: 0.3838141}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae065108393e6bb40b190675769db440
+      internalID: 1273000654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      BombArrowDot_48: 1312119626
+      BombArrowDot_14: 408005385
+      BombArrowDot_18: 1273000654
+      BombArrowDot_38: 27265793
+      BombArrowDot_27: 1703646035
+      BombArrowDot_46: -2131605181
+      BombArrowDot_43: -1821872716
+      BombArrowDot_31: -1041611116
+      BombArrowDot_37: -2127926406
+      BombArrowDot_4: -1210055168
+      BombArrowDot_23: -737367178
+      BombArrowDot_41: 620768430
+      BombArrowDot_29: 1204599316
+      BombArrowDot_2: 85630362
+      BombArrowDot_12: 778996065
+      BombArrowDot_26: 681453736
+      BombArrowDot_8: 1785799275
+      BombArrowDot_15: 2006974917
+      BombArrowDot_56: 152665780
+      BombArrowDot_6: 460060885
+      BombArrowDot_9: -1983849626
+      BombArrowDot_5: -78199134
+      BombArrowDot_39: -691526351
+      BombArrowDot_33: 1031141282
+      BombArrowDot_20: 1489267694
+      BombArrowDot_54: -2113894675
+      BombArrowDot_16: -1982723570
+      BombArrowDot_40: 2124892980
+      BombArrowDot_50: -1826342907
+      BombArrowDot_42: -1107280528
+      BombArrowDot_51: 2024941464
+      BombArrowDot_52: -1240922642
+      BombArrowDot_49: 1184411511
+      BombArrowDot_47: -1355031492
+      BombArrowDot_19: 718018252
+      BombArrowDot_53: -1372385404
+      BombArrowDot_45: -1553505441
+      BombArrowDot_1: 2093389821
+      BombArrowDot_7: 1945226426
+      BombArrowDot_28: -1003741118
+      BombArrowDot_10: -1378499429
+      BombArrowDot_0: -1052153804
+      BombArrowDot_17: 78159536
+      BombArrowDot_22: 1503208582
+      BombArrowDot_36: -1871114858
+      BombArrowDot_21: 1920164503
+      BombArrowDot_25: 804980597
+      BombArrowDot_13: 265014356
+      BombArrowDot_55: -1338252747
+      BombArrowDot_30: 135823378
+      BombArrowDot_24: 712337123
+      BombArrowDot_34: -1739149343
+      BombArrowDot_35: -2010588024
+      BombArrowDot_32: 432325242
+      BombArrowDot_44: 996071564
+      BombArrowDot_11: 1780065009
+      BombArrowDot_3: 1897137907
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

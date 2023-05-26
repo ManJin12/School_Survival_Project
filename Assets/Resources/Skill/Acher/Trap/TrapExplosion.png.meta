@@ -1,0 +1,487 @@
+fileFormatVersion: 2
+guid: b4d557a763d2f704db0dede581673d32
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TrapExplosion_2
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 28
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae620f7c4d9d75c498a6f4e8847e623d
+      internalID: 642854915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_0
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 29
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1af1c33d4f535a45a8e33eb70c60adf
+      internalID: 1683764025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_1
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 26
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f243cce30fd610429e2e6ca3a0fe514
+      internalID: -767284995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_3
+      rect:
+        serializedVersion: 2
+        x: 329
+        y: 27
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a0507eb03dbd4a4f87b8e8ed2e30420
+      internalID: -225860781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_4
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 25
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3427551a283c8394b8b38dff541bb945
+      internalID: 264784743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_5
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 24
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d127d5ca4bfec4b448d02194805c0cd5
+      internalID: -815814271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_6
+      rect:
+        serializedVersion: 2
+        x: 927
+        y: 28
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d03807918d543364fb9f0a818333143e
+      internalID: -1026453982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_7
+      rect:
+        serializedVersion: 2
+        x: 1077
+        y: 27
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0dc7fad82e81144daf64d5dd4103ecd
+      internalID: 1620736014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_8
+      rect:
+        serializedVersion: 2
+        x: 1508
+        y: 26
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7784094e726bebd4187791ffd519a18b
+      internalID: 591356100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_9
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 28
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4ee3d76976c4024496d82d7d78cc65a
+      internalID: -1459645684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_10
+      rect:
+        serializedVersion: 2
+        x: 1363
+        y: 27
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d362093b99642004e94bad99876150f8
+      internalID: 773825918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_11
+      rect:
+        serializedVersion: 2
+        x: 1634
+        y: 27
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ab4e68bdbf691149ab0cfdbbb086742
+      internalID: 1028649515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TrapExplosion_12
+      rect:
+        serializedVersion: 2
+        x: 1757
+        y: 26
+        width: 106
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebdd6f840a3ae5c4dac029d6f2f595a9
+      internalID: -669173208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      TrapExplosion_26: 40731078
+      TrapExplosion_62: 1644593811
+      TrapExplosion_37: 615123183
+      TrapExplosion_50: 2139871855
+      TrapExplosion_5: -815814271
+      TrapExplosion_0: 1683764025
+      TrapExplosion_17: -1697801524
+      TrapExplosion_54: -396075143
+      TrapExplosion_3: -225860781
+      TrapExplosion_52: 258730359
+      TrapExplosion_44: -1567564001
+      TrapExplosion_32: -495419595
+      TrapExplosion_74: 504906454
+      TrapExplosion_7: 1620736014
+      TrapExplosion_66: 1026840543
+      TrapExplosion_33: 249299063
+      TrapExplosion_14: -410058161
+      TrapExplosion_42: 429199273
+      TrapExplosion_36: -1732056026
+      TrapExplosion_48: -197775569
+      TrapExplosion_35: 557265034
+      TrapExplosion_64: 1418285479
+      TrapExplosion_49: 1053313523
+      TrapExplosion_57: 158067821
+      TrapExplosion_71: 333692338
+      TrapExplosion_70: 1653343811
+      TrapExplosion_31: -908701909
+      TrapExplosion_24: -38896456
+      TrapExplosion_10: 773825918
+      TrapExplosion_11: 1028649515
+      TrapExplosion_40: -187777092
+      TrapExplosion_69: -1138891288
+      TrapExplosion_4: 264784743
+      TrapExplosion_51: -858933000
+      TrapExplosion_55: 1706577026
+      TrapExplosion_39: -1625352084
+      TrapExplosion_29: 1766045320
+      TrapExplosion_63: -645037329
+      TrapExplosion_22: 1204868381
+      TrapExplosion_9: -1459645684
+      TrapExplosion_34: 996724562
+      TrapExplosion_16: 990409519
+      TrapExplosion_23: -1336945412
+      TrapExplosion_30: -488058683
+      TrapExplosion_65: -1019406548
+      TrapExplosion_68: 668629392
+      TrapExplosion_67: 1404148555
+      TrapExplosion_20: 1569405371
+      TrapExplosion_59: 1482917014
+      TrapExplosion_1: -767284995
+      TrapExplosion_75: 236771630
+      TrapExplosion_45: -527890657
+      TrapExplosion_18: -960636897
+      TrapExplosion_77: 1888619228
+      TrapExplosion_73: 477949552
+      TrapExplosion_15: 1272384633
+      TrapExplosion_47: 1051523727
+      TrapExplosion_56: 1919361581
+      TrapExplosion_28: -242920867
+      TrapExplosion_21: -638188668
+      TrapExplosion_41: -318457805
+      TrapExplosion_72: -2040128812
+      TrapExplosion_13: 1815085756
+      TrapExplosion_27: 283963314
+      TrapExplosion_43: -222555938
+      TrapExplosion_78: -801444929
+      TrapExplosion_8: 591356100
+      TrapExplosion_38: 1208297882
+      TrapExplosion_2: 642854915
+      TrapExplosion_58: 1016397666
+      TrapExplosion_19: -1686595590
+      TrapExplosion_25: -1225542748
+      TrapExplosion_53: 1185201057
+      TrapExplosion_46: -1153029563
+      TrapExplosion_76: -541991857
+      TrapExplosion_6: -1026453982
+      TrapExplosion_61: -1451700277
+      TrapExplosion_12: -669173208
+      TrapExplosion_60: -1906797290
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
