@@ -34,12 +34,12 @@ public class LobbySceneManager : MonoBehaviour
     public Text MagicStonText;
     public Text DiamondText;
 
-    [Header("---Button---")]
-    public Button SkillDamageBtn;
-    public Button MaxHpUpBtn;
-    public Button SpeedUpBtn;
-    public Button CriticalUpBtn;
-    public Button CriticalDamageUpBtn;
+    //[Header("---Button---")]
+    //public Button SkillDamageBtn;
+    //public Button MaxHpUpBtn;
+    //public Button SpeedUpBtn;
+    //public Button CriticalUpBtn;
+    //public Button CriticalDamageUpBtn;
 
     [Header("---Volum---")]
     public Slider BGMVolum;
@@ -74,6 +74,12 @@ public class LobbySceneManager : MonoBehaviour
     public Image EffectSound_On_Check;
     public Image EffectSound_Off_Check;
 
+    [Header("---PriceText---")]
+    public Text DamageUpPriceText;
+    public Text MaxHpUpPricelText;
+    public Text SpeedUpPriceText;
+    public Text CriticalUpPriceText;
+    public Text CriticalDamageUpPriceText;
 
     // Start is called before the first frame update
     void Start()
@@ -443,9 +449,10 @@ public class LobbySceneManager : MonoBehaviour
         /** 크리티컬 레벨 증가 텍스트 초기화 */
         // CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
         CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CriticalUpLevel + " 크리티컬 확률 증가";
-
         /** 능력치 창 크리티컬 확률 초기화 */
         CharCriticalPer.text = (100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
+        /** 마정석 가격 텍스트 초기화 */
+        CriticalUpPriceText.text = GameManager.GMInstance.CriticalUpPrice + " 마정석";
 
         GameManager.GMInstance.CoinManagerRef.JsonSave();
         GameManager.GMInstance.UpGradeManagerRef.JsonSave();
@@ -479,13 +486,13 @@ public class LobbySceneManager : MonoBehaviour
         /** 크리티컬 데미지 증가 레벨 1+ */
         // GameManager.GMInstance.CharCriticalDamageLevel++;
         GameManager.GMInstance.CriticalDamageUpLevel++;
-
         /** 크리티컬 데미지 레벨 증가 텍스트 초기화 */
         // CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
         CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CriticalDamageUpLevel + " 크리티컬 데미지 증가";
-
         /** 능력치 창 크리티컬 데미지 수치 초기화 */
         CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
+        /** 마정석 가격 텍스트 초기화 */
+        CriticalDamageUpPriceText.text = GameManager.GMInstance.CriticalDamageUpPrice + " 마정석";
 
         GameManager.GMInstance.CoinManagerRef.JsonSave();
         GameManager.GMInstance.UpGradeManagerRef.JsonSave();
@@ -528,6 +535,8 @@ public class LobbySceneManager : MonoBehaviour
 
         /** 능력치 창 이동속도 표시 초기화 */
         MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
+        /** 마정석 가격 텍스트 초기화 */
+        MaxHpUpPricelText.text = GameManager.GMInstance.MaxHpUpPrice + " 마정석";
 
         GameManager.GMInstance.CoinManagerRef.JsonSave();
         GameManager.GMInstance.UpGradeManagerRef.JsonSave();
@@ -569,6 +578,8 @@ public class LobbySceneManager : MonoBehaviour
 
         /** 능력치 창 이동속도 표시 초기화 */
         CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
+        /** 마정석 가격 텍스트 초기화 */
+        SpeedUpPriceText.text = GameManager.GMInstance.SpeedUpPrice + " 마정석";
 
         GameManager.GMInstance.CoinManagerRef.JsonSave();
         GameManager.GMInstance.UpGradeManagerRef.JsonSave();
@@ -609,6 +620,8 @@ public class LobbySceneManager : MonoBehaviour
         /** 능력치 창 스킬 데미지 표시 초기화 */
         // AttackText.text = (100 * GameManager.GMInstance.GetSkillDamageUp()).ToString("F0") + "%";
         AttackText.text = (100 * GameManager.GMInstance.SkillDamageUpSum).ToString("F0") + "%";
+        /** 마정석 가격 텍스트 초기화 */
+        DamageUpPriceText.text = GameManager.GMInstance.SkillDamageUpPrice + " 마정석";
 
         GameManager.GMInstance.CoinManagerRef.JsonSave();
         GameManager.GMInstance.UpGradeManagerRef.JsonSave();
@@ -653,6 +666,13 @@ public class LobbySceneManager : MonoBehaviour
 
     }
 
+    //[Header("---PriceText---")]
+    //public Text DamageUpPriceText;
+    //public Text MaxHpUpPricelText;
+    //public Text SpeedUpPriceText;
+    //public Text CriticalUpPriceText;
+    //public Text CriticalDamageUpPriceText;
+
     void InitText()
     {
         /** 마정석 텍스트 수량 초기화 */
@@ -663,22 +683,28 @@ public class LobbySceneManager : MonoBehaviour
         /** ---- 스킬 데미지 관련 Text ---- */
         AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageUpLevel + " 스킬 데미지 증가";
         AttackText.text = (100 * GameManager.GMInstance.SkillDamageUpSum).ToString("F0") + "%";
+        DamageUpPriceText.text = GameManager.GMInstance.SkillDamageUpPrice + " 마정석";
 
         /** ---- 최대 체력 관련 Text ---- */
         MaxHpLevelText.text = "Lv" + GameManager.GMInstance.MaxHpLevel + " 최대 체력 증가";
         MaxHPText.text = (GameManager.GMInstance.MaxHealth + GameManager.GMInstance.MaxHpUpSum).ToString("F0") + " HP";
+        MaxHpUpPricelText.text = GameManager.GMInstance.MaxHpUpPrice + " 마정석";
 
         /** ---- 이동 속도 관련 Text ---- */
         CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.SpeedUpLevel + " 이동 속도 증가";
         CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
+        SpeedUpPriceText.text = GameManager.GMInstance.SpeedUpPrice + " 마정석";
 
         /** ---- 크리티컬 확률 관련 Text ---- */
         CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CriticalUpLevel + " 크리티컬 확률 증가";
         CharCriticalPer.text = (100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
+        CriticalUpPriceText.text = GameManager.GMInstance.CriticalUpPrice + " 마정석";
 
         /** ---- 크리티컬 데미지 관련 Text ---- */
         CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CriticalDamageUpLevel + " 크리티컬 데미지 증가";
         CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
+        CriticalDamageUpPriceText.text = GameManager.GMInstance.CriticalDamageUpPrice + " 마정석";
+
     }
 
     public void OnClickDayQuestPanel()

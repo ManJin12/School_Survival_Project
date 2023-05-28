@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Advertisements;
 using My;
+using static Define;
 
 public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsShowListener
 {
@@ -27,7 +28,11 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
 
     void Start()
     {
-        if (gameObject.name == "AdsSkillSelectBtn")
+        if (gameObject.name == "AdsSkillSelectBtn" && GameManager.GMInstance.CurrentChar == ECharacterType.WizardChar)
+        {
+            GameManager.GMInstance.RewardedAdsButtonRef = this;
+        }
+        else if (gameObject.name == "AdsAcherSkillSelectBtn" && GameManager.GMInstance.CurrentChar == ECharacterType.AcherChar)
         {
             GameManager.GMInstance.RewardedAdsButtonRef = this;
         }
@@ -84,13 +89,28 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
             {    
                 GameManager.GMInstance.UiLevelUp.Next();
             }
+            else if (gameObject.name == "AdsAcherSkillSelectBtn")
+            {
+                GameManager.GMInstance.AcherLevelUpRef.Next();
+            }
             else if (gameObject.name == "GetGoldAdsBtn")
             {
-                Debug.Log("보상 2베!!");
+                /** 마정석 2배 획득 */
+                GameManager.GMInstance.MagicStone += GameManager.GMInstance.PlaySceneManagerRef.GetGameEndMagicStone();
+                /** 텍스트 초기화 */
+                GameManager.GMInstance.PlaySceneManagerRef.GameClearMagicStoneTxt.text = GameManager.GMInstance.PlaySceneManagerRef.GetGameEndMagicStone() * 2 + " 마정석";
+
+                GameManager.GMInstance.CoinManagerRef.JsonSave();
             }
             else if (gameObject.name == "GetOverGoldAdsBtn")
             {
-                Debug.Log("보상 2베!!");
+                /** 마정석 2배 획득 */
+                GameManager.GMInstance.MagicStone += GameManager.GMInstance.PlaySceneManagerRef.GetGameEndMagicStone();
+                
+                /** 텍스트 초기화 */
+                GameManager.GMInstance.PlaySceneManagerRef.GameOverMagicStoneTxt.text = GameManager.GMInstance.PlaySceneManagerRef.GetGameEndMagicStone() * 2 + " 마정석";
+                
+                GameManager.GMInstance.CoinManagerRef.JsonSave();
             }
             // Grant a reward.
         }

@@ -25,6 +25,8 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
     [SerializeField] 
     RewardedAdsButton SkillReSelectButton;
     [SerializeField]
+    RewardedAdsButton AcherSkillReSelectButton;
+    [SerializeField]
     RewardedAdsButton GetClearGoldButton;
     [SerializeField]
     RewardedAdsButton GetOverGoldButton;
@@ -65,6 +67,7 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
         else if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene)
         {
             SkillReSelectButton.LoadAd();
+            AcherSkillReSelectButton.LoadAd();
             GetClearGoldButton.LoadAd();
             GetOverGoldButton.LoadAd();
         }

@@ -21,11 +21,16 @@ public class PlaySceneManager : MonoBehaviour
     public float NextMonsterHp;
     public float BaseMonsterHp;
     int HpLevel;
+    int GainMagicStone;
 
     // public GameObject GameClearPanel;
     // public GameObject GameOverPanel;
     public GameObject ConfigPanel;
     public LevelUp WizardLevelUp;
+
+    [Header("---GainMagicStoneText---")]
+    public Text GameClearMagicStoneTxt;
+    public Text GameOverMagicStoneTxt;
 
     [Header("---Damage---")]
     public Transform Damage_Canvas;
@@ -48,6 +53,15 @@ public class PlaySceneManager : MonoBehaviour
     public Image PlayScene_BGM_On_Check;
     public Image PlayScene_EffectSound_On_Check;
     public Image PlayScene_EffectSound_Off_Check;
+
+    public int GetGameEndMagicStone()
+    {
+        return GainMagicStone;
+    }
+    public void SetGameEndMagicStone(int magicStone)
+    {
+        GainMagicStone = magicStone;
+    }
 
     void Start()
     {
@@ -258,6 +272,17 @@ public class PlaySceneManager : MonoBehaviour
         /** GameOverImage 적용 */
         GameOverImage.gameObject.SetActive(true);
 
+        /** 처치한 몬스터의 10% 만큼 마정석 획득 */
+        GainMagicStone = Mathf.RoundToInt(GameManager.GMInstance.killcount * 0.1f);
+
+        /** 획득한 마정석을 더해준다. */
+        GameManager.GMInstance.MagicStone += GainMagicStone;
+
+        GameOverMagicStoneTxt.text = GainMagicStone + " 마정석";
+
+        /** 마정석 저장 */
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+
         /** 1초 후 */
         yield return new WaitForSeconds(1.0f);
 
@@ -284,6 +309,17 @@ public class PlaySceneManager : MonoBehaviour
         if (GameManager.GMInstance.gameTime == GameManager.GMInstance.maxGameTime || GameManager.GMInstance.SpawnerRef.GetbIsBossClear() == true) 
         {
             GameManager.GMInstance.EndGameAdsPanelRef.EndGamePanelrect.localScale = Vector3.one;
+
+            /** 처치한 몬스터의 10% 만큼 마정석 획득 */
+            GainMagicStone = Mathf.RoundToInt(GameManager.GMInstance.killcount * 0.1f);
+
+            /** 획득한 마정석을 더해준다. */
+            GameManager.GMInstance.MagicStone += GainMagicStone;
+
+            GameClearMagicStoneTxt.text = GainMagicStone + " 마정석";
+
+            /** 마정석 저장 */
+            GameManager.GMInstance.CoinManagerRef.JsonSave();
 
             /** 게임 시간 멈춤 */
             Time.timeScale = 0;
