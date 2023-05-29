@@ -33,6 +33,7 @@ public class LobbySceneManager : MonoBehaviour
     [Header("---EconomyText---")]
     public Text MagicStonText;
     public Text DiamondText;
+    public Text EnterTicketText;
 
     //[Header("---Button---")]
     //public Button SkillDamageBtn;
@@ -88,6 +89,8 @@ public class LobbySceneManager : MonoBehaviour
 
         // Time.timeScale = 1;
 
+        GameManager.GMInstance.LobbySceneManagerRef = this;
+
         /** 현재 화면 로비씬*/
         GameManager.GMInstance.CurrentScene = Define.ESceneType.LobbyScene;
 
@@ -128,6 +131,10 @@ public class LobbySceneManager : MonoBehaviour
         /** 시작 시 주간 퀘스트 크기 안보이기 */
         WeekQuestPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
 
+        /** 장비와 티켓 상점 스케일 0 */
+        EquipmentGachaPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
+        TicketPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
+
         InitText();
         // CharInfoInit();
     }
@@ -155,43 +162,6 @@ public class LobbySceneManager : MonoBehaviour
         WeekRemainTime.text = (7 - GetCurrentDay()).ToString() + ":" + (23 - GetCurrentHour()).ToString() + ":" + (60 - GetCurrentMinute()).ToString();
     }
 
-    int GetCurrentDay()
-    {
-        return (int)(DateTime.Now).DayOfWeek;
-    }
-
-    int GetCurrentSecond()
-    {
-        return (DateTime.Now).Second;
-    }
-
-    int GetCurrentMinute()
-    {
-        return (DateTime.Now).Minute;
-    }
-
-    int GetCurrentHour()
-    {
-        return (DateTime.Now).Hour;
-    }
-
-    public void CharInfoInit()
-    {
-        // AttackText.text
-
-        MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
-        CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
-        CharCriticalPer.text = (100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
-        CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
-        AttackText.text = (100 * GameManager.GMInstance.SkillDamageUpRate).ToString("F0") + "%";
-
-        CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
-        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
-        MaxHpLevelText.text = "Lv" + GameManager.GMInstance.MaxHpLevel + " 최대 체력 증가";
-        CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
-        AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageLevel + " 스킬 데미지 증가";
-    }
-
 
     public void OnClickMenuBtn()
     {
@@ -213,6 +183,8 @@ public class LobbySceneManager : MonoBehaviour
         DungeonSelectPanel.SetActive(true);
     }
 
+    /** TODO ## LobbySceneManager.cs 캐릭터 선택 관련 */
+    #region CharSelectBtn
     /** 다음 캐릭터 버튼 눌렀을 때 */
     public void OnClickNextCharacter()
     {
@@ -266,7 +238,10 @@ public class LobbySceneManager : MonoBehaviour
             GameManager.GMInstance.CurrentChar = ECharacterType.AcherChar;
         }
     }
+#endregion
 
+    /** TODO ## LobbySceneManager.cs 사운드 관련 */
+    #region ConfigBtn
     public void OnClickConfigBtn()
     {
         /** 효과음 재생 */
@@ -283,7 +258,10 @@ public class LobbySceneManager : MonoBehaviour
         /** 환경설정 창 off */
         ConfigPanel.SetActive(false);
     }
+    #endregion
 
+    /** TODO ## LobbySceneManager.cs 사운드 관련 */
+    #region Sound
     /** 효과음 off 함수 */
     public void OnClickSoundOff()
     {
@@ -373,6 +351,10 @@ public class LobbySceneManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    /** TODO ## LobbySceneManager.cs 던전 선택 관련 */
+    #region SelectDungeon
     public void OnClickCloseSelectDungeonPanel()
     {
         /** 효과음 재생 */
@@ -384,38 +366,73 @@ public class LobbySceneManager : MonoBehaviour
 
     public void OnClickEnterGrassLand()
     {
+        /** 티켓이 0이면 return */
+        if (GameManager.GMInstance.EnterTicket == 0)
+        {
+            return;
+        }
+
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 게임매니저 모드를 초원지대로 바꾸고 */
         GameManager.GMInstance.SelectDungeonMode = ESelectDungeon.GrassLand;
 
+        /** 티켓 1감소 */
+        GameManager.GMInstance.EnterTicket--;
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+
         SceneManager.LoadScene("PlayScene");
     }
 
     public void OnClickEnterRockLand()
     {
+        /** 티켓이 0이면 return */
+        if (GameManager.GMInstance.EnterTicket == 0)
+        {
+            return;
+        }
+
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 게임매니저 모드를 초원지대로 바꾸고 */
         GameManager.GMInstance.SelectDungeonMode = ESelectDungeon.RockLand;
 
+        /** 티켓 1감소 */
+        GameManager.GMInstance.EnterTicket--;
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+
         SceneManager.LoadScene("PlayScene");
     }
 
     public void OnClickEnterDeathLand()
     {
+        /** 티켓이 0이면 return */
+        if (GameManager.GMInstance.EnterTicket == 0)
+        {
+            return;
+        }
+
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 게임매니저 모드를 초원지대로 바꾸고 */
         GameManager.GMInstance.SelectDungeonMode = ESelectDungeon.DeathLand;
 
+        /** 티켓 1감소 */
+        GameManager.GMInstance.EnterTicket--;
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+
         SceneManager.LoadScene("PlayScene");
     }
+#endregion
 
-
+    /** TODO ## LobbySceneManager.cs 능력치 업그레이드 버튼 */
+    #region AbilityUpGrade
     /** 크리티컬확률 증가 */
     public void OnClickCrticalUp()
     {
@@ -427,7 +444,6 @@ public class LobbySceneManager : MonoBehaviour
         {
             return;
         }
-
 
         // -------------------새로 추가-----------------------
         GameManager.GMInstance.MagicStone -= GameManager.GMInstance.CriticalUpPrice;
@@ -627,6 +643,10 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.UpGradeManagerRef.JsonSave();
     }
 
+    #endregion
+
+    /** TODO ## LobbySceneManager.cs 오브젝트 활성화 관련 */
+    #region
     public void OnClickAbilityCheckOpen()
     {
         /** 효과음 재생 */
@@ -647,10 +667,10 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
        
-        EquipmentGachaPanel.gameObject.SetActive(false);
-        TicketPanel.SetActive(false);
+        EquipmentGachaPanel.GetComponent<RectTransform>().localScale = Vector2.zero;
+        TicketPanel.GetComponent<RectTransform>().localScale = Vector2.zero;
 
-        InGameMoneyPanel.gameObject.SetActive(true);
+        InGameMoneyPanel.GetComponent<RectTransform>().localScale = Vector2.one;
     }
 
     public void OnClickOpenEquipmentGacha()
@@ -658,27 +678,35 @@ public class LobbySceneManager : MonoBehaviour
         /** 효과음 재생 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
-        InGameMoneyPanel.gameObject.SetActive(false);
-        TicketPanel.SetActive(false);
+        InGameMoneyPanel.GetComponent<RectTransform>().localScale = Vector2.zero;
+        TicketPanel.GetComponent<RectTransform>().localScale = Vector2.zero;
 
-        EquipmentGachaPanel.gameObject.SetActive(true);
-        
+        EquipmentGachaPanel.GetComponent<RectTransform>().localScale = Vector2.one;
+
 
     }
+    public void OnClickOpenTicket()
+    {
+        /** 효과음 재생 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
-    //[Header("---PriceText---")]
-    //public Text DamageUpPriceText;
-    //public Text MaxHpUpPricelText;
-    //public Text SpeedUpPriceText;
-    //public Text CriticalUpPriceText;
-    //public Text CriticalDamageUpPriceText;
+        InGameMoneyPanel.GetComponent<RectTransform>().localScale = Vector2.zero;
+        EquipmentGachaPanel.GetComponent<RectTransform>().localScale = Vector2.zero;
 
+        TicketPanel.GetComponent<RectTransform>().localScale = Vector2.one;
+    }
+    #endregion
+
+    /** TODO ## LobbySceneManager.cs 텍스트 초기화 */
+    #region TextInit
     void InitText()
     {
         /** 마정석 텍스트 수량 초기화 */
         MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
         /** 다이아 텍스트 수량 초기화 */
         DiamondText.text = GameManager.GMInstance.Diamond.ToString();
+        /** 입장권 텍스트 수량 초기화 */
+        EnterTicketText.text = "x " + GameManager.GMInstance.EnterTicket.ToString();
 
         /** ---- 스킬 데미지 관련 Text ---- */
         AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageUpLevel + " 스킬 데미지 증가";
@@ -704,9 +732,27 @@ public class LobbySceneManager : MonoBehaviour
         CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CriticalDamageUpLevel + " 크리티컬 데미지 증가";
         CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
         CriticalDamageUpPriceText.text = GameManager.GMInstance.CriticalDamageUpPrice + " 마정석";
-
     }
+    public void CharInfoInit()
+    {
+        // AttackText.text
 
+        MaxHPText.text = GameManager.GMInstance.MaxHealth.ToString("F0") + " HP";
+        CharSpeedText.text = (100 * GameManager.GMInstance.PlayerSpeed).ToString("F1") + "%";
+        CharCriticalPer.text = (100 * GameManager.GMInstance.GetCriticalPercent()).ToString("F2") + "%";
+        CharCriticalDamage.text = (100 * GameManager.GMInstance.GetCriticalDamage()).ToString("F1") + "%";
+        AttackText.text = (100 * GameManager.GMInstance.SkillDamageUpRate).ToString("F0") + "%";
+
+        CharCriticalPerLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalPerLevel + " 크리티컬 확률 증가";
+        CharCriticalDamageLevelText.text = "Lv" + GameManager.GMInstance.CharCriticalDamageLevel + " 크리티컬 데미지 증가";
+        MaxHpLevelText.text = "Lv" + GameManager.GMInstance.MaxHpLevel + " 최대 체력 증가";
+        CharSpeedLevelText.text = "Lv" + GameManager.GMInstance.CharSpeedLevel + " 이동 속도 증가";
+        AttackLevelText.text = "Lv" + GameManager.GMInstance.SkillDamageLevel + " 스킬 데미지 증가";
+    }
+    #endregion
+
+    /** TODO ## LobbySceneManager.cs 퀘스트 관련 */
+    #region QuestPanel
     public void OnClickDayQuestPanel()
     {
         DayQuestPanel.GetComponent<RectTransform>().localScale = Vector3.one;
@@ -718,18 +764,118 @@ public class LobbySceneManager : MonoBehaviour
         DayQuestPanel.GetComponent<RectTransform>().localScale = Vector3.zero;
         WeekQuestPanel.GetComponent<RectTransform>().localScale = Vector3.one;
     }
-
-    public void OnClickOpenTicket()
+    int GetCurrentDay()
     {
-        /** 효과음 재생 */
+        return (int)(DateTime.Now).DayOfWeek;
+    }
+
+    int GetCurrentSecond()
+    {
+        return (DateTime.Now).Second;
+    }
+
+    int GetCurrentMinute()
+    {
+        return (DateTime.Now).Minute;
+    }
+
+    int GetCurrentHour()
+    {
+        return (DateTime.Now).Hour;
+    }
+
+    #endregion
+
+    /** TODO ## LobbySceneManager.cs 상점 구매 관련 */
+    #region BuyProduct
+
+    public void OnClick_Buy_3000_Cash_Dia()
+    {
+        /** 효과음 추가 */
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
-        InGameMoneyPanel.gameObject.SetActive(false);
-        EquipmentGachaPanel.gameObject.SetActive(false);
-
-        TicketPanel.SetActive(true);
     }
+
+    public void OnClick_Buy_5000_Cash_Dia()
+    {
+        /** 효과음 추가 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+    }
+
+    public void OnClick_Buy_10000_Cash_Dia()
+    {
+        /** 효과음 추가 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+    }
+
+    public void OnClick_Buy_100_Dia_MagicStone()
+    {
+        /** 다이아가 100보다 작으면 실행 x */
+        if (GameManager.GMInstance.Diamond < 100)
+        {
+            return;
+        }
+
+        /** 효과음 추가 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+        /** 다이아 100 감소 */
+        GameManager.GMInstance.Diamond -= 100;
+        /** 마정석 500 추가 */
+        GameManager.GMInstance.MagicStone += 500;
+
+        /** 마정석 텍스트 수량 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        /** 다이아 텍스트 수량 초기화 */
+        DiamondText.text = GameManager.GMInstance.Diamond.ToString();
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+    }
+
+    public void OnClick_Buy_500_Dia_MagicStone()
+    {
+        /** 다이아가 100보다 작으면 실행 x */
+        if (GameManager.GMInstance.Diamond < 500)
+        {
+            return;
+        }
+
+        /** 효과음 추가 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+        /** 다이아 100 감소 */
+        GameManager.GMInstance.Diamond -= 500;
+        /** 마정석 500 추가 */
+        GameManager.GMInstance.MagicStone += 3000;
+
+        /** 마정석 텍스트 수량 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        /** 다이아 텍스트 수량 초기화 */
+        DiamondText.text = GameManager.GMInstance.Diamond.ToString();
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+    }
+
+    public void OnClick_Buy_1000_Dia_MagicStone()
+    {
+        /** 다이아가 100보다 작으면 실행 x */
+        if (GameManager.GMInstance.Diamond < 1000)
+        {
+            return;
+        }
+
+        /** 효과음 추가 */
+        GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
+        /** 다이아 100 감소 */
+        GameManager.GMInstance.Diamond -= 1000;
+        /** 마정석 500 추가 */
+        GameManager.GMInstance.MagicStone += 8000;
+
+        /** 마정석 텍스트 수량 초기화 */
+        MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+        /** 다이아 텍스트 수량 초기화 */
+        DiamondText.text = GameManager.GMInstance.Diamond.ToString();
+
+        GameManager.GMInstance.CoinManagerRef.JsonSave();
+    }
+
+    #endregion
 }
-
-
-

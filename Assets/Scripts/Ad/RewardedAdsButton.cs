@@ -77,17 +77,30 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsLoadListener, IUnityAds
         {
             Debug.Log("Unity Ads Rewarded Ad Completed");
 
-            if (gameObject.name == "GoldRewardButton")
+            if (gameObject.name == "MagicStoneRewardButton")
             {
-                Debug.Log("You've gained 10 coins");
+                /** 마정석 150 추가 */
+                GameManager.GMInstance.MagicStone += 150;
+                /** 마정석 텍스트 수량 초기화 */
+                GameManager.GMInstance.LobbySceneManagerRef.MagicStonText.text = GameManager.GMInstance.MagicStone.ToString();
+
+                GameManager.GMInstance.CoinManagerRef.JsonSave();
             }
-            else if (gameObject.name == "TicketRewardButton")
+            else if (gameObject.name == "EnterTicketRewardBtn")
             {
-                Debug.Log("You've gained 10 Tickets");
+                /** 입장권 1 추가 */
+                GameManager.GMInstance.EnterTicket++;
+                /** 입장권 텍스트 수량 초기화 */
+                GameManager.GMInstance.LobbySceneManagerRef.EnterTicketText.text = GameManager.GMInstance.EnterTicket.ToString();
+                GameManager.GMInstance.CoinManagerRef.JsonSave();
             }
             else if (gameObject.name == "AdsSkillSelectBtn")
             {    
                 GameManager.GMInstance.UiLevelUp.Next();
+            }
+            else if(gameObject.name == "EquipRewardBtn")
+            {
+                Debug.Log("You've gained 1 EquipBox");
             }
             else if (gameObject.name == "AdsAcherSkillSelectBtn")
             {

@@ -19,7 +19,7 @@ namespace My
         public int level;
         public int killcount;
         public int exp;
-        public int[] nextExp = { 0, 1, 3, 5, 8, 13, 21, 44, 65, 109, 174 };
+        public int[] nextExp;
         public bool bIsLive;
 
         /** GameManager타입의 메모리를 미리 확보해 둔다. */
@@ -29,6 +29,7 @@ namespace My
         public int MagicStone;
         public int Diamond;
         public int SkillTicket;
+        public int EnterTicket;
 
         [Header("-----PlayerData-----")]
         public float PlayerSpeed;
@@ -50,6 +51,7 @@ namespace My
         [Header("-----ManagerRef-----")]
         public PoolManager PoolManagerRef;
         public PlaySceneManager PlaySceneManagerRef;
+        public LobbySceneManager LobbySceneManagerRef;
         public ScrollManager ScrollManagerRef;
         public ImageChange ImageChangeRef;
         public CharacterDataManager CharacterDataManagerRef;

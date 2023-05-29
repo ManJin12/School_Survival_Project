@@ -18,10 +18,14 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
 
     private string _gameId;
 
+    [Header("----LobbyScene----")]
     [SerializeField] 
     RewardedAdsButton rewardedGoldAdsButton;
     [SerializeField]
     RewardedAdsButton rewardedTicketAdsButton;
+    [SerializeField]
+    RewardedAdsButton rewardedEquipAdsButton;
+    [Header("----PlayScene----")]
     [SerializeField] 
     RewardedAdsButton SkillReSelectButton;
     [SerializeField]
@@ -63,6 +67,7 @@ public class AdInitializer : MonoBehaviour, IUnityAdsInitializationListener
         {
             rewardedGoldAdsButton.LoadAd();
             rewardedTicketAdsButton.LoadAd();
+            rewardedEquipAdsButton.LoadAd();
         }
         else if (GameManager.GMInstance.CurrentScene == ESceneType.PlayScene)
         {

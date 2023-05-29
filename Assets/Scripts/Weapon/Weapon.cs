@@ -321,7 +321,7 @@ public class Weapon : MonoBehaviour
             TargetDir = TargetDir.normalized;
 
             /** bullet의 scale은 1.2로 만든다 */
-            bullet.transform.localScale = new Vector2(0.2f, 0.2f);
+            bullet.transform.localScale = new Vector2(0.7f, 0.7f);
             /** bullet의 위치는 이 스크립트를 지닌 오브젝트의 위치 */
             bullet.position = GameManager.GMInstance.SkillManagerRef.WindSpirit.transform.position;
             bullet.rotation = Quaternion.FromToRotation(Vector3.down, TargetDir);
