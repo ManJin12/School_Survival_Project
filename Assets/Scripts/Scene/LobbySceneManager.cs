@@ -608,7 +608,7 @@ public class LobbySceneManager : MonoBehaviour
         GameManager.GMInstance.SoundManagerRef.PlaySFX(SoundManager.SFX.Select);
 
         /** 마정석 보유량보다 업그레이드 가격이 높다면? */
-        if (GameManager.GMInstance.MagicStone - GameManager.GMInstance.SkillDamageUpPrice <= 0)
+        if (GameManager.GMInstance.MagicStone - GameManager.GMInstance.SkillDamageUpPrice < 0)
         {
             return;
         }
